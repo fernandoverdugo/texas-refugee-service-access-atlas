@@ -136,8 +136,12 @@ def test_service_types():
 
     by_type = {row["service_type"]: row for row in payload}
     assert by_type["resettlement_case_management"]["provider_locations"] == 8
-    assert by_type["immigration"]["provider_locations"] == 3
-    assert by_type["immigration"]["foreign_born_45m_access_pct"] < 0.25
+    assert by_type["employment"]["provider_locations"] == 6
+    assert by_type["education"]["provider_locations"] == 6
+    assert by_type["health"]["provider_locations"] == 4
+    assert by_type["immigration"]["provider_locations"] == 4
+    assert by_type["cash_benefits"]["provider_locations"] == 4
+    assert by_type["immigration"]["foreign_born_45m_access_pct"] > 0.26
 
 
 def test_service_accessibility():
