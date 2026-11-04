@@ -30,6 +30,8 @@ def test_atlas_root():
     assert 'fetch("/api/study-area")' in response.text
     assert "function renderStudyArea(studyArea)" in response.text
     assert "county-label" in response.text
+    assert 'map.createPane("countyBoundaryPane");' in response.text
+    assert "countyBoundaryLayer.bringToFront()" not in response.text
     assert 'fetch("/api/service-gaps/" + timeScenario + "/" + serviceType)' in response.text
 
 
