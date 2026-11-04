@@ -8,6 +8,7 @@ on:
       - "src/analysis/service_types.py"
       - "src/analysis/service_accessibility.py"
       - "scripts/build_service_type_accessibility.py"
+      - "data/processed/provider_locations.csv"
 
 jobs:
   build:
@@ -62,7 +63,7 @@ jobs:
           assert set(summary["service_type"]) == expected
           assert access.groupby("service_type").size().eq(1094).all()
           assert access.groupby("service_type")["geoid"].nunique().eq(1094).all()
-          assert providers["provider_id"].nunique() == 7
+          assert providers["provider_id"].nunique() == 8
           assert (summary["provider_locations"] > 0).all()
           assert summary["foreign_born_45m_access_pct"].between(0, 1).all()
 
