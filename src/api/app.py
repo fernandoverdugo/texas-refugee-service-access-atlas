@@ -41,6 +41,16 @@ def _read_geojson() -> dict:
         return json.load(handle)
 
 
+def _read_facility_summary() -> pd.DataFrame:
+    path = DATA / "facility_location_summary.csv"
+    if not path.exists():
+        raise HTTPException(
+            status_code=503,
+            detail="Facility-location optimization is not available",
+        )
+    return pd.read_csv(path, dtype={"candidate_geoid": str})
+
+
 @app.head("/")
 def head_root() -> Response:
     return Response(status_code=200)
@@ -105,3 +115,35 @@ def tracts() -> dict:
             properties["geoid"] = geoid
 
     return geo
+
+
+
+@app.get("/api/facility-location")
+def facility_location() -> dict:
+    summary = _read_facility_summary().iloc[0].to_dict()
+
+    integer_fields = {
+        "threshold_minutes",
+        "newly_covered_foreign_born_population",
+        "newly_covered_population",
+        "newly_covered_no_vehicle_households",
+        "newly_covered_tracts",
+        "baseline_covered_foreign_born_population",
+        "optimized_covered_foreign_born_population",
+        "total_foreign_born_population",
+    }
+    float_fields = {
+        "longitude",
+        "latitude",
+        "baseline_coverage_pct",
+        "optimized_coverage_pct",
+        "coverage_gain_pct_points",
+    }
+
+    for field in integer_fields:
+        summary[field] = int(summary[field])
+    for field in float_fields:
+        summary[field] = float(summary[field])
+
+    summary["candidate_geoid"] = str(summary["candidate_geoid"]).zfill(11)
+    return summary
