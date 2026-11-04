@@ -44,9 +44,10 @@ def test_parse_acs_response_creates_geoid():
         ],
     ]
 
-    frame = parse_acs_response(payload, "113")
+    frame = parse_acs_response(payload, "113", year=2023)
 
     assert frame.loc[0, "geoid"] == "48113000100"
     assert frame.loc[0, "county_name"] == "Dallas"
     assert frame.loc[0, "population"] == 1000
     assert frame.loc[0, "foreign_born_population"] == 200
+    assert frame.loc[0, "acs_year"] == 2023
