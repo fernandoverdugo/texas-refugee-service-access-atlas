@@ -48,7 +48,7 @@ def test_summary():
     assert response.status_code == 200
     payload = response.json()
     assert payload["tracts"] == 1094
-    assert payload["providers"] == 7
+    assert payload["providers"] == 8
     assert payload["transit_stops"] > 8000
 
 
@@ -57,11 +57,12 @@ def test_providers():
 
     assert response.status_code == 200
     payload = response.json()
-    assert len(payload) == 7
+    assert len(payload) == 8
     assert {row["county"] for row in payload} == {"Dallas", "Tarrant"}
     assert all(row["latitude"] is not None for row in payload)
     assert all(row["longitude"] is not None for row in payload)
     assert all(row["normalized_service_types"] for row in payload)
+    assert "cws_dallas" in {row["provider_id"] for row in payload}
 
 
 def test_tracts():
