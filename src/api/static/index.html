@@ -216,6 +216,10 @@
 <script>
   const map = L.map("map", { zoomControl: true }).setView([32.84, -97.02], 9);
 
+  map.createPane("countyBoundaryPane");
+  map.getPane("countyBoundaryPane").style.zIndex = 450;
+  map.getPane("countyBoundaryPane").style.pointerEvents = "none";
+
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 19,
     attribution: '&copy; OpenStreetMap contributors'
@@ -418,6 +422,7 @@
     countyBoundaryLayer.clearLayers();
 
     L.geoJSON(studyArea, {
+      pane: "countyBoundaryPane",
       style: {
         color: "#18323b",
         weight: 2.6,
@@ -439,15 +444,13 @@
         [Number(p.label_latitude), Number(p.label_longitude)],
         {
           icon,
+          pane: "countyBoundaryPane",
           interactive: false,
           keyboard: false
         }
       ).addTo(countyBoundaryLayer);
     });
 
-    countyBoundaryLayer.bringToFront();
-    if (tractLayer) tractLayer.bringToFront();
-    countyBoundaryLayer.bringToFront();
   }
 
   function renderProviders() {
