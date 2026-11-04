@@ -74,6 +74,18 @@ These figures are a **scheduled-accessibility baseline**, not observed travel be
 
 The Dallas–Tarrant difference should therefore be interpreted as a signal for deeper service-access analysis rather than a definitive measure of refugee access.
 
+## Interactive atlas
+
+The repository includes an interactive web atlas built with FastAPI and Leaflet. The interface allows users to:
+
+- shade census tracts by modeled nearest-provider travel time
+- inspect foreign-born population, no-vehicle households, and poverty context
+- toggle 30-, 45-, and 60-minute provider-access thresholds
+- view verified refugee-service provider locations
+- click individual tracts for population and accessibility details
+
+The interface reads directly from the validated processed outputs, so refreshed analytical data flow into the application without maintaining a separate visualization dataset.
+
 ## Planned outputs
 
 The first accessibility metrics will include:
@@ -162,7 +174,7 @@ See `docs/DATA_SOURCES.md` for source definitions and interpretation constraints
 
 ## Technologies
 
-Python · pandas · requests · GeoPandas · Shapely · NetworkX · pytest · GitHub Actions
+Python · pandas · requests · GeoPandas · Shapely · NetworkX · FastAPI · Leaflet · Docker · pytest · GitHub Actions
 
 ## Roadmap
 
@@ -174,7 +186,7 @@ Python · pandas · requests · GeoPandas · Shapely · NetworkX · pytest · Gi
 | Trinity Metro GTFS ingestion | ✅ Implemented |
 | Transit graph + routing | ✅ Implemented |
 | Accessibility metrics | ✅ Baseline implemented |
-| Interactive atlas | ⏳ Planned |
+| Interactive atlas | 🚧 Implemented; deployment pending |
 | Facility-location optimization | ⏳ Planned |
 
 ## License
