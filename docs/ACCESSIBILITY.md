@@ -109,10 +109,10 @@ Foreign-born population with at least one verified provider reachable within 45 
 
 | Scenario | 45-minute coverage |
 | --- | ---: |
-| Weekday morning | 13.7% |
-| Weekday midday | 16.2% |
-| Weekday evening | 14.2% |
-| Saturday midday | 14.8% |
+| Weekday morning | 18.4% |
+| Weekday midday | 17.0% |
+| Weekday evening | 18.1% |
+| Saturday midday | 15.5% |
 
 The earlier frequency-agnostic 45-minute baseline was 39.7%. The difference is expected: the baseline measures network travel-time potential, while the temporal model also requires a usable scheduled departure.
 
