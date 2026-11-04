@@ -1,0 +1,5 @@
+scenario_id,scenario_label,service_date,departure_time,weekday_index,active_connections
+weekday_morning,Weekday morning,2026-12-02,08:00,2,417782
+weekday_midday,Weekday midday,2026-12-02,13:00,2,417782
+weekday_evening,Weekday evening,2026-12-02,18:00,2,417782
+weekend_midday,Saturday midday,2026-12-05,13:00,5,336081
