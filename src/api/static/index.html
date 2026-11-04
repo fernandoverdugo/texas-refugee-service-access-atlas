@@ -57,6 +57,19 @@
     .legend-row { display: flex; align-items: center; gap: 7px; margin-top: 4px; }
     .swatch { width: 18px; height: 11px; border: 1px solid rgba(0,0,0,.15); }
     .provider-marker { background: var(--accent); border: 2px solid white; border-radius: 50%; width: 14px; height: 14px; box-shadow: 0 1px 4px rgba(0,0,0,.35); }
+    .county-label {
+      background: rgba(255,255,255,.88);
+      border: 1px solid rgba(24,50,59,.28);
+      border-radius: 999px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.14);
+      color: #18323b;
+      font-size: .72rem;
+      font-weight: 750;
+      letter-spacing: .05em;
+      padding: 4px 8px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
     .candidate-marker { background: #6d3ea2; border: 3px solid white; width: 18px; height: 18px; transform: rotate(45deg); box-shadow: 0 1px 5px rgba(0,0,0,.38); }
     .scenario { border: 1px solid #d7c8e8; background: #f7f2fb; border-radius: 10px; padding: 11px; }
     .scenario strong { color: #57307f; }
@@ -208,6 +221,7 @@
   }).addTo(map);
 
   let tractLayer;
+  let countyBoundaryLayer = L.layerGroup().addTo(map);
   let providerLayer = L.layerGroup().addTo(map);
   let facilityLayer = L.layerGroup().addTo(map);
   let legend;
@@ -397,6 +411,42 @@
     }).addTo(map);
 
     updateLegend();
+  }
+
+  function renderStudyArea(studyArea) {
+    countyBoundaryLayer.clearLayers();
+
+    L.geoJSON(studyArea, {
+      style: {
+        color: "#18323b",
+        weight: 2.6,
+        opacity: 0.82,
+        fill: false,
+        interactive: false
+      }
+    }).addTo(countyBoundaryLayer);
+
+    studyArea.features.forEach(feature => {
+      const p = feature.properties;
+      const icon = L.divIcon({
+        className: "",
+        html: '<div class="county-label">' + p.county_name + ' County</div>',
+        iconSize: null
+      });
+
+      L.marker(
+        [Number(p.label_latitude), Number(p.label_longitude)],
+        {
+          icon,
+          interactive: false,
+          keyboard: false
+        }
+      ).addTo(countyBoundaryLayer);
+    });
+
+    countyBoundaryLayer.bringToFront();
+    if (tractLayer) tractLayer.bringToFront();
+    countyBoundaryLayer.bringToFront();
   }
 
   function renderProviders() {
@@ -633,7 +683,7 @@
   }
 
   async function load() {
-    const [tractResponse, providerResponse, summaryResponse, facilityResponse, scenariosResponse, serviceTypesResponse, temporalSummariesResponse, gapSummaryResponse] = await Promise.all([
+    const [tractResponse, providerResponse, summaryResponse, facilityResponse, scenariosResponse, serviceTypesResponse, temporalSummariesResponse, gapSummaryResponse, studyAreaResponse] = await Promise.all([
       fetch("/api/tracts"),
       fetch("/api/providers"),
       fetch("/api/summary"),
@@ -641,10 +691,11 @@
       fetch("/api/facility-location/scenarios"),
       fetch("/api/service-types"),
       fetch("/api/temporal-summaries"),
-      fetch("/api/service-gap-summary")
+      fetch("/api/service-gap-summary"),
+      fetch("/api/study-area")
     ]);
 
-    if (!tractResponse.ok || !providerResponse.ok || !summaryResponse.ok || !facilityResponse.ok || !scenariosResponse.ok || !serviceTypesResponse.ok || !temporalSummariesResponse.ok || !gapSummaryResponse.ok) {
+    if (!tractResponse.ok || !providerResponse.ok || !summaryResponse.ok || !facilityResponse.ok || !scenariosResponse.ok || !serviceTypesResponse.ok || !temporalSummariesResponse.ok || !gapSummaryResponse.ok || !studyAreaResponse.ok) {
       throw new Error("Atlas data could not be loaded");
     }
 
@@ -656,6 +707,7 @@
     serviceTypeSummaries = await serviceTypesResponse.json();
     temporalSummaries = await temporalSummariesResponse.json();
     gapSummaries = await gapSummaryResponse.json();
+    const studyArea = await studyAreaResponse.json();
 
     document.getElementById("tractCount").textContent = num(summary.tracts);
     document.getElementById("providerCount").textContent = num(summary.providers);
@@ -663,6 +715,7 @@
     document.getElementById("connectedCount").textContent = num(summary.tracts_reaching_any_provider);
 
     await loadSelectedAccess();
+    renderStudyArea(studyArea);
     applyScenario(scenarioSelect.value);
 
     if (tractLayer.getBounds().isValid()) map.fitBounds(tractLayer.getBounds(), { padding: [12,12] });
