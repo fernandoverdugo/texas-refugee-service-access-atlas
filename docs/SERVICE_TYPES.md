@@ -25,8 +25,8 @@ The normalization is intentionally conservative. Categories are assigned only wh
 
 ## Current provider counts
 
-- Resettlement & case management: 7 locations
-- Employment: 5 locations
+- Resettlement & case management: 8 locations
+- Employment: 6 locations
 - Education & English-language support: 5 locations
 - Health & behavioral health: 3 locations
 - Immigration & legal support: 3 locations
@@ -40,7 +40,7 @@ Using the same DART + Trinity Metro scheduled-transit model:
 | --- | ---: |
 | Resettlement & case management | 39.7% |
 | Education & English-language support | 39.2% |
-| Employment | 39.1% |
+| Employment | 39.5% |
 | Health & behavioral health | 36.9% |
 | Cash & benefits assistance | 35.9% |
 | Immigration & legal support | 24.1% |
