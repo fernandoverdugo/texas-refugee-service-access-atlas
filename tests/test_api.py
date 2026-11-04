@@ -12,6 +12,8 @@ def test_atlas_root():
     assert response.status_code == 200
     assert "Texas Refugee Service Access Atlas" in response.text
     assert "Scheduled-transit accessibility" in response.text
+    assert "Planning objective" in response.text
+    assert "Population below poverty" in response.text
 
 
 def test_health():
@@ -67,3 +69,29 @@ def test_facility_location():
     assert payload["threshold_minutes"] == 45
     assert payload["newly_covered_foreign_born_population"] == 64363
     assert payload["optimized_coverage_pct"] > payload["baseline_coverage_pct"]
+
+
+
+def test_facility_location_scenarios():
+    response = client.get("/api/facility-location/scenarios")
+
+    assert response.status_code == 200
+    payload = response.json()
+
+    assert len(payload) == 4
+    assert {row["scenario_id"] for row in payload} == {
+        "foreign_born_population",
+        "population",
+        "households_no_vehicle",
+        "population_below_poverty",
+    }
+
+    by_id = {row["scenario_id"]: row for row in payload}
+
+    assert by_id["foreign_born_population"]["candidate_geoid"] == "48113003102"
+    assert by_id["population"]["candidate_geoid"] == "48113003102"
+    assert by_id["households_no_vehicle"]["candidate_geoid"] == "48113003102"
+    assert by_id["population_below_poverty"]["candidate_geoid"] == "48113008701"
+
+    assert by_id["households_no_vehicle"]["coverage_gain_pct_points"] > 0.09
+    assert by_id["population_below_poverty"]["coverage_gain_pct_points"] > 0.09
