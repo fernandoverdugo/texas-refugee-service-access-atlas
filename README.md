@@ -107,7 +107,14 @@ Current validated data:
 - approximately 1.02 million foreign-born residents represented
 - 7 verified refugee-service locations across the two counties
 
-The DART GTFS ingestion layer is implemented and is being validated against DART's current official fixed-route schedule feed.
+The DART GTFS ingestion layer is implemented and validated against DART's current official fixed-route schedule feed.
+
+Current validated transit feed:
+
+- 6,978 stops
+- 92 routes
+- 20,124 trips
+- 961,975 stop-time records
 
 ## Repository structure
 
@@ -150,7 +157,7 @@ Python · pandas · requests · GeoPandas · Shapely · NetworkX · pytest · Gi
 | --- | --- |
 | ACS tract-level context | ✅ Implemented |
 | Provider inventory | ✅ Implemented |
-| DART GTFS ingestion | 🚧 In progress |
+| DART GTFS ingestion | ✅ Implemented |
 | Transit graph + routing | ⏳ Planned |
 | Accessibility metrics | ⏳ Planned |
 | Interactive atlas | ⏳ Planned |
