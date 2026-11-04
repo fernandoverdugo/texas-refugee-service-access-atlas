@@ -141,6 +141,46 @@ def _read_temporal_service_summary() -> pd.DataFrame:
     return pd.read_csv(path)
 
 
+def _read_service_gap_classification() -> pd.DataFrame:
+    path = DATA / "tract_service_gap_classification.csv"
+    if not path.exists():
+        raise HTTPException(
+            status_code=503,
+            detail="Service-gap classifications are not available",
+        )
+    return pd.read_csv(path, dtype={"geoid": str})
+
+
+def _read_service_gap_summary() -> pd.DataFrame:
+    path = DATA / "service_gap_summary.csv"
+    if not path.exists():
+        raise HTTPException(
+            status_code=503,
+            detail="Service-gap summary is not available",
+        )
+    return pd.read_csv(path)
+
+
+def _read_service_gap_priority() -> pd.DataFrame:
+    path = DATA / "service_gap_priority_tracts.csv"
+    if not path.exists():
+        raise HTTPException(
+            status_code=503,
+            detail="Service-gap priority tracts are not available",
+        )
+    return pd.read_csv(path, dtype={"geoid": str})
+
+
+def _read_service_gap_thresholds() -> pd.DataFrame:
+    path = DATA / "service_gap_thresholds.csv"
+    if not path.exists():
+        raise HTTPException(
+            status_code=503,
+            detail="Service-gap thresholds are not available",
+        )
+    return pd.read_csv(path)
+
+
 @app.head("/")
 def head_root() -> Response:
     return Response(status_code=200)
@@ -460,3 +500,141 @@ def temporal_summaries() -> dict[str, list[dict]]:
         "overall": overall.to_dict("records"),
         "service_types": service.to_dict("records"),
     }
+
+
+
+@app.get("/api/service-gaps/{scenario_id}/{service_type}")
+def service_gaps(
+    scenario_id: str,
+    service_type: str,
+) -> list[dict]:
+    frame = _read_service_gap_classification()
+
+    scenarios = set(frame["scenario_id"].unique())
+    services = set(frame["service_type"].unique())
+
+    if scenario_id not in scenarios:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Unknown time scenario: {scenario_id}",
+        )
+    if service_type not in services:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Unknown service type: {service_type}",
+        )
+
+    columns = [
+        "geoid",
+        "scenario_id",
+        "scenario_label",
+        "departure_time",
+        "service_date",
+        "service_type",
+        "service_label",
+        "providers_within_45m",
+        "providers_within_60m",
+        "county_name",
+        "population",
+        "foreign_born_population",
+        "population_below_poverty",
+        "households_no_vehicle",
+        "high_foreign_born_population",
+        "high_population_below_poverty",
+        "high_households_no_vehicle",
+        "high_context_indicators",
+        "elevated_context",
+        "base_gap_level",
+        "gap_level",
+        "gap_class",
+    ]
+
+    selected = frame.loc[
+        (frame["scenario_id"] == scenario_id)
+        & (frame["service_type"] == service_type),
+        columns,
+    ].copy()
+
+    selected["geoid"] = selected["geoid"].astype(str).str.zfill(11)
+
+    for field in [
+        "providers_within_45m",
+        "providers_within_60m",
+        "population",
+        "foreign_born_population",
+        "population_below_poverty",
+        "households_no_vehicle",
+        "high_context_indicators",
+        "base_gap_level",
+        "gap_level",
+    ]:
+        selected[field] = selected[field].astype(int)
+
+    for field in [
+        "high_foreign_born_population",
+        "high_population_below_poverty",
+        "high_households_no_vehicle",
+        "elevated_context",
+    ]:
+        selected[field] = selected[field].astype(bool)
+
+    return selected.to_dict("records")
+
+
+@app.get("/api/service-gap-summary")
+def service_gap_summary() -> list[dict]:
+    frame = _read_service_gap_summary().copy()
+
+    integer_fields = [
+        "gap_level",
+        "tract_count",
+        "population",
+        "foreign_born_population",
+        "population_below_poverty",
+        "households_no_vehicle",
+    ]
+    for field in integer_fields:
+        frame[field] = frame[field].astype(int)
+
+    return frame.to_dict("records")
+
+
+@app.get("/api/service-gap-priorities/{scenario_id}/{service_type}")
+def service_gap_priorities(
+    scenario_id: str,
+    service_type: str,
+) -> list[dict]:
+    frame = _read_service_gap_priority()
+
+    scenarios = set(frame["scenario_id"].unique())
+    services = set(frame["service_type"].unique())
+
+    if scenario_id not in scenarios:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Unknown time scenario: {scenario_id}",
+        )
+    if service_type not in services:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Unknown service type: {service_type}",
+        )
+
+    selected = frame.loc[
+        (frame["scenario_id"] == scenario_id)
+        & (frame["service_type"] == service_type)
+    ].copy()
+
+    selected["geoid"] = selected["geoid"].astype(str).str.zfill(11)
+    selected["priority_rank"] = selected["priority_rank"].astype(int)
+    selected["gap_level"] = selected["gap_level"].astype(int)
+
+    return selected.sort_values("priority_rank").to_dict("records")
+
+
+@app.get("/api/service-gap-thresholds")
+def service_gap_thresholds() -> list[dict]:
+    frame = _read_service_gap_thresholds().copy()
+    frame["quantile"] = frame["quantile"].astype(float)
+    frame["threshold"] = frame["threshold"].astype(float)
+    return frame.to_dict("records")
