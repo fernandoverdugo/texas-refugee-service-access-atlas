@@ -1,3 +1,4 @@
+# Rebuild facility optimization for CWS Dallas
 # Facility location optimization build
 name: Optimize facility location
 
@@ -6,6 +7,8 @@ on:
   push:
     paths:
       - ".github/workflows/facility-location.yml"
+      - "data/processed/tract_service_accessibility.csv"
+      - "data/processed/provider_stop_connectors.csv"
 
 jobs:
   optimize:
