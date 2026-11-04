@@ -76,7 +76,14 @@ def score_candidates(
     threshold_minutes: int = 45,
     weight_column: str = "foreign_born_population",
 ) -> pd.DataFrame:
-    required_context = {"geoid", weight_column, "population", "households_no_vehicle"}
+    required_context = {
+        "geoid",
+        weight_column,
+        "population",
+        "foreign_born_population",
+        "population_below_poverty",
+        "households_no_vehicle",
+    }
     required_baseline = {"geoid", f"providers_within_{threshold_minutes}m"}
 
     if missing := required_context.difference(tract_context.columns):
@@ -118,6 +125,8 @@ def score_candidates(
                 "geoid",
                 weight_column,
                 "population",
+                "foreign_born_population",
+                "population_below_poverty",
                 "households_no_vehicle",
             ]
         ],
@@ -131,6 +140,8 @@ def score_candidates(
         .agg(
             newly_covered_weight=(weight_column, "sum"),
             newly_covered_population=("population", "sum"),
+            newly_covered_foreign_born_population=("foreign_born_population", "sum"),
+            newly_covered_population_below_poverty=("population_below_poverty", "sum"),
             newly_covered_no_vehicle_households=("households_no_vehicle", "sum"),
             newly_covered_tracts=("origin_geoid", "nunique"),
         )
