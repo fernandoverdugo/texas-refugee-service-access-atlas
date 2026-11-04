@@ -1,7 +1,7 @@
 service_type,service_label,provider_locations,tracts_with_45m_access,foreign_born_population_with_45m_access,foreign_born_45m_access_pct
 cash_benefits,Cash & benefits assistance,3,375,367721,0.3593755802748573
 education,Education & English-language support,5,402,400712,0.3916178502807797
-employment,Employment,6,405,399818,0.390744139590431
+employment,Employment,6,408,404298,0.39512246609240226
 health,Health & behavioral health,3,375,377617,0.3690469907801044
 immigration,Immigration & legal support,3,284,246269,0.24067993065043558
 resettlement_case_management,Resettlement & case management,8,409,406095,0.39687868321830455
