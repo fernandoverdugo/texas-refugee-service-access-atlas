@@ -15,3 +15,14 @@ data/processed/*
 !data/processed/dart_gtfs_summary.csv
 !data/processed/gtfs/
 !data/processed/gtfs/**
+
+!data/processed/tracts_dfw.geojson
+!data/processed/tract_points_dfw.csv
+!data/processed/provider_locations.csv
+!data/processed/combined_transit_stops.csv
+!data/processed/transit_edges.csv
+!data/processed/transfer_edges.csv
+!data/processed/tract_stop_connectors.csv
+!data/processed/provider_stop_connectors.csv
+!data/processed/tract_service_accessibility.csv
+!data/processed/accessibility_summary.csv
