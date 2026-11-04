@@ -9,6 +9,7 @@ on:
   push:
     paths:
       - ".github/workflows/accessibility-build.yml"
+      - "data/processed/provider_inventory.csv"
 
 jobs:
   build:
@@ -46,10 +47,10 @@ jobs:
           )
 
           assert summary["tracts"] == 1094
-          assert summary["providers"] == 7
+          assert summary["providers"] == 8
           assert summary["transit_stops"] > 7000
           assert summary["transit_edges"] > 5000
-          assert summary["providers_with_stop_connector"] >= 6
+          assert summary["providers_with_stop_connector"] >= 7
           assert len(access) == 1094
           assert access["geoid"].nunique() == 1094
           assert (access["providers_within_30m"] <= access["providers_within_45m"]).all()
