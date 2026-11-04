@@ -57,6 +57,9 @@
     .legend-row { display: flex; align-items: center; gap: 7px; margin-top: 4px; }
     .swatch { width: 18px; height: 11px; border: 1px solid rgba(0,0,0,.15); }
     .provider-marker { background: var(--accent); border: 2px solid white; border-radius: 50%; width: 14px; height: 14px; box-shadow: 0 1px 4px rgba(0,0,0,.35); }
+    .candidate-marker { background: #6d3ea2; border: 3px solid white; width: 18px; height: 18px; transform: rotate(45deg); box-shadow: 0 1px 5px rgba(0,0,0,.38); }
+    .scenario { border: 1px solid #d7c8e8; background: #f7f2fb; border-radius: 10px; padding: 11px; }
+    .scenario strong { color: #57307f; }
     .popup-title { font-weight: 750; margin-bottom: 5px; }
     .popup-grid { display: grid; grid-template-columns: auto auto; gap: 3px 12px; font-size: .8rem; }
     .popup-grid span:nth-child(odd) { color: var(--muted); }
@@ -112,6 +115,19 @@
     </div>
 
     <div class="section">
+      <h2>One-site planning scenario</h2>
+      <div class="scenario">
+        <div><strong>Recommended tract:</strong> <span id="candidateGeoid">—</span></div>
+        <div class="note" style="margin-top:6px">45-minute maximum-coverage objective</div>
+        <div class="kpis" style="margin-top:9px">
+          <div class="kpi"><span class="value" id="newCoverage">—</span><span class="label">newly covered foreign-born residents</span></div>
+          <div class="kpi"><span class="value" id="gainPoints">—</span><span class="label">coverage percentage-point gain</span></div>
+        </div>
+        <div class="note" style="margin-top:8px">Purple diamond = tract representative point selected by the optimization model. It is not a parcel or building recommendation.</div>
+      </div>
+    </div>
+
+    <div class="section">
       <div class="callout">
         Click a tract to inspect its population context, nearest modeled provider time, and number of providers reachable within 30, 45, and 60 minutes.
       </div>
@@ -142,9 +158,11 @@
 
   let tractLayer;
   let providerLayer = L.layerGroup().addTo(map);
+  let facilityLayer = L.layerGroup().addTo(map);
   let legend;
   let tracts;
   let providers;
+  let facility;
 
   const metricSelect = document.getElementById("metric");
   const thresholdSelect = document.getElementById("threshold");
@@ -264,6 +282,34 @@
     });
   }
 
+  function renderFacility() {
+    facilityLayer.clearLayers();
+    if (!facility) return;
+
+    const icon = L.divIcon({
+      className: "",
+      html: '<div class="candidate-marker"></div>',
+      iconSize: [18,18],
+      iconAnchor: [9,9]
+    });
+
+    L.marker([Number(facility.latitude), Number(facility.longitude)], { icon })
+      .bindPopup(`
+        <div class="popup-title">Modeled one-site candidate</div>
+        <div class="popup-grid">
+          <span>Tract</span><strong>${facility.candidate_geoid}</strong>
+          <span>County</span><strong>${facility.county_name}</strong>
+          <span>Threshold</span><strong>${facility.threshold_minutes} min</strong>
+          <span>New foreign-born coverage</span><strong>${num(facility.newly_covered_foreign_born_population)}</strong>
+          <span>Newly covered tracts</span><strong>${num(facility.newly_covered_tracts)}</strong>
+          <span>Baseline coverage</span><strong>${(facility.baseline_coverage_pct * 100).toFixed(1)}%</strong>
+          <span>With candidate</span><strong>${(facility.optimized_coverage_pct * 100).toFixed(1)}%</strong>
+        </div>
+        <div class="note" style="margin-top:7px">Planning signal only; not a parcel-level site recommendation.</div>
+      `)
+      .addTo(facilityLayer);
+  }
+
   function updateLegend() {
     if (legend) legend.remove();
 
@@ -290,27 +336,33 @@
   }
 
   async function load() {
-    const [tractResponse, providerResponse, summaryResponse] = await Promise.all([
+    const [tractResponse, providerResponse, summaryResponse, facilityResponse] = await Promise.all([
       fetch("/api/tracts"),
       fetch("/api/providers"),
-      fetch("/api/summary")
+      fetch("/api/summary"),
+      fetch("/api/facility-location")
     ]);
 
-    if (!tractResponse.ok || !providerResponse.ok || !summaryResponse.ok) {
+    if (!tractResponse.ok || !providerResponse.ok || !summaryResponse.ok || !facilityResponse.ok) {
       throw new Error("Atlas data could not be loaded");
     }
 
     tracts = await tractResponse.json();
     providers = await providerResponse.json();
     const summary = await summaryResponse.json();
+    facility = await facilityResponse.json();
 
     document.getElementById("tractCount").textContent = num(summary.tracts);
     document.getElementById("providerCount").textContent = num(summary.providers);
     document.getElementById("stopCount").textContent = num(summary.transit_stops);
     document.getElementById("connectedCount").textContent = num(summary.tracts_reaching_any_provider);
+    document.getElementById("candidateGeoid").textContent = facility.candidate_geoid;
+    document.getElementById("newCoverage").textContent = num(facility.newly_covered_foreign_born_population);
+    document.getElementById("gainPoints").textContent = (facility.coverage_gain_pct_points * 100).toFixed(1);
 
     renderTracts();
     renderProviders();
+    renderFacility();
 
     if (tractLayer.getBounds().isValid()) map.fitBounds(tractLayer.getBounds(), { padding: [12,12] });
   }
