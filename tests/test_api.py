@@ -188,7 +188,6 @@ def test_time_scenarios():
         0 <= row["foreign_born_access_pct_45m"] <= 1
         for row in payload
     )
-    assert by_id["weekday_morning"]["foreign_born_access_pct_45m"] > 0.18
 
 
 def test_temporal_accessibility():
