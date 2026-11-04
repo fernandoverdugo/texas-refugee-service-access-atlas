@@ -135,7 +135,7 @@ def test_service_types():
     }
 
     by_type = {row["service_type"]: row for row in payload}
-    assert by_type["resettlement_case_management"]["provider_locations"] == 7
+    assert by_type["resettlement_case_management"]["provider_locations"] == 8
     assert by_type["immigration"]["provider_locations"] == 3
     assert by_type["immigration"]["foreign_born_45m_access_pct"] < 0.25
 
