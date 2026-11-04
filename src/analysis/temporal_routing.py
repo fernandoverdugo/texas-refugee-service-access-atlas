@@ -196,3 +196,121 @@ def calculate_temporal_service_type_access(
         frames.append(access)
 
     return pd.concat(frames, ignore_index=True)
+
+
+
+def calculate_provider_reachability_matrix(
+    connections: pd.DataFrame,
+    transfer_edges: pd.DataFrame,
+    origin_connectors: pd.DataFrame,
+    provider_connectors: pd.DataFrame,
+    scenario_id: str,
+    departure_seconds: int,
+    thresholds: tuple[int, ...] = (30, 45, 60),
+) -> pd.DataFrame:
+    rows = []
+
+    provider_ids = sorted(
+        provider_connectors["provider_id"].astype(str).unique()
+    )
+
+    for provider_id in provider_ids:
+        destination = provider_connectors[
+            provider_connectors["provider_id"].astype(str) == provider_id
+        ]
+
+        for threshold in thresholds:
+            latest = latest_stop_departures(
+                connections,
+                transfer_edges,
+                destination,
+                departure_seconds,
+                threshold,
+            )
+            reachable = origin_geoids_reaching_destination(
+                latest,
+                origin_connectors,
+                departure_seconds,
+            )
+
+            rows.extend(
+                {
+                    "geoid": geoid,
+                    "provider_id": provider_id,
+                    "scenario_id": scenario_id,
+                    "threshold_minutes": threshold,
+                }
+                for geoid in reachable
+            )
+
+    return pd.DataFrame(
+        rows,
+        columns=[
+            "geoid",
+            "provider_id",
+            "scenario_id",
+            "threshold_minutes",
+        ],
+    )
+
+
+def aggregate_provider_reachability(
+    reachability: pd.DataFrame,
+    all_geoids: list[str],
+    scenario_id: str,
+    thresholds: tuple[int, ...] = (30, 45, 60),
+) -> pd.DataFrame:
+    base = pd.DataFrame({"geoid": [str(value) for value in all_geoids]})
+    base["scenario_id"] = scenario_id
+
+    for threshold in thresholds:
+        counts = (
+            reachability.loc[
+                reachability["threshold_minutes"] == threshold
+            ]
+            .groupby("geoid")["provider_id"]
+            .nunique()
+        )
+        base[f"providers_within_{threshold}m"] = (
+            base["geoid"].map(counts).fillna(0).astype(int)
+        )
+
+    return base
+
+
+def aggregate_service_type_reachability(
+    reachability: pd.DataFrame,
+    provider_service_map: pd.DataFrame,
+    all_geoids: list[str],
+    scenario_id: str,
+    thresholds: tuple[int, ...] = (30, 45, 60),
+) -> pd.DataFrame:
+    joined = reachability.merge(
+        provider_service_map[["provider_id", "service_type"]],
+        on="provider_id",
+        how="inner",
+        validate="many_to_many",
+    )
+
+    frames = []
+    for service_type in sorted(provider_service_map["service_type"].unique()):
+        frame = pd.DataFrame({"geoid": [str(value) for value in all_geoids]})
+        frame["scenario_id"] = scenario_id
+        frame["service_type"] = service_type
+
+        subset = joined[joined["service_type"] == service_type]
+        for threshold in thresholds:
+            counts = (
+                subset.loc[
+                    subset["threshold_minutes"] == threshold
+                ]
+                .groupby("geoid")["provider_id"]
+                .nunique()
+            )
+            frame[f"providers_within_{threshold}m"] = (
+                frame["geoid"].map(counts).fillna(0).astype(int)
+            )
+
+        frames.append(frame)
+
+    return pd.concat(frames, ignore_index=True)
