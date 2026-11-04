@@ -36,3 +36,9 @@ data/processed/*
 !data/processed/provider_service_types.csv
 !data/processed/tract_service_type_accessibility.csv
 !data/processed/service_type_accessibility_summary.csv
+
+!data/processed/tract_temporal_accessibility.csv
+!data/processed/tract_temporal_service_type_accessibility.csv
+!data/processed/temporal_scenario_metadata.csv
+!data/processed/temporal_accessibility_summary.csv
+!data/processed/temporal_service_type_summary.csv
