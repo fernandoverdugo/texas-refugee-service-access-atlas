@@ -42,3 +42,8 @@ data/processed/*
 !data/processed/temporal_scenario_metadata.csv
 !data/processed/temporal_accessibility_summary.csv
 !data/processed/temporal_service_type_summary.csv
+
+!data/processed/tract_service_gap_classification.csv
+!data/processed/service_gap_summary.csv
+!data/processed/service_gap_priority_tracts.csv
+!data/processed/service_gap_thresholds.csv
