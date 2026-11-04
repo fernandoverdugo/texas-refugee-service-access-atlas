@@ -40,7 +40,11 @@ def build_acs_tract_url(
     return url, params
 
 
-def parse_acs_response(payload: list[list[str]], county_fips: str) -> pd.DataFrame:
+def parse_acs_response(
+    payload: list[list[str]],
+    county_fips: str,
+    year: int = ACS_YEAR,
+) -> pd.DataFrame:
     if not payload or len(payload) < 2:
         raise ValueError("ACS response did not contain data rows")
 
@@ -60,7 +64,7 @@ def parse_acs_response(payload: list[list[str]], county_fips: str) -> pd.DataFra
 
     frame["county_name"] = DFW_COUNTIES[county_fips]
     frame["geoid"] = frame["state"] + frame["county"] + frame["tract"]
-    frame["acs_year"] = ACS_YEAR
+    frame["acs_year"] = year
 
     if frame["geoid"].duplicated().any():
         raise ValueError("ACS response contains duplicate tract GEOIDs")
@@ -92,7 +96,7 @@ def fetch_acs_tracts(
     )
     response = requests.get(url, params=params, timeout=timeout)
     response.raise_for_status()
-    return parse_acs_response(response.json(), county_fips)
+    return parse_acs_response(response.json(), county_fips, year=year)
 
 
 def fetch_dfw_acs(
