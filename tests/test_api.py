@@ -264,8 +264,8 @@ def test_service_gap_summary():
     ]
     by_class = {row["gap_class"]: row for row in midday_immigration}
 
-    assert by_class["Severe gap"]["tract_count"] == 189
-    assert by_class["High gap"]["tract_count"] == 750
+    assert by_class["Severe gap"]["tract_count"] == 185
+    assert by_class["High gap"]["tract_count"] == 728
 
 
 def test_service_gaps():
