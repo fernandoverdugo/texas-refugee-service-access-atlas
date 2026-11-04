@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from pathlib import Path
 
 import pandas as pd
@@ -11,38 +12,71 @@ GEOCODER_URL = (
 )
 
 
+def address_variants(address: str) -> list[str]:
+    candidates = [address]
+
+    without_unit = re.sub(
+        r",\s*(suite|ste\.?|unit|#)\s*[^,]+",
+        "",
+        address,
+        flags=re.IGNORECASE,
+    )
+    candidates.append(without_unit)
+
+    expanded = re.sub(r"\bW\b", "West", without_unit)
+    expanded = re.sub(r"\bE\b", "East", expanded)
+    expanded = re.sub(r"\bN\b", "North", expanded)
+    expanded = re.sub(r"\bS\b", "South", expanded)
+    candidates.append(expanded)
+
+    directionless = re.sub(
+        r"\b(?:W|E|N|S|West|East|North|South)\s+",
+        "",
+        expanded,
+        flags=re.IGNORECASE,
+    )
+    candidates.append(directionless)
+
+    return list(dict.fromkeys(candidate.strip() for candidate in candidates))
+
+
 def geocode_address(
     address: str,
     timeout: int = 60,
 ) -> dict[str, object]:
-    response = requests.get(
-        GEOCODER_URL,
-        params={
-            "address": address,
-            "benchmark": "Public_AR_Current",
-            "format": "json",
-        },
-        timeout=timeout,
-    )
-    response.raise_for_status()
-    payload = response.json()
+    for candidate in address_variants(address):
+        response = requests.get(
+            GEOCODER_URL,
+            params={
+                "address": candidate,
+                "benchmark": "Public_AR_Current",
+                "format": "json",
+            },
+            timeout=timeout,
+        )
+        response.raise_for_status()
+        payload = response.json()
 
-    matches = payload.get("result", {}).get("addressMatches", [])
-    if not matches:
+        matches = payload.get("result", {}).get("addressMatches", [])
+        if not matches:
+            continue
+
+        first = matches[0]
+        coordinates = first.get("coordinates", {})
         return {
-            "matched": False,
-            "matched_address": None,
-            "longitude": None,
-            "latitude": None,
+            "matched": True,
+            "geocode_query": candidate,
+            "matched_address": first.get("matchedAddress"),
+            "longitude": coordinates.get("x"),
+            "latitude": coordinates.get("y"),
         }
 
-    first = matches[0]
-    coordinates = first.get("coordinates", {})
     return {
-        "matched": True,
-        "matched_address": first.get("matchedAddress"),
-        "longitude": coordinates.get("x"),
-        "latitude": coordinates.get("y"),
+        "matched": False,
+        "geocode_query": None,
+        "matched_address": None,
+        "longitude": None,
+        "latitude": None,
     }
 
 
