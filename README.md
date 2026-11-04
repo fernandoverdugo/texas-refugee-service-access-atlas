@@ -88,6 +88,9 @@ The Dallas–Tarrant difference should therefore be interpreted as a signal for 
 - Time-scenario API: `/api/time-scenarios`
 - Time-dependent accessibility API: `/api/temporal-accessibility/{scenario_id}`
 - Time-dependent service accessibility API: `/api/temporal-service-accessibility/{scenario_id}/{service_type}`
+- Service-gap summary API: `/api/service-gap-summary`
+- Service-gap tract API: `/api/service-gaps/{scenario_id}/{service_type}`
+- Service-gap priorities API: `/api/service-gap-priorities/{scenario_id}/{service_type}`
 
 The application is deployed as a Dockerized FastAPI service on Render.
 
@@ -99,6 +102,7 @@ The repository includes an interactive web atlas built with FastAPI and Leaflet.
 - inspect foreign-born population, no-vehicle households, and poverty context
 - toggle 30-, 45-, and 60-minute provider-access thresholds
 - compare frequency-agnostic and schedule-aware time-of-day routing
+- shade tracts by transparent service-access gap classification
 - view verified refugee-service provider locations
 - click individual tracts for population and accessibility details
 
@@ -135,6 +139,32 @@ The atlas can now analyze access to specific service categories rather than trea
 Immigration and legal support show the largest modeled access gap in the current verified provider inventory.
 
 The service-type filter updates tract reachability, nearest-service travel time, provider markers, and tract popup metrics together. These results describe scheduled transit access to listed service locations; they do not measure provider capacity, appointment availability, eligibility, language match, or service quality.
+
+## Service-access gap classification
+
+The atlas includes a transparent screening layer that combines scheduled transit access with neighborhood context.
+
+The rule set is intentionally simple:
+
+- **Lower gap:** at least one relevant provider within 45 scheduled minutes
+- **Moderate gap:** no provider within 45 minutes, but at least one within 60
+- **High gap:** no relevant provider within 60 minutes
+- tracts in the top quartile on at least two of three context indicators—foreign-born population, poverty population, and no-vehicle households—are elevated one level
+
+Current 75th-percentile context thresholds are:
+
+- foreign-born population: **1,307**
+- population below poverty: **736.75**
+- no-vehicle households: **128.75**
+
+For **weekday midday immigration/legal access**, the current classification identifies:
+
+- **189 severe-gap tracts**
+- **750 high-gap tracts**
+- **92 moderate-gap tracts**
+- **63 lower-gap tracts**
+
+These classes are planning-screening categories, not measures of individual refugee need or proof that a community is unserved.
 
 ## Facility-location optimization
 
@@ -178,7 +208,7 @@ Current outputs include:
 - modeled travel time to the nearest service
 - service-type-specific accessibility
 - population-weighted access summaries
-- neighborhood service-gap indicators
+- neighborhood service-gap classifications and ranked priority tracts
 - one-site facility-location optimization
 - equity-aware site-selection scenarios
 
