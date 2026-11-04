@@ -54,3 +54,16 @@ def test_tracts():
     assert "geoid" in first
     assert "providers_within_45m" in first
     assert "foreign_born_population" in first
+
+
+
+def test_facility_location():
+    response = client.get("/api/facility-location")
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["candidate_geoid"] == "48113003102"
+    assert payload["county_name"] == "Dallas"
+    assert payload["threshold_minutes"] == 45
+    assert payload["newly_covered_foreign_born_population"] == 64363
+    assert payload["optimized_coverage_pct"] > payload["baseline_coverage_pct"]
