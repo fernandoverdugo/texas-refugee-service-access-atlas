@@ -1,0 +1,124 @@
+name: Build time-dependent accessibility
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/temporal-accessibility.yml"
+      - "src/ingestion/temporal_gtfs.py"
+      - "src/analysis/temporal_routing.py"
+      - "scripts/build_temporal_accessibility.py"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install -r requirements.txt
+      - run: python -m pytest -q
+
+      - name: Build time-dependent accessibility layer
+        run: python -m scripts.build_temporal_accessibility
+
+      - name: Validate temporal outputs
+        run: |
+          python - <<'PY'
+          import pandas as pd
+
+          access = pd.read_csv(
+              "data/processed/tract_temporal_accessibility.csv",
+              dtype={"geoid": str},
+          )
+          service = pd.read_csv(
+              "data/processed/tract_temporal_service_type_accessibility.csv",
+              dtype={"geoid": str},
+          )
+          metadata = pd.read_csv(
+              "data/processed/temporal_scenario_metadata.csv"
+          )
+          summary = pd.read_csv(
+              "data/processed/temporal_accessibility_summary.csv"
+          )
+          service_summary = pd.read_csv(
+              "data/processed/temporal_service_type_summary.csv"
+          )
+
+          expected_scenarios = {
+              "weekday_morning",
+              "weekday_midday",
+              "weekday_evening",
+              "weekend_midday",
+          }
+          expected_services = {
+              "resettlement_case_management",
+              "employment",
+              "education",
+              "health",
+              "immigration",
+              "cash_benefits",
+          }
+
+          assert set(access["scenario_id"]) == expected_scenarios
+          assert set(metadata["scenario_id"]) == expected_scenarios
+          assert set(summary["scenario_id"]) == expected_scenarios
+          assert set(service["service_type"]) == expected_services
+          assert set(service_summary["service_type"]) == expected_services
+
+          assert access.groupby("scenario_id").size().eq(1094).all()
+          assert (
+              service.groupby(["scenario_id", "service_type"])
+              .size()
+              .eq(1094)
+              .all()
+          )
+
+          for frame in [access, service]:
+              assert (
+                  frame["providers_within_30m"]
+                  <= frame["providers_within_45m"]
+              ).all()
+              assert (
+                  frame["providers_within_45m"]
+                  <= frame["providers_within_60m"]
+              ).all()
+
+          assert (metadata["active_connections"] > 0).all()
+          assert summary["foreign_born_access_pct_45m"].between(0, 1).all()
+          assert service_summary["foreign_born_access_pct_45m"].between(0, 1).all()
+
+          print(metadata.to_dict("records"))
+          print(summary.to_dict("records"))
+          PY
+
+      - name: Commit validated temporal outputs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add data/processed/tract_temporal_accessibility.csv
+          git add data/processed/tract_temporal_service_type_accessibility.csv
+          git add data/processed/temporal_scenario_metadata.csv
+          git add data/processed/temporal_accessibility_summary.csv
+          git add data/processed/temporal_service_type_summary.csv
+
+          if git diff --cached --quiet; then
+            echo "No temporal output changes."
+            exit 0
+          fi
+
+          git commit -m "Build validated time-dependent accessibility layer"
+          git pull --rebase origin main
+          git push origin main
