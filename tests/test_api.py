@@ -23,6 +23,10 @@ def test_atlas_root():
     assert 'let temporalSummaries = { overall: [], service_types: [] };' in response.text
     assert "Weekday morning · 8:00 AM" in response.text
     assert "Saturday midday · 1:00 PM" in response.text
+    assert "Service-access gap classification" in response.text
+    assert "let currentServiceGaps = {};" in response.text
+    assert 'fetch("/api/service-gap-summary")' in response.text
+    assert 'fetch("/api/service-gaps/" + timeScenario + "/" + serviceType)' in response.text
 
 
 def test_health():
@@ -220,5 +224,83 @@ def test_temporal_summaries():
 
 def test_unknown_temporal_scenario_returns_404():
     response = client.get("/api/temporal-accessibility/not_a_scenario")
+
+    assert response.status_code == 404
+
+
+
+def test_service_gap_summary():
+    response = client.get("/api/service-gap-summary")
+
+    assert response.status_code == 200
+    payload = response.json()
+
+    assert len(payload) > 100
+    assert {row["gap_class"] for row in payload} == {
+        "Lower gap",
+        "Moderate gap",
+        "High gap",
+        "Severe gap",
+    }
+
+    midday_immigration = [
+        row
+        for row in payload
+        if row["scenario_id"] == "weekday_midday"
+        and row["service_type"] == "immigration"
+    ]
+    by_class = {row["gap_class"]: row for row in midday_immigration}
+
+    assert by_class["Severe gap"]["tract_count"] == 189
+    assert by_class["High gap"]["tract_count"] == 750
+
+
+def test_service_gaps():
+    response = client.get(
+        "/api/service-gaps/weekday_midday/immigration"
+    )
+
+    assert response.status_code == 200
+    payload = response.json()
+
+    assert len(payload) == 1094
+    assert {row["gap_class"] for row in payload} <= {
+        "Lower gap",
+        "Moderate gap",
+        "High gap",
+        "Severe gap",
+    }
+    assert all(0 <= row["gap_level"] <= 3 for row in payload)
+    assert all(0 <= row["high_context_indicators"] <= 3 for row in payload)
+
+
+def test_service_gap_priorities():
+    response = client.get(
+        "/api/service-gap-priorities/weekday_midday/immigration"
+    )
+
+    assert response.status_code == 200
+    payload = response.json()
+
+    assert len(payload) == 25
+    assert [row["priority_rank"] for row in payload] == list(range(1, 26))
+    assert payload[0]["gap_class"] == "Severe gap"
+
+
+def test_service_gap_thresholds():
+    response = client.get("/api/service-gap-thresholds")
+
+    assert response.status_code == 200
+    payload = response.json()
+
+    by_indicator = {row["indicator"]: row for row in payload}
+    assert by_indicator["foreign_born_population"]["threshold"] == 1307.0
+    assert by_indicator["population_below_poverty"]["threshold"] == 736.75
+    assert by_indicator["households_no_vehicle"]["threshold"] == 128.75
+    assert all(row["quantile"] == 0.75 for row in payload)
+
+
+def test_unknown_service_gap_scenario_returns_404():
+    response = client.get("/api/service-gaps/not_a_scenario/immigration")
 
     assert response.status_code == 404
