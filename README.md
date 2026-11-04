@@ -94,20 +94,20 @@ tract context                 provider inventory             transit graph
 
 ## Current milestone
 
-**Phase 1A — ACS neighborhood context**
+**Phase 1 — Core analytical layers**
 
-The repository currently implements the first reproducible ingestion layer for 2024 ACS 5-year census-tract data in Dallas and Tarrant Counties.
+The repository now includes a validated 2024 ACS tract panel for Dallas and Tarrant Counties and a source-backed inventory of refugee-service providers.
 
-The initial ingestion module:
+Current validated data:
 
-- queries the Census Data API
-- validates required fields
-- normalizes tract identifiers
-- derives human-readable county and tract keys
-- preserves raw ACS estimates without inventing composite scores
-- supports a `CENSUS_API_KEY` environment variable
+- 1,094 census tracts
+- 645 Dallas County tracts
+- 449 Tarrant County tracts
+- approximately 4.79 million residents represented
+- approximately 1.02 million foreign-born residents represented
+- 7 verified refugee-service locations across the two counties
 
-Transit and service-location ingestion are the next milestones.
+The DART GTFS ingestion layer is implemented and is being validated against DART's current official fixed-route schedule feed.
 
 ## Repository structure
 
@@ -148,9 +148,9 @@ Python · pandas · requests · GeoPandas · Shapely · NetworkX · pytest · Gi
 
 | Phase | Status |
 | --- | --- |
-| ACS tract-level context | 🚧 In progress |
-| Provider inventory | ⏳ Next |
-| DART GTFS ingestion | ⏳ Planned |
+| ACS tract-level context | ✅ Implemented |
+| Provider inventory | ✅ Implemented |
+| DART GTFS ingestion | 🚧 In progress |
 | Transit graph + routing | ⏳ Planned |
 | Accessibility metrics | ⏳ Planned |
 | Interactive atlas | ⏳ Planned |
