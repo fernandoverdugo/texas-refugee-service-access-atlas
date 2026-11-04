@@ -51,3 +51,29 @@ def test_parse_acs_response_creates_geoid():
     assert frame.loc[0, "population"] == 1000
     assert frame.loc[0, "foreign_born_population"] == 200
     assert frame.loc[0, "acs_year"] == 2023
+
+
+class FakeResponse:
+    def __init__(self, text, content_type="text/html", status_code=200):
+        self.text = text
+        self.headers = {"content-type": content_type}
+        self.status_code = status_code
+
+    def raise_for_status(self):
+        return None
+
+    def json(self):
+        raise AssertionError("json() should not be called for non-JSON responses")
+
+
+def test_fetch_acs_reports_invalid_key(monkeypatch):
+    from src.ingestion import acs
+
+    monkeypatch.setattr(
+        acs.requests,
+        "get",
+        lambda *args, **kwargs: FakeResponse("<html><h1>Invalid Key</h1></html>"),
+    )
+
+    with pytest.raises(RuntimeError, match="activated"):
+        acs.fetch_acs_tracts("113", api_key="bad-key")
