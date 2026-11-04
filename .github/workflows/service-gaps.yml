@@ -1,0 +1,137 @@
+name: Build service-gap classifications
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/service-gaps.yml"
+      - "src/analysis/service_gaps.py"
+      - "scripts/build_service_gaps.py"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install -r requirements.txt
+      - run: python -m pytest -q
+
+      - name: Build transparent service-gap classifications
+        run: python -m scripts.build_service_gaps
+
+      - name: Validate service-gap outputs
+        run: |
+          python - <<'PY'
+          import pandas as pd
+
+          classified = pd.read_csv(
+              "data/processed/tract_service_gap_classification.csv",
+              dtype={"geoid": str},
+          )
+          summary = pd.read_csv(
+              "data/processed/service_gap_summary.csv"
+          )
+          priority = pd.read_csv(
+              "data/processed/service_gap_priority_tracts.csv",
+              dtype={"geoid": str},
+          )
+          thresholds = pd.read_csv(
+              "data/processed/service_gap_thresholds.csv"
+          )
+
+          expected_scenarios = {
+              "weekday_morning",
+              "weekday_midday",
+              "weekday_evening",
+              "weekend_midday",
+          }
+          expected_services = {
+              "all",
+              "resettlement_case_management",
+              "employment",
+              "education",
+              "health",
+              "immigration",
+              "cash_benefits",
+          }
+
+          assert set(classified["scenario_id"]) == expected_scenarios
+          assert set(classified["service_type"]) == expected_services
+          assert (
+              classified.groupby(["scenario_id", "service_type"])
+              .size()
+              .eq(1094)
+              .all()
+          )
+
+          assert classified["gap_level"].between(0, 3).all()
+          assert set(classified["gap_class"]) <= {
+              "Lower gap",
+              "Moderate gap",
+              "High gap",
+              "Severe gap",
+          }
+          assert classified["high_context_indicators"].between(0, 3).all()
+
+          assert set(thresholds["indicator"]) == {
+              "foreign_born_population",
+              "population_below_poverty",
+              "households_no_vehicle",
+          }
+          assert (thresholds["quantile"] == 0.75).all()
+
+          assert set(summary["scenario_id"]) == expected_scenarios
+          assert set(summary["service_type"]) == expected_services
+
+          assert priority["priority_rank"].between(1, 25).all()
+          assert (
+              priority.groupby(["scenario_id", "service_type"])
+              .size()
+              .eq(25)
+              .all()
+          )
+
+          for _, group in priority.groupby(["scenario_id", "service_type"]):
+              levels = group.sort_values("priority_rank")["gap_level"].tolist()
+              assert levels == sorted(levels, reverse=True)
+
+          print(thresholds.to_dict("records"))
+          print(
+              summary[
+                  (summary["scenario_id"] == "weekday_midday")
+                  & (summary["gap_class"].isin(["High gap", "Severe gap"]))
+              ].to_dict("records")
+          )
+          PY
+
+      - name: Commit validated service-gap outputs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add -f data/processed/tract_service_gap_classification.csv
+          git add -f data/processed/service_gap_summary.csv
+          git add -f data/processed/service_gap_priority_tracts.csv
+          git add -f data/processed/service_gap_thresholds.csv
+
+          if git diff --cached --quiet; then
+            echo "No service-gap output changes."
+            exit 0
+          fi
+
+          git commit -m "Build validated service-gap classifications"
+          git pull --rebase origin main
+          git push origin main
