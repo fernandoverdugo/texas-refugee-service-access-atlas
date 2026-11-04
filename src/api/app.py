@@ -91,6 +91,56 @@ def _read_provider_service_types() -> pd.DataFrame:
     return pd.read_csv(path, dtype={"provider_id": str})
 
 
+def _read_temporal_accessibility() -> pd.DataFrame:
+    path = DATA / "tract_temporal_accessibility.csv"
+    if not path.exists():
+        raise HTTPException(
+            status_code=503,
+            detail="Time-dependent accessibility is not available",
+        )
+    return pd.read_csv(path, dtype={"geoid": str})
+
+
+def _read_temporal_service_accessibility() -> pd.DataFrame:
+    path = DATA / "tract_temporal_service_type_accessibility.csv"
+    if not path.exists():
+        raise HTTPException(
+            status_code=503,
+            detail="Time-dependent service accessibility is not available",
+        )
+    return pd.read_csv(path, dtype={"geoid": str})
+
+
+def _read_temporal_metadata() -> pd.DataFrame:
+    path = DATA / "temporal_scenario_metadata.csv"
+    if not path.exists():
+        raise HTTPException(
+            status_code=503,
+            detail="Time-dependent scenario metadata is not available",
+        )
+    return pd.read_csv(path)
+
+
+def _read_temporal_summary() -> pd.DataFrame:
+    path = DATA / "temporal_accessibility_summary.csv"
+    if not path.exists():
+        raise HTTPException(
+            status_code=503,
+            detail="Time-dependent accessibility summary is not available",
+        )
+    return pd.read_csv(path)
+
+
+def _read_temporal_service_summary() -> pd.DataFrame:
+    path = DATA / "temporal_service_type_summary.csv"
+    if not path.exists():
+        raise HTTPException(
+            status_code=503,
+            detail="Time-dependent service summary is not available",
+        )
+    return pd.read_csv(path)
+
+
 @app.head("/")
 def head_root() -> Response:
     return Response(status_code=200)
@@ -284,3 +334,129 @@ def service_accessibility(service_type: str) -> list[dict]:
     selected["geoid"] = selected["geoid"].astype(str).str.zfill(11)
     selected = selected.astype(object).where(pd.notna(selected), None)
     return selected.to_dict("records")
+
+
+
+@app.get("/api/time-scenarios")
+def time_scenarios() -> list[dict]:
+    metadata = _read_temporal_metadata().copy()
+    summary = _read_temporal_summary()[
+        [
+            "scenario_id",
+            "foreign_born_access_pct_30m",
+            "foreign_born_access_pct_45m",
+            "foreign_born_access_pct_60m",
+        ]
+    ]
+
+    frame = metadata.merge(
+        summary,
+        on="scenario_id",
+        how="left",
+        validate="one_to_one",
+    )
+
+    frame["active_connections"] = frame["active_connections"].astype(int)
+    for field in [
+        "foreign_born_access_pct_30m",
+        "foreign_born_access_pct_45m",
+        "foreign_born_access_pct_60m",
+    ]:
+        frame[field] = frame[field].astype(float)
+
+    return frame.to_dict("records")
+
+
+@app.get("/api/temporal-accessibility/{scenario_id}")
+def temporal_accessibility(scenario_id: str) -> list[dict]:
+    frame = _read_temporal_accessibility()
+    available = set(frame["scenario_id"].unique())
+
+    if scenario_id not in available:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Unknown time scenario: {scenario_id}",
+        )
+
+    selected = frame.loc[
+        frame["scenario_id"] == scenario_id,
+        [
+            "geoid",
+            "scenario_id",
+            "scenario_label",
+            "departure_time",
+            "service_date",
+            "providers_within_30m",
+            "providers_within_45m",
+            "providers_within_60m",
+        ],
+    ].copy()
+
+    selected["geoid"] = selected["geoid"].astype(str).str.zfill(11)
+    for field in [
+        "providers_within_30m",
+        "providers_within_45m",
+        "providers_within_60m",
+    ]:
+        selected[field] = selected[field].astype(int)
+
+    return selected.to_dict("records")
+
+
+@app.get("/api/temporal-service-accessibility/{scenario_id}/{service_type}")
+def temporal_service_accessibility(
+    scenario_id: str,
+    service_type: str,
+) -> list[dict]:
+    frame = _read_temporal_service_accessibility()
+
+    scenarios = set(frame["scenario_id"].unique())
+    services = set(frame["service_type"].unique())
+
+    if scenario_id not in scenarios:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Unknown time scenario: {scenario_id}",
+        )
+    if service_type not in services:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Unknown service type: {service_type}",
+        )
+
+    selected = frame.loc[
+        (frame["scenario_id"] == scenario_id)
+        & (frame["service_type"] == service_type),
+        [
+            "geoid",
+            "scenario_id",
+            "scenario_label",
+            "departure_time",
+            "service_date",
+            "service_type",
+            "providers_within_30m",
+            "providers_within_45m",
+            "providers_within_60m",
+        ],
+    ].copy()
+
+    selected["geoid"] = selected["geoid"].astype(str).str.zfill(11)
+    for field in [
+        "providers_within_30m",
+        "providers_within_45m",
+        "providers_within_60m",
+    ]:
+        selected[field] = selected[field].astype(int)
+
+    return selected.to_dict("records")
+
+
+@app.get("/api/temporal-summaries")
+def temporal_summaries() -> dict[str, list[dict]]:
+    overall = _read_temporal_summary().copy()
+    service = _read_temporal_service_summary().copy()
+
+    return {
+        "overall": overall.to_dict("records"),
+        "service_types": service.to_dict("records"),
+    }
