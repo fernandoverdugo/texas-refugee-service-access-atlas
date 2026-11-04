@@ -124,8 +124,8 @@ def score_candidates(
             ]
         )
 
-    access = access_times.merge(
-        underserved[
+    context_columns = list(
+        dict.fromkeys(
             [
                 "geoid",
                 weight_column,
@@ -134,7 +134,11 @@ def score_candidates(
                 "population_below_poverty",
                 "households_no_vehicle",
             ]
-        ],
+        )
+    )
+
+    access = access_times.merge(
+        underserved[context_columns],
         left_on="origin_geoid",
         right_on="geoid",
         how="inner",
