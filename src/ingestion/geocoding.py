@@ -127,6 +127,19 @@ def geocode_nominatim(
     }
 
 
+def nominatim_queries(
+    record: dict[str, object],
+    full_address: str,
+) -> list[str]:
+    candidates = [
+        f'{record["organization"]}, {full_address}',
+        *address_variants(full_address),
+        f'{record["organization"]}, {record["city"]}, {record["state"]}',
+        f'{record["location_name"]}, {record["city"]}, {record["state"]}',
+    ]
+    return list(dict.fromkeys(str(candidate).strip() for candidate in candidates))
+
+
 def _cached_result(
     cache: pd.DataFrame | None,
     provider_id: str,
@@ -189,9 +202,11 @@ def geocode_provider_inventory(
             result = geocode_census(full_address)
 
         if not result["matched"]:
-            query = f'{record["organization"]}, {full_address}'
-            time.sleep(1.1)
-            result = geocode_nominatim(query)
+            for query in nominatim_queries(record, full_address):
+                time.sleep(1.1)
+                result = geocode_nominatim(query)
+                if result["matched"]:
+                    break
 
         rows.append({**record, **result})
 
