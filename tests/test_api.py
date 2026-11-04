@@ -14,6 +14,8 @@ def test_atlas_root():
     assert "Scheduled-transit accessibility" in response.text
     assert "Planning objective" in response.text
     assert "Population below poverty" in response.text
+    assert 'let facilityScenarios = [];' in response.text
+    assert 'const scenarioSelect = document.getElementById("scenarioObjective");' in response.text
 
 
 def test_health():
