@@ -5,6 +5,9 @@ on:
   push:
     paths:
       - ".github/workflows/service-type-accessibility.yml"
+      - "src/analysis/service_types.py"
+      - "src/analysis/service_accessibility.py"
+      - "scripts/build_service_type_accessibility.py"
 
 jobs:
   build:
