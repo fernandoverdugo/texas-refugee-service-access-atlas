@@ -27,10 +27,10 @@ The normalization is intentionally conservative. Categories are assigned only wh
 
 - Resettlement & case management: 8 locations
 - Employment: 6 locations
-- Education & English-language support: 5 locations
-- Health & behavioral health: 3 locations
-- Immigration & legal support: 3 locations
-- Cash & benefits assistance: 3 locations
+- Education & English-language support: 6 locations
+- Health & behavioral health: 4 locations
+- Immigration & legal support: 4 locations
+- Cash & benefits assistance: 4 locations
 
 ## First 45-minute findings
 
@@ -40,10 +40,10 @@ Using the same DART + Trinity Metro scheduled-transit model:
 | --- | ---: |
 | Resettlement & case management | 39.7% |
 | Education & English-language support | 39.2% |
-| Employment | 39.5% |
-| Health & behavioral health | 36.9% |
-| Cash & benefits assistance | 35.9% |
-| Immigration & legal support | 24.1% |
+| Employment | 39.7% |
+| Health & behavioral health | 39.4% |
+| Cash & benefits assistance | 37.9% |
+| Immigration & legal support | 26.9% |
 
 The immigration/legal category has the largest modeled access gap in the current provider inventory.
 
