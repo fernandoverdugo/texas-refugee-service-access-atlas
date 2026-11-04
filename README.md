@@ -51,15 +51,12 @@ Only locations with a verifiable public source will be included.
 
 ### 3. Transit network
 
-DART GTFS data will provide scheduled:
+The DFW transit layer combines official GTFS schedule feeds from:
 
-- stops
-- routes
-- trips
-- stop times
-- service calendars
+- Dallas Area Rapid Transit (DART)
+- Trinity Metro
 
-The transit layer will support travel-time, transfer, and reachability analysis.
+The combined model uses scheduled stops, trips, stop times, and nearby walking-transfer links so Dallas and Tarrant County are not evaluated with a Dallas-only network.
 
 ## Planned outputs
 
@@ -158,11 +155,17 @@ Python · pandas · requests · GeoPandas · Shapely · NetworkX · pytest · Gi
 | ACS tract-level context | ✅ Implemented |
 | Provider inventory | ✅ Implemented |
 | DART GTFS ingestion | ✅ Implemented |
-| Transit graph + routing | ⏳ Planned |
-| Accessibility metrics | ⏳ Planned |
+| Trinity Metro GTFS ingestion | ✅ Implemented |
+| Transit graph + routing | 🚧 In progress |
+| Accessibility metrics | 🚧 In progress |
 | Interactive atlas | ⏳ Planned |
 | Facility-location optimization | ⏳ Planned |
 
 ## License
 
 MIT
+
+
+## Trinity Metro data notice
+
+Data provided by Trinity Metro is not warranted by Trinity Metro for accuracy or completeness and data is subject to change without notice.
