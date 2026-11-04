@@ -32,3 +32,7 @@ data/processed/*
 
 !data/processed/facility_location_scenarios.csv
 !data/processed/facility_location_scenario_candidates.csv
+
+!data/processed/provider_service_types.csv
+!data/processed/tract_service_type_accessibility.csv
+!data/processed/service_type_accessibility_summary.csv
