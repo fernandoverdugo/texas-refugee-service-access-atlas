@@ -1,0 +1,70 @@
+name: Build accessibility layer
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/accessibility-build.yml"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install -r requirements.txt
+      - run: python -m pytest -q
+
+      - name: Build multimodal accessibility layer
+        run: python -m scripts.build_accessibility
+
+      - name: Validate accessibility outputs
+        run: |
+          python - <<'PY'
+          import pandas as pd
+
+          summary = pd.read_csv("data/processed/accessibility_summary.csv").iloc[0]
+          access = pd.read_csv(
+              "data/processed/tract_service_accessibility.csv",
+              dtype={"geoid": str},
+          )
+
+          assert summary["tracts"] == 1094
+          assert summary["providers"] == 7
+          assert summary["transit_stops"] > 7000
+          assert summary["transit_edges"] > 5000
+          assert summary["providers_with_stop_connector"] >= 6
+          assert len(access) == 1094
+          assert access["geoid"].nunique() == 1094
+          assert (access["providers_within_30m"] <= access["providers_within_45m"]).all()
+          assert (access["providers_within_45m"] <= access["providers_within_60m"]).all()
+
+          print(summary.to_dict())
+          PY
+
+      - name: Commit validated accessibility outputs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/processed/
+
+          if git diff --cached --quiet; then
+            echo "No accessibility output changes."
+            exit 0
+          fi
+
+          git commit -m "Build validated DFW accessibility layer"
+          git pull --rebase origin main
+          git push origin main
