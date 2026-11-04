@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pandas as pd
 from fastapi import FastAPI, HTTPException
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, Response
 
 
 BASE = Path(__file__).resolve().parents[2]
@@ -39,6 +39,11 @@ def _read_geojson() -> dict:
         raise HTTPException(status_code=503, detail="Tract geometry is not available")
     with path.open("r", encoding="utf-8") as handle:
         return json.load(handle)
+
+
+@app.head("/")
+def head_root() -> Response:
+    return Response(status_code=200)
 
 
 @app.get("/", response_class=HTMLResponse)
