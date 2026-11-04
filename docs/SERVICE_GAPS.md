@@ -80,10 +80,10 @@ The rank is a screening tool for deeper planning analysis, not a recommendation 
 
 For immigration and legal support at the weekday-midday scenario:
 
-- 189 tracts are classified **Severe gap**
-- 750 tracts are classified **High gap**
-- 92 tracts are classified **Moderate gap**
-- 63 tracts are classified **Lower gap**
+- 185 tracts are classified **Severe gap**
+- 728 tracts are classified **High gap**
+- 88 tracts are classified **Moderate gap**
+- 93 tracts are classified **Lower gap**
 
 The large number of high/severe tracts reflects the combination of limited scheduled transit access to the three verified immigration/legal locations and the conservative time-dependent routing model.
 
