@@ -8,6 +8,7 @@ on:
       - "src/ingestion/temporal_gtfs.py"
       - "src/analysis/temporal_routing.py"
       - "scripts/build_temporal_accessibility.py"
+      - ".gitignore"
 
 jobs:
   build:
