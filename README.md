@@ -117,10 +117,10 @@ The atlas now includes schedule-aware routing scenarios that require riders to r
 
 | Scenario | Foreign-born population within 45 scheduled minutes |
 | --- | ---: |
-| Weekday morning · 8:00 AM | **18.4%** |
-| Weekday midday · 1:00 PM | **17.0%** |
-| Weekday evening · 6:00 PM | **18.1%** |
-| Saturday midday · 1:00 PM | **15.5%** |
+| Weekday morning · 8:00 AM | **13.7%** |
+| Weekday midday · 1:00 PM | **16.2%** |
+| Weekday evening · 6:00 PM | **14.2%** |
+| Saturday midday · 1:00 PM | **14.8%** |
 
 The earlier frequency-agnostic 45-minute baseline was **39.7%**. That baseline measures network travel-time potential; the time-dependent model is more conservative because it also accounts for whether a usable scheduled departure exists after the rider reaches the stop.
 
@@ -133,15 +133,15 @@ The atlas can now analyze access to specific service categories rather than trea
 | Service type | Provider locations | Foreign-born population within 45 modeled minutes |
 | --- | ---: | ---: |
 | Resettlement & case management | 8 | 39.7% |
-| Education & English-language support | 5 | 39.2% |
-| Employment | 6 | 39.5% |
-| Health & behavioral health | 3 | 36.9% |
-| Cash & benefits assistance | 3 | 35.9% |
-| Immigration & legal support | 3 | **24.1%** |
+| Education & English-language support | 6 | 39.2% |
+| Employment | 6 | 39.7% |
+| Health & behavioral health | 4 | 39.4% |
+| Cash & benefits assistance | 4 | 37.9% |
+| Immigration & legal support | 4 | **26.9%** |
 
 Immigration and legal support show the largest modeled access gap in the current verified provider inventory.
 
-The provider inventory now includes **Church World Service (CWS) Dallas** at its current Richardson location as a separate organization from ICNA Relief Dallas.
+The provider inventory includes **Church World Service (CWS) Dallas** at **1010 E Arapaho Rd., Suite 100, Richardson** as a separate organization from ICNA Relief Dallas.
 
 The service-type filter updates tract reachability, nearest-service travel time, provider markers, and tract popup metrics together. These results describe scheduled transit access to listed service locations; they do not measure provider capacity, appointment availability, eligibility, language match, or service quality.
 
@@ -164,10 +164,10 @@ Current 75th-percentile context thresholds are:
 
 For **weekday midday immigration/legal access**, the current classification identifies:
 
-- **189 severe-gap tracts**
-- **750 high-gap tracts**
-- **92 moderate-gap tracts**
-- **63 lower-gap tracts**
+- **185 severe-gap tracts**
+- **728 high-gap tracts**
+- **88 moderate-gap tracts**
+- **93 lower-gap tracts**
 
 These classes are planning-screening categories, not measures of individual refugee need or proof that a community is unserved.
 
