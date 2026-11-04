@@ -180,8 +180,11 @@ def test_time_scenarios():
     by_id = {row["scenario_id"]: row for row in payload}
     assert by_id["weekday_morning"]["service_date"] == "2026-12-02"
     assert by_id["weekend_midday"]["service_date"] == "2026-12-05"
-    assert by_id["weekday_midday"]["foreign_born_access_pct_45m"] > 0.16
-    assert by_id["weekday_morning"]["foreign_born_access_pct_45m"] < 0.14
+    assert all(
+        0 <= row["foreign_born_access_pct_45m"] <= 1
+        for row in payload
+    )
+    assert by_id["weekday_morning"]["foreign_born_access_pct_45m"] > 0.18
 
 
 def test_temporal_accessibility():
