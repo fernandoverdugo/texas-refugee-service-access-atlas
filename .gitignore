@@ -29,3 +29,6 @@ data/processed/*
 
 !data/processed/facility_location_candidates.csv
 !data/processed/facility_location_summary.csv
+
+!data/processed/facility_location_scenarios.csv
+!data/processed/facility_location_scenario_candidates.csv
