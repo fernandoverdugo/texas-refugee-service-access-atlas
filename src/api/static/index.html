@@ -87,7 +87,7 @@
       <h2>Map view</h2>
       <label for="metric">Shade tracts by</label>
       <select id="metric">
-        <option value="nearest">Nearest provider travel time</option>
+        <option value="nearest">Nearest selected service travel time</option>
         <option value="foreign_born_population">Foreign-born population</option>
         <option value="households_no_vehicle">Households with no vehicle</option>
         <option value="population_below_poverty">Population below poverty</option>
@@ -102,6 +102,23 @@
         <option value="45" selected>Within 45 minutes</option>
         <option value="60">Within 60 minutes</option>
       </select>
+    </div>
+
+    <div class="section">
+      <h2>Service type</h2>
+      <label for="serviceType">Analyze access to</label>
+      <select id="serviceType">
+        <option value="all">All verified services</option>
+        <option value="resettlement_case_management">Resettlement &amp; case management</option>
+        <option value="employment">Employment</option>
+        <option value="education">Education &amp; English-language support</option>
+        <option value="health">Health &amp; behavioral health</option>
+        <option value="immigration">Immigration &amp; legal support</option>
+        <option value="cash_benefits">Cash &amp; benefits assistance</option>
+      </select>
+      <div class="note" id="serviceCoverageNote" style="margin-top:7px">
+        Showing accessibility to all verified providers.
+      </div>
     </div>
 
     <div class="section">
@@ -171,9 +188,12 @@
   let providers;
   let facility;
   let facilityScenarios = [];
+  let serviceTypeSummaries = [];
+  let currentServiceAccess = {};
 
   const metricSelect = document.getElementById("metric");
   const thresholdSelect = document.getElementById("threshold");
+  const serviceSelect = document.getElementById("serviceType");
   const scenarioSelect = document.getElementById("scenarioObjective");
 
   function num(value) {
@@ -204,13 +224,33 @@
     return "#176b78";
   }
 
+  function serviceMetrics(properties) {
+    if (serviceSelect.value === "all") {
+      return {
+        nearest: properties.nearest_provider_minutes,
+        within30: properties.providers_within_30m,
+        within45: properties.providers_within_45m,
+        within60: properties.providers_within_60m
+      };
+    }
+
+    const service = currentServiceAccess[properties.geoid] || {};
+    return {
+      nearest: service.nearest_service_minutes,
+      within30: service.service_locations_within_30m || 0,
+      within45: service.service_locations_within_45m || 0,
+      within60: service.service_locations_within_60m || 0
+    };
+  }
+
   function styleFeature(feature) {
     const p = feature.properties;
     const metric = metricSelect.value;
+    const service = serviceMetrics(p);
     let fillColor = "#d9dde0";
 
     if (metric === "nearest") {
-      fillColor = timeColor(p.nearest_provider_minutes);
+      fillColor = timeColor(service.nearest);
     } else {
       const values = tracts.features
         .map(f => Number(f.properties[metric]))
@@ -219,7 +259,7 @@
     }
 
     const threshold = thresholdSelect.value;
-    const reachable = Number(p["providers_within_" + threshold + "m"] || 0) > 0;
+    const reachable = Number(service["within" + threshold] || 0) > 0;
 
     return {
       color: reachable ? "#42646d" : "#8c979b",
@@ -231,22 +271,25 @@
 
   function popup(feature) {
     const p = feature.properties;
+    const service = serviceMetrics(p);
     const foreignShare = p.population ? pct(Number(p.foreign_born_population || 0), Number(p.population)) : "—";
-    const time = p.nearest_provider_minutes == null || p.nearest_provider_minutes === ""
+    const time = service.nearest == null || service.nearest === ""
       ? "No modeled connection"
-      : Number(p.nearest_provider_minutes).toFixed(1) + " min";
+      : Number(service.nearest).toFixed(1) + " min";
+    const serviceLabel = serviceSelect.options[serviceSelect.selectedIndex].text;
 
     return `
       <div class="popup-title">${p.county_name || "DFW"} tract ${p.geoid || ""}</div>
+      <div class="note" style="margin-bottom:6px">${serviceLabel}</div>
       <div class="popup-grid">
         <span>Population</span><strong>${num(p.population)}</strong>
         <span>Foreign-born</span><strong>${num(p.foreign_born_population)} (${foreignShare})</strong>
         <span>No-vehicle households</span><strong>${num(p.households_no_vehicle)}</strong>
         <span>Below poverty</span><strong>${num(p.population_below_poverty)}</strong>
-        <span>Nearest provider</span><strong>${time}</strong>
-        <span>Within 30 min</span><strong>${num(p.providers_within_30m)}</strong>
-        <span>Within 45 min</span><strong>${num(p.providers_within_45m)}</strong>
-        <span>Within 60 min</span><strong>${num(p.providers_within_60m)}</strong>
+        <span>Nearest service</span><strong>${time}</strong>
+        <span>Within 30 min</span><strong>${num(service.within30)}</strong>
+        <span>Within 45 min</span><strong>${num(service.within45)}</strong>
+        <span>Within 60 min</span><strong>${num(service.within60)}</strong>
       </div>`;
   }
 
@@ -271,6 +314,9 @@
     providerLayer.clearLayers();
 
     providers.forEach(p => {
+      const selectedService = serviceSelect.value;
+      const types = String(p.normalized_service_types || "").split(";");
+      if (selectedService !== "all" && !types.includes(selectedService)) return;
       if (!Number.isFinite(Number(p.latitude)) || !Number.isFinite(Number(p.longitude))) return;
 
       const icon = L.divIcon({
@@ -285,7 +331,7 @@
           <div class="popup-title">${p.organization}</div>
           <div class="note">${p.location_name}</div>
           <div style="margin-top:6px;font-size:.8rem">${p.address}, ${p.city}</div>
-          <div style="margin-top:6px;font-size:.75rem;color:#63767d">${String(p.service_categories).split(";").join(" · ")}</div>
+          <div style="margin-top:6px;font-size:.75rem;color:#63767d">${String(p.normalized_service_labels || p.service_categories).split(";").join(" · ")}</div>
         `)
         .addTo(providerLayer);
     });
@@ -351,7 +397,8 @@
       const metric = metricSelect.value;
 
       if (metric === "nearest") {
-        div.innerHTML = '<strong>Nearest provider</strong>' +
+        const serviceLabel = serviceSelect.options[serviceSelect.selectedIndex].text;
+        div.innerHTML = '<strong>Nearest ' + serviceLabel + '</strong>' +
           [['#176b55','≤20 min'],['#4d956f','21–30'],['#e4b849','31–45'],['#d67b39','46–60'],['#a84735','>60'],['#d9dde0','No modeled connection']]
           .map(([c,l]) => `<div class="legend-row"><span class="swatch" style="background:${c}"></span>${l}</div>`).join('');
       } else {
@@ -367,16 +414,45 @@
     legend.addTo(map);
   }
 
+  async function loadServiceType(serviceType) {
+    if (serviceType === "all") {
+      currentServiceAccess = {};
+      document.getElementById("serviceCoverageNote").textContent =
+        "Showing accessibility to all verified providers.";
+    } else {
+      const response = await fetch("/api/service-accessibility/" + serviceType);
+      if (!response.ok) throw new Error("Service accessibility data could not be loaded");
+
+      const rows = await response.json();
+      currentServiceAccess = Object.fromEntries(
+        rows.map(row => [row.geoid, row])
+      );
+
+      const summary = serviceTypeSummaries.find(
+        row => row.service_type === serviceType
+      );
+      if (summary) {
+        document.getElementById("serviceCoverageNote").textContent =
+          (summary.foreign_born_45m_access_pct * 100).toFixed(1) +
+          "% of the study-area foreign-born population is modeled within 45 minutes of this service type.";
+      }
+    }
+
+    renderTracts();
+    renderProviders();
+  }
+
   async function load() {
-    const [tractResponse, providerResponse, summaryResponse, facilityResponse, scenariosResponse] = await Promise.all([
+    const [tractResponse, providerResponse, summaryResponse, facilityResponse, scenariosResponse, serviceTypesResponse] = await Promise.all([
       fetch("/api/tracts"),
       fetch("/api/providers"),
       fetch("/api/summary"),
       fetch("/api/facility-location"),
-      fetch("/api/facility-location/scenarios")
+      fetch("/api/facility-location/scenarios"),
+      fetch("/api/service-types")
     ]);
 
-    if (!tractResponse.ok || !providerResponse.ok || !summaryResponse.ok || !facilityResponse.ok || !scenariosResponse.ok) {
+    if (!tractResponse.ok || !providerResponse.ok || !summaryResponse.ok || !facilityResponse.ok || !scenariosResponse.ok || !serviceTypesResponse.ok) {
       throw new Error("Atlas data could not be loaded");
     }
 
@@ -385,6 +461,7 @@
     const summary = await summaryResponse.json();
     facility = await facilityResponse.json();
     facilityScenarios = await scenariosResponse.json();
+    serviceTypeSummaries = await serviceTypesResponse.json();
 
     document.getElementById("tractCount").textContent = num(summary.tracts);
     document.getElementById("providerCount").textContent = num(summary.providers);
@@ -400,6 +477,11 @@
 
   metricSelect.addEventListener("change", renderTracts);
   thresholdSelect.addEventListener("change", renderTracts);
+  serviceSelect.addEventListener("change", event => {
+    loadServiceType(event.target.value).catch(error => {
+      console.error(error);
+    });
+  });
   scenarioSelect.addEventListener("change", event => applyScenario(event.target.value));
 
   load().catch(error => {
