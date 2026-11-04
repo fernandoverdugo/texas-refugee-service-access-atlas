@@ -62,3 +62,69 @@ Those limitations are intentionally documented before any public-facing accessib
 Data provided by Trinity Metro is not warranted by Trinity Metro for accuracy or completeness and data is subject to change without notice.
 
 The reproducible build retrieves the current official feed so public outputs can be refreshed when schedules change.
+
+
+## Time-dependent routing
+
+The project now includes a schedule-aware routing layer in addition to the original frequency-agnostic baseline.
+
+The temporal model uses:
+
+- `trips.txt`
+- `stop_times.txt`
+- `calendar.txt`
+- `calendar_dates.txt`
+
+for both DART and Trinity Metro.
+
+For each scenario, the pipeline selects a recent common active service date across both feeds, applies weekly service calendars and date-specific exceptions, and evaluates actual scheduled connections.
+
+### Representative scenarios
+
+- Weekday morning: 8:00 AM
+- Weekday midday: 1:00 PM
+- Weekday evening: 6:00 PM
+- Saturday midday: 1:00 PM
+
+The current published feeds produced representative dates of December 2, 2026 for weekday scenarios and December 5, 2026 for Saturday midday.
+
+### Routing method
+
+The model uses a backward scheduled-connection scan.
+
+For each provider and travel-time threshold:
+
+1. begin from the provider's nearby transit stops;
+2. subtract final walking time from the threshold deadline;
+3. scan GTFS transit connections backward by scheduled arrival time;
+4. accept a connection only when its arrival can still reach the destination before the deadline;
+5. propagate nearby walking-transfer opportunities backward;
+6. count an origin tract as reachable only when its access walk reaches a stop before the latest feasible departure.
+
+This means a rider who reaches a stop after the bus or train leaves does not receive credit for that trip.
+
+### Current overall results
+
+Foreign-born population with at least one verified provider reachable within 45 scheduled minutes:
+
+| Scenario | 45-minute coverage |
+| --- | ---: |
+| Weekday morning | 13.7% |
+| Weekday midday | 16.2% |
+| Weekday evening | 14.2% |
+| Saturday midday | 14.8% |
+
+The earlier frequency-agnostic 45-minute baseline was 39.7%. The difference is expected: the baseline measures network travel-time potential, while the temporal model also requires a usable scheduled departure.
+
+### Interpretation limits
+
+The temporal layer still does not model:
+
+- real-time delay
+- canceled trips
+- reliability distributions
+- unexpected missed connections
+- walking-network barriers
+- service eligibility or appointment availability
+
+It should therefore be interpreted as **scheduled accessibility**, not guaranteed door-to-door travel time.
