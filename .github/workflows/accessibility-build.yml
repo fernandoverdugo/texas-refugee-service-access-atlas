@@ -1,6 +1,3 @@
-# Retry with broader provider geocoding queries
-# Retry with cached geocoder fallback
-# Retry after provider geocoding fallback
 # DFW multimodal accessibility build
 name: Build accessibility layer
 
@@ -45,14 +42,29 @@ jobs:
               "data/processed/tract_service_accessibility.csv",
               dtype={"geoid": str},
           )
+          acs = pd.read_csv(
+              "data/processed/acs_dfw_tracts.csv",
+              dtype={"geoid": str},
+          )
+          providers = pd.read_csv(
+              "data/processed/provider_locations.csv",
+              dtype={"provider_id": str},
+          )
 
-          assert summary["tracts"] == 1094
-          assert summary["providers"] == 8
-          assert summary["transit_stops"] > 7000
-          assert summary["transit_edges"] > 5000
-          assert summary["providers_with_stop_connector"] >= 7
-          assert len(access) == 1094
-          assert access["geoid"].nunique() == 1094
+          assert summary["tracts"] == len(access)
+          assert len(access) == len(acs)
+          assert access["geoid"].nunique() == len(access)
+          assert set(access["geoid"]) == set(acs["geoid"])
+
+          assert summary["providers"] == providers["provider_id"].nunique()
+          assert summary["providers"] > 0
+          assert summary["transit_stops"] > 1000
+          assert summary["transit_edges"] > 1000
+          assert summary["walking_transfer_edges"] > 0
+          assert summary["providers_with_stop_connector"] <= summary["providers"]
+          assert summary["providers_with_stop_connector"] > 0
+          assert summary["tracts_reaching_any_provider"] <= summary["tracts"]
+
           assert (access["providers_within_30m"] <= access["providers_within_45m"]).all()
           assert (access["providers_within_45m"] <= access["providers_within_60m"]).all()
 

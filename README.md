@@ -1,134 +1,93 @@
 # Texas Refugee Service Access Atlas
 
-Geospatial and transit-network analysis of refugee service accessibility, mobility gaps, and service deserts in Dallas–Fort Worth.
+Geospatial decision-support platform for analyzing scheduled public-transit access to refugee-relevant services in Dallas and Tarrant Counties, Texas.
 
-## Project objective
+The project combines Census neighborhood context, verified service-provider locations, DART and Trinity Metro GTFS schedules, multimodal routing, service-specific accessibility, transparent gap classification, and facility-location optimization.
 
-Refugee resettlement organizations need to know more than whether services exist. They also need to understand whether clients can realistically reach healthcare, employment, language, and resettlement services without reliable access to a car.
+> **Core question:** Which Dallas–Fort Worth neighborhoods face the greatest barriers to reaching refugee-relevant services by public transit?
 
-This project develops a reproducible accessibility-analysis platform that combines:
+## Live application
 
-- Census neighborhood context
-- refugee-relevant service locations
-- public-transit schedules and stops
-- travel-time and transfer calculations
-- geospatial accessibility metrics
-- service-gap identification
-- future facility-location optimization
+**Interactive atlas:** https://texas-refugee-service-access-atlas.onrender.com
 
-The initial study area is **Dallas and Tarrant Counties**. The architecture is designed to expand to the wider Dallas–Fort Worth region and other Texas resettlement metros.
+The atlas allows users to:
 
-## Core research question
+- shade census tracts by modeled nearest-provider travel time
+- compare foreign-born population count and share, no-vehicle households, and poverty context
+- toggle 30-, 45-, and 60-minute accessibility thresholds
+- compare frequency-agnostic and schedule-aware transit scenarios
+- filter access by service category
+- inspect service-gap classifications
+- view verified provider locations
+- compare facility-location planning scenarios
 
-> Which Dallas–Fort Worth neighborhoods face the greatest barriers to reaching refugee-relevant services by public transit?
+The application is deployed as a Dockerized FastAPI service on Render and reads directly from the validated processed outputs in this repository.
 
-## Planned analytical layers
+## Analytical workflow
 
-### 1. Neighborhood context
+The project follows a staged analytical progression:
 
-The first layer uses the 2024 American Community Survey 5-year estimates at census-tract level to measure characteristics relevant to service accessibility, including:
+1. **Neighborhood context** — 2024 ACS 5-year tract-level demographic and transportation indicators
+2. **Verified providers** — source-backed refugee-relevant service locations
+3. **Multimodal transit network** — DART + Trinity Metro scheduled GTFS with nearby walking transfers
+4. **Baseline accessibility** — generalized transit travel time without departure-specific waiting
+5. **Schedule-aware accessibility** — time-of-day routing using actual scheduled departures
+6. **Service-specific accessibility** — access to individual service categories rather than any provider
+7. **Service-gap screening** — transparent access classifications combined with neighborhood context
+8. **Facility-location optimization** — tract-level scenarios for improving coverage
 
-- total population
-- foreign-born population
-- limited-English-proficiency indicators
-- poverty
-- households without a vehicle
-- renter households
+## Study area and current data
 
-These indicators describe potential accessibility needs. They are not treated as measures of refugee population or as causal explanations of service use.
+The current study area contains **1,094 census tracts** across Dallas and Tarrant Counties.
 
-### 2. Service locations
+| Measure | Current validated value |
+| --- | ---: |
+| Dallas County tracts | 645 |
+| Tarrant County tracts | 449 |
+| Verified refugee-service locations | 8 |
+| Combined DART + Trinity Metro transit stops | 8,562 |
+| Scheduled transit edges | 9,100 |
+| Nearby walking-transfer edges | 38,198 |
+| Tracts reaching at least one modeled provider | 568 |
 
-The project will create a documented provider inventory for refugee-relevant services such as:
+The neighborhood panel represents approximately **4.79 million residents**, including approximately **1.02 million foreign-born residents**.
 
-- refugee resettlement and case management
-- health and behavioral health
-- employment services
-- English-language instruction
-- public benefits and social services
+Foreign-born population is used only as neighborhood context. It is **not** treated as a refugee count or as a proxy for refugee residence.
 
-Only locations with a verifiable public source will be included.
+## Accessibility results
 
-### 3. Transit network
+### Frequency-agnostic baseline
 
-The DFW transit layer combines official GTFS schedule feeds from:
-
-- Dallas Area Rapid Transit (DART)
-- Trinity Metro
-
-The combined model uses scheduled stops, trips, stop times, and nearby walking-transfer links so Dallas and Tarrant County are not evaluated with a Dallas-only network.
-
-## First accessibility baseline
-
-The first validated multimodal model combines DART and Trinity Metro scheduled GTFS data, nearby walking transfers, tract representative points, and the eight verified refugee-service locations.
+The baseline model combines scheduled in-vehicle times, access/egress walking, nearby walking transfers, census-tract representative points, and the eight verified service locations.
 
 | Measure | Dallas + Tarrant | Dallas County | Tarrant County |
 | --- | ---: | ---: | ---: |
 | Tracts in study area | 1,094 | 645 | 449 |
 | Tracts reaching any modeled provider | 568 | 440 | 128 |
-| Foreign-born population with a provider within 30 modeled minutes | 21.8% | 27.9% | 11.1% |
-| Foreign-born population with a provider within 45 modeled minutes | 39.7% | 51.8% | 18.5% |
-| Foreign-born population with a provider within 60 modeled minutes | 51.4% | 66.0% | 26.0% |
+| Foreign-born population within 30 modeled minutes | 21.8% | 27.9% | 11.1% |
+| Foreign-born population within 45 modeled minutes | 39.7% | 51.8% | 18.5% |
+| Foreign-born population within 60 modeled minutes | 51.4% | 66.0% | 26.0% |
 
-These figures are a **scheduled-accessibility baseline**, not observed travel behavior. The current graph uses median scheduled in-vehicle times, walking access/egress and nearby walking transfers, but it does not yet model departure-time-specific waiting, missed connections, real-time delays, service eligibility, appointment availability, or pedestrian conditions.
+This is a network-potential baseline. It does not require a rider to arrive before a specific departure.
 
-The Dallas–Tarrant difference should therefore be interpreted as a signal for deeper service-access analysis rather than a definitive measure of refugee access.
+### Schedule-aware scenarios
 
-## Live demo
-
-**Interactive atlas:** https://texas-refugee-service-access-atlas.onrender.com
-
-- API documentation: https://texas-refugee-service-access-atlas.onrender.com/docs
-- Health check: https://texas-refugee-service-access-atlas.onrender.com/health
-- Summary API: https://texas-refugee-service-access-atlas.onrender.com/api/summary
-- Facility-location recommendation API: https://texas-refugee-service-access-atlas.onrender.com/api/facility-location
-- Equity-aware facility scenarios API: https://texas-refugee-service-access-atlas.onrender.com/api/facility-location/scenarios
-- Service-type summary API: https://texas-refugee-service-access-atlas.onrender.com/api/service-types
-- Service accessibility API: `/api/service-accessibility/{service_type}`
-- Time-scenario API: `/api/time-scenarios`
-- Time-dependent accessibility API: `/api/temporal-accessibility/{scenario_id}`
-- Time-dependent service accessibility API: `/api/temporal-service-accessibility/{scenario_id}/{service_type}`
-- Service-gap summary API: `/api/service-gap-summary`
-- Service-gap tract API: `/api/service-gaps/{scenario_id}/{service_type}`
-- Service-gap priorities API: `/api/service-gap-priorities/{scenario_id}/{service_type}`
-
-The application is deployed as a Dockerized FastAPI service on Render.
-
-## Interactive atlas
-
-The repository includes an interactive web atlas built with FastAPI and Leaflet. The interface allows users to:
-
-- shade census tracts by modeled nearest-provider travel time
-- inspect foreign-born population, foreign-born share of population, no-vehicle households, and poverty context
-- toggle 30-, 45-, and 60-minute provider-access thresholds
-- compare frequency-agnostic and schedule-aware time-of-day routing
-- shade tracts by transparent service-access gap classification
-- view verified refugee-service provider locations
-- click individual tracts for population and accessibility details
-
-The interface reads directly from the validated processed outputs, so refreshed analytical data flow into the application without maintaining a separate visualization dataset.
-
-
-The atlas provides both **foreign-born population count** and **foreign-born share of population**. The count highlights tracts with the largest absolute foreign-born populations, while the share highlights neighborhoods where foreign-born residents make up a larger proportion of the total population.
-
-## Time-dependent transit accessibility
-
-The atlas now includes schedule-aware routing scenarios that require riders to reach stops in time for actual GTFS departures.
+The temporal model requires riders to reach stops in time for actual GTFS departures.
 
 | Scenario | Foreign-born population within 45 scheduled minutes |
 | --- | ---: |
-| Weekday morning · 8:00 AM | **13.7%** |
-| Weekday midday · 1:00 PM | **16.2%** |
-| Weekday evening · 6:00 PM | **14.2%** |
-| Saturday midday · 1:00 PM | **14.8%** |
-
-The earlier frequency-agnostic 45-minute baseline was **39.7%**. That baseline measures network travel-time potential; the time-dependent model is more conservative because it also accounts for whether a usable scheduled departure exists after the rider reaches the stop.
+| Weekday morning · 8:00 AM | 13.7% |
+| Weekday midday · 1:00 PM | 16.2% |
+| Weekday evening · 6:00 PM | 14.2% |
+| Saturday midday · 1:00 PM | 14.8% |
 
 The current GTFS feeds produced representative service dates of **December 2, 2026** for weekday scenarios and **December 5, 2026** for Saturday midday.
 
+The difference from the 39.7% frequency-agnostic baseline illustrates the importance of service frequency and usable departure timing.
+
 ## Service-type accessibility
 
-The atlas can now analyze access to specific service categories rather than treating every provider as interchangeable.
+The atlas separates access by the type of service publicly documented for each provider.
 
 | Service type | Provider locations | Foreign-born population within 45 modeled minutes |
 | --- | ---: | ---: |
@@ -139,184 +98,236 @@ The atlas can now analyze access to specific service categories rather than trea
 | Cash & benefits assistance | 4 | 37.9% |
 | Immigration & legal support | 4 | **26.9%** |
 
-Immigration and legal support show the largest modeled access gap in the current verified provider inventory.
+Immigration and legal support show the largest modeled access gap in the current verified inventory.
 
 The provider inventory includes **Church World Service (CWS) Dallas** at **1010 E Arapaho Rd., Suite 100, Richardson** as a separate organization from ICNA Relief Dallas.
 
-The service-type filter updates tract reachability, nearest-service travel time, provider markers, and tract popup metrics together. These results describe scheduled transit access to listed service locations; they do not measure provider capacity, appointment availability, eligibility, language match, or service quality.
-
 ## Service-access gap classification
 
-The atlas includes a transparent screening layer that combines scheduled transit access with neighborhood context.
+The service-gap layer combines scheduled transit access with three neighborhood context indicators:
 
-The rule set is intentionally simple:
+- foreign-born population
+- population below poverty
+- households with no vehicle
+
+The rule set is intentionally transparent:
 
 - **Lower gap:** at least one relevant provider within 45 scheduled minutes
-- **Moderate gap:** no provider within 45 minutes, but at least one within 60
-- **High gap:** no relevant provider within 60 minutes
-- tracts in the top quartile on at least two of three context indicators—foreign-born population, poverty population, and no-vehicle households—are elevated one level
+- **Moderate gap:** none within 45 minutes, but at least one within 60
+- **High gap:** none within 60 minutes
+- tracts in the top quartile on at least two context indicators are elevated one level
+- the maximum classification is **Severe gap**
 
-Current 75th-percentile context thresholds are:
-
-- foreign-born population: **1,307**
-- population below poverty: **736.75**
-- no-vehicle households: **128.75**
-
-For **weekday midday immigration/legal access**, the current classification identifies:
+For **weekday midday immigration/legal access**, the current model identifies:
 
 - **185 severe-gap tracts**
 - **728 high-gap tracts**
 - **88 moderate-gap tracts**
 - **93 lower-gap tracts**
 
-These classes are planning-screening categories, not measures of individual refugee need or proof that a community is unserved.
+These categories are planning-screening signals, not proof that a community or individual is unserved.
 
 ## Facility-location optimization
 
-The first planning optimization asks:
+The project evaluates every transit-connected tract candidate to ask:
 
-> If one additional refugee-service site could be added, which transit-connected tract would improve 45-minute access for the largest currently underserved foreign-born population?
+> If one additional refugee-service site could be added, which tract would improve 45-minute access for the largest currently underserved population?
 
-The exact one-site maximum-coverage model evaluates every transit-connected tract candidate.
-
-**Top modeled candidate:** Dallas County tract `48113003102`
+For the foreign-born-population objective, the top modeled candidate is Dallas County tract `48113003102`.
 
 - newly covered foreign-born population: **64,363**
-- newly covered total population: **287,188**
-- newly covered no-vehicle households: **10,253**
-- newly covered tracts: **64**
-- baseline foreign-born population with a provider within 45 modeled minutes: **39.7%**
+- baseline foreign-born population coverage within 45 modeled minutes: **39.7%**
 - optimized coverage with the candidate: **46.0%**
 - modeled gain: **6.3 percentage points**
 
+The project also compares objectives based on total population, no-vehicle households, and population below poverty. The selected tract changes under the poverty-weighted objective, illustrating that site-selection recommendations depend on the planning objective.
+
 This is a **tract-level planning signal**, not a parcel recommendation. The model does not evaluate real-estate availability, cost, zoning, staffing, ownership, or agency feasibility.
-
-
-### Equity-aware scenario comparison
-
-Using the same 45-minute network and candidate set, the project compares how the selected tract changes under different planning objectives.
-
-| Objective | Top tract | County | Newly covered objective | Baseline coverage | With candidate | Gain |
-| --- | --- | --- | ---: | ---: | ---: | ---: |
-| Foreign-born population | `48113003102` | Dallas | 64,363 residents | 39.7% | 46.0% | +6.3 pp |
-| Total population | `48113003102` | Dallas | 287,188 residents | 32.5% | 38.5% | +6.0 pp |
-| No-vehicle households | `48113003102` | Dallas | 10,253 households | 45.0% | 54.9% | +10.0 pp |
-| Population below poverty | `48113008701` | Dallas | 59,535 residents | 37.4% | 47.3% | +10.0 pp |
-
-Three objectives select the same tract, while the poverty-weighted objective shifts the recommendation to `48113008701`. Site-selection results are therefore conditional on the planning objective rather than a single universally best location.
-
-## Analytical outputs
-
-Current outputs include:
-
-- relevant service locations reachable within 30, 45, and 60 minutes
-- modeled travel time to the nearest service
-- service-type-specific accessibility
-- population-weighted access summaries
-- neighborhood service-gap classifications and ranked priority tracts
-- one-site facility-location optimization
-- equity-aware site-selection scenarios
-
-Departure-time-specific waiting and explicit transfer-count metrics remain future enhancements.
 
 ## Architecture
 
 ```text
-Census ACS                  Service directories              DART GTFS
-    ↓                              ↓                            ↓
-tract context                 provider inventory             transit graph
-    └───────────────┬──────────────┴──────────────┬────────────┘
-                    ↓
-              geospatial joins
-                    ↓
-          transit accessibility model
-                    ↓
-       neighborhood access indicators
-                    ↓
-             interactive atlas
-                    ↓
-      facility-location optimization
+ACS + TIGER/Line          Provider sources            DART + Trinity Metro GTFS
+       ↓                         ↓                              ↓
+ tract context            verified inventory              transit network
+       └───────────────────────┬───────────────────────────────┘
+                               ↓
+                     multimodal accessibility
+                               ↓
+              baseline + schedule-aware routing
+                               ↓
+                 service-specific accessibility
+                               ↓
+                    service-gap screening
+                               ↓
+                  facility-location scenarios
+                               ↓
+                     FastAPI + Leaflet atlas
 ```
-
-## Current milestone
-
-**Phase 1 — Core analytical layers**
-
-The repository now includes a validated 2024 ACS tract panel for Dallas and Tarrant Counties and a source-backed inventory of refugee-service providers.
-
-Current validated data:
-
-- 1,094 census tracts
-- 645 Dallas County tracts
-- 449 Tarrant County tracts
-- approximately 4.79 million residents represented
-- approximately 1.02 million foreign-born residents represented
-- 8 verified refugee-service locations across the two counties
-
-The DART GTFS ingestion layer is implemented and validated against DART's current official fixed-route schedule feed.
-
-Current validated transit feed:
-
-- 6,978 stops
-- 92 routes
-- 20,124 trips
-- 961,975 stop-time records
 
 ## Repository structure
 
 ```text
-data/
-  processed/          normalized analytical datasets
-docs/                 data and methodology documentation
-scripts/              reproducible pipeline runners
-src/
-  ingestion/          Census, GTFS, and provider ingestion
-tests/                automated tests
-.github/workflows/    continuous integration
+data/processed/          validated analytical outputs
+docs/                    methodology and source documentation
+scripts/                 reproducible pipeline entry points
+src/analysis/            network and accessibility logic
+src/ingestion/           Census, geography, provider, and GTFS ingestion
+src/optimization/        facility-location models
+src/api/                 FastAPI service and Leaflet interface
+tests/                   automated tests
+.github/workflows/       CI and reproducible analytical builds
 ```
+
+## Reproduce locally
+
+### 1. Clone and install
+
+```bash
+git clone https://github.com/fernandoverdugo/texas-refugee-service-access-atlas.git
+cd texas-refugee-service-access-atlas
+
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+```
+
+### 2. Run the tests
+
+```bash
+python -m pytest -q
+```
+
+### 3. Launch the committed validated application
+
+The repository includes the processed outputs required by the live atlas.
+
+```bash
+uvicorn src.api.app:app --reload
+```
+
+Then open `http://127.0.0.1:8000`.
+
+### 4. Rebuild source-dependent layers
+
+A Census API key is optional for ordinary API requests but is required by the automated ACS refresh workflow.
+
+```bash
+export CENSUS_API_KEY="your_key_here"
+python -m scripts.fetch_acs_dfw
+python -m scripts.build_geography
+python -m scripts.build_accessibility
+python -m scripts.build_service_type_accessibility
+python -m scripts.build_temporal_accessibility
+python -m scripts.build_service_gaps
+python -m scripts.optimize_facility_location
+python -m scripts.optimize_equity_scenarios
+```
+
+The GitHub Actions workflows provide the authoritative automated build and validation path for refreshed source data.
+
+## API
+
+Interactive FastAPI documentation is available at:
+
+- https://texas-refugee-service-access-atlas.onrender.com/docs
+- https://texas-refugee-service-access-atlas.onrender.com/health
+
+Selected endpoints include:
+
+- `/api/summary`
+- `/api/providers`
+- `/api/service-types`
+- `/api/service-accessibility/{service_type}`
+- `/api/time-scenarios`
+- `/api/temporal-accessibility/{scenario_id}`
+- `/api/temporal-service-accessibility/{scenario_id}/{service_type}`
+- `/api/service-gap-summary`
+- `/api/service-gaps/{scenario_id}/{service_type}`
+- `/api/service-gap-priorities/{scenario_id}/{service_type}`
+- `/api/facility-location`
+- `/api/facility-location/scenarios`
+
+## Data sources
+
+- **U.S. Census Bureau ACS 2024 5-year estimates** — tract-level neighborhood context
+- **U.S. Census Bureau TIGER/Line 2024** — census-tract geometries
+- **Dallas Area Rapid Transit (DART) GTFS** — Dallas-area scheduled transit
+- **Trinity Metro GTFS** — Fort Worth/Tarrant-area scheduled transit
+- **Public provider sources** — verification of refugee-relevant organizations, addresses, and services
+- **OpenStreetMap / Nominatim fallback** — provider geocoding where required
+
+See [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md) for source definitions and interpretation constraints.
+
+## Methodology documentation
+
+- [Accessibility model](docs/ACCESSIBILITY.md)
+- [Data sources](docs/DATA_SOURCES.md)
+- [GTFS ingestion](docs/GTFS.md)
+- [Provider inventory](docs/PROVIDERS.md)
+- [Service types](docs/SERVICE_TYPES.md)
+- [Service-gap classification](docs/SERVICE_GAPS.md)
+- [Facility-location optimization](docs/FACILITY_LOCATION.md)
+
+## Interpretation limits
+
+The atlas measures one operational dimension of access: **scheduled public-transit accessibility to listed service locations**.
+
+It does not measure:
+
+- refugee population or individual refugee residence
+- provider capacity
+- appointment availability
+- program eligibility
+- language match
+- service quality
+- real-time transit reliability
+- sidewalk quality or pedestrian barriers
+- childcare, safety, disability access, or other household-level constraints
+
+Outputs should therefore be interpreted as screening and planning evidence, not as definitive measures of unmet need.
 
 ## Technical principles
 
 - use public, auditable sources
 - separate observed data from planning assumptions
-- avoid treating foreign-born or language indicators as refugee counts
-- measure accessibility with travel time rather than straight-line distance where possible
 - preserve source provenance
-- build reusable ingestion and validation before visualization
+- avoid treating foreign-born population as refugee population
+- measure accessibility with network travel time rather than straight-line distance where possible
+- expose assumptions and limitations
+- build reproducible ingestion and validation before visualization
 - test transformations and data contracts
-
-## Data sources
-
-- U.S. Census Bureau American Community Survey 5-year estimates
-- Dallas Area Rapid Transit GTFS
-- verified public service-provider directories
-
-See `docs/DATA_SOURCES.md` for source definitions and interpretation constraints.
 
 ## Technologies
 
 Python · pandas · requests · GeoPandas · Shapely · NetworkX · FastAPI · Leaflet · Docker · pytest · GitHub Actions
 
-## Roadmap
+## Project status
 
-| Phase | Status |
+| Capability | Status |
 | --- | --- |
-| ACS tract-level context | ✅ Implemented |
-| Provider inventory | ✅ Implemented |
+| ACS tract context | ✅ Implemented |
+| TIGER/Line tract geography | ✅ Implemented |
+| Verified provider inventory | ✅ Implemented |
 | DART GTFS ingestion | ✅ Implemented |
 | Trinity Metro GTFS ingestion | ✅ Implemented |
-| Transit graph + routing | ✅ Implemented |
-| Accessibility metrics | ✅ Baseline + service-type + time-dependent metrics implemented |
-| Interactive atlas | ✅ Live deployment |
-| Facility-location optimization | ✅ One-site + equity-aware scenarios implemented |
+| Multimodal transit graph | ✅ Implemented |
+| Baseline accessibility | ✅ Implemented |
+| Schedule-aware accessibility | ✅ Implemented |
+| Service-type accessibility | ✅ Implemented |
+| Service-gap classification | ✅ Implemented |
+| Interactive atlas + API | ✅ Live deployment |
+| Facility-location optimization | ✅ Implemented |
+
+Potential future extensions include real-time transit reliability, richer pedestrian-network routing, provider-capacity data, and broader Texas metro coverage.
 
 ## License
 
 MIT
 
-
 ## Trinity Metro data notice
 
-Data provided by Trinity Metro is not warranted by Trinity Metro for accuracy or completeness and data is subject to change without notice.
+Data provided by Trinity Metro is not warranted by Trinity Metro for accuracy or completeness and is subject to change without notice.
 
 Geocoding fallback attribution: © OpenStreetMap contributors (Nominatim / ODbL).

@@ -63,7 +63,7 @@ receives a base classification of **High gap** and is elevated to **Severe gap**
 
 ## Priority ranking
 
-For each time scenario and service type, the project also publishes the top 25 priority tracts.
+For each time scenario and service type, the project publishes the top 25 priority tracts.
 
 Ranking is deterministic and ordered by:
 
@@ -85,7 +85,7 @@ For immigration and legal support at the weekday-midday scenario:
 - 88 tracts are classified **Moderate gap**
 - 93 tracts are classified **Lower gap**
 
-The large number of high/severe tracts reflects the combination of limited scheduled transit access to the three verified immigration/legal locations and the conservative time-dependent routing model.
+The large number of high/severe tracts reflects limited scheduled transit access to the **four verified immigration/legal locations** in the current inventory and the conservative schedule-aware routing model.
 
 ## Limitations
 

@@ -1,6 +1,6 @@
 # Multimodal DFW accessibility model
 
-The accessibility layer uses two official GTFS schedule feeds:
+The accessibility system uses official GTFS schedule feeds from:
 
 1. **Dallas Area Rapid Transit (DART)** for Dallas-area bus, light rail, TRE, trolley, and streetcar service.
 2. **Trinity Metro** for Fort Worth/Tarrant-area transit service.
@@ -9,66 +9,40 @@ A DART-only network would systematically understate transit access in Tarrant Co
 
 ## Cross-agency identifiers
 
-GTFS identifiers are only guaranteed to be unique within a feed. The project namespaces stop and trip identifiers before combining agencies.
+GTFS identifiers are unique only within a feed. Stop and trip identifiers are namespaced before the feeds are combined.
 
 Examples:
 
 - `dart:12345`
 - `trinity:12345`
 
-This prevents accidental collisions between unrelated identifiers.
-
-## Scheduled transit edges
-
-For each trip, consecutive stop-time records are converted into directed stop-to-stop edges. Repeated observations of the same stop pair are summarized with median scheduled travel time.
-
-This first model is frequency-agnostic. It represents scheduled in-vehicle travel time but does not yet model wait time for a particular departure.
-
-## Walking transfers
-
-Stops within 300 meters are connected by walking-transfer edges using a 4.8 km/h walking-speed assumption. These connections support transfers within an agency and between DART and Trinity Metro where their networks meet.
-
 ## Origins and destinations
 
-Census tract representative points and verified refugee-service locations connect to up to three transit stops within one kilometer. Access and egress walking time are included in total generalized travel time.
+Census tract representative points are used as tract-level routing origins.
 
-## First accessibility metrics
+Verified refugee-service locations are routing destinations. Tracts and providers connect to up to three transit stops within one kilometer, and access/egress walking time is included in generalized travel time.
 
-For each census tract the model calculates:
+These are tract-level planning abstractions rather than modeled household doorsteps.
 
-- nearest reachable refugee-service provider travel time
+## Frequency-agnostic baseline
+
+For each trip, consecutive stop-time records are converted into directed stop-to-stop edges. Repeated observations of a stop pair are summarized with median scheduled in-vehicle time.
+
+Stops within 300 meters are connected by walking-transfer edges using a 4.8 km/h walking-speed assumption. This supports transfers within and between agencies where the networks meet.
+
+For each census tract, the baseline calculates:
+
+- nearest reachable provider travel time
 - providers reachable within 30 minutes
 - providers reachable within 45 minutes
 - providers reachable within 60 minutes
 - total reachable providers
 
-## Interpretation limits
+This baseline is **frequency-agnostic**: it represents network travel-time potential but does not require arrival before a specific scheduled departure.
 
-The model measures scheduled transit accessibility, not actual trip performance. It does not yet account for:
+## Schedule-aware routing
 
-- departure-time-specific waiting
-- missed connections
-- real-time delays
-- demand-responsive transit
-- appointment availability
-- program eligibility
-- language availability
-- sidewalk quality or pedestrian barriers
-
-Those limitations are intentionally documented before any public-facing accessibility score is presented.
-
-## Trinity Metro data notice
-
-Data provided by Trinity Metro is not warranted by Trinity Metro for accuracy or completeness and data is subject to change without notice.
-
-The reproducible build retrieves the current official feed so public outputs can be refreshed when schedules change.
-
-
-## Time-dependent routing
-
-The project now includes a schedule-aware routing layer in addition to the original frequency-agnostic baseline.
-
-The temporal model uses:
+The project also includes a time-dependent routing layer based on:
 
 - `trips.txt`
 - `stop_times.txt`
@@ -77,7 +51,7 @@ The temporal model uses:
 
 for both DART and Trinity Metro.
 
-For each scenario, the pipeline selects a recent common active service date across both feeds, applies weekly service calendars and date-specific exceptions, and evaluates actual scheduled connections.
+For each scenario, the pipeline selects a common active service date across both feeds, applies weekly calendars and date-specific exceptions, and evaluates actual scheduled connections.
 
 ### Representative scenarios
 
@@ -86,24 +60,34 @@ For each scenario, the pipeline selects a recent common active service date acro
 - Weekday evening: 6:00 PM
 - Saturday midday: 1:00 PM
 
-The current published feeds produced representative dates of December 2, 2026 for weekday scenarios and December 5, 2026 for Saturday midday.
+The current published feeds produced representative dates of **December 2, 2026** for weekday scenarios and **December 5, 2026** for Saturday midday.
 
 ### Routing method
 
-The model uses a backward scheduled-connection scan.
+The temporal model uses a backward scheduled-connection scan.
 
 For each provider and travel-time threshold:
 
 1. begin from the provider's nearby transit stops;
 2. subtract final walking time from the threshold deadline;
-3. scan GTFS transit connections backward by scheduled arrival time;
+3. scan GTFS connections backward by scheduled arrival time;
 4. accept a connection only when its arrival can still reach the destination before the deadline;
 5. propagate nearby walking-transfer opportunities backward;
 6. count an origin tract as reachable only when its access walk reaches a stop before the latest feasible departure.
 
-This means a rider who reaches a stop after the bus or train leaves does not receive credit for that trip.
+A rider who reaches a stop after the bus or train leaves does not receive credit for that trip.
 
-### Current overall results
+## Baseline results
+
+Foreign-born population with at least one verified provider within:
+
+| Threshold | Dallas + Tarrant |
+| --- | ---: |
+| 30 modeled minutes | 21.8% |
+| 45 modeled minutes | 39.7% |
+| 60 modeled minutes | 51.4% |
+
+## Schedule-aware results
 
 Foreign-born population with at least one verified provider reachable within 45 scheduled minutes:
 
@@ -114,17 +98,43 @@ Foreign-born population with at least one verified provider reachable within 45 
 | Weekday evening | 14.2% |
 | Saturday midday | 14.8% |
 
-The earlier frequency-agnostic 45-minute baseline was 39.7%. The difference is expected: the baseline measures network travel-time potential, while the temporal model also requires a usable scheduled departure.
+The lower schedule-aware percentages are expected because the temporal model also requires a usable departure after the rider reaches the stop.
 
-### Interpretation limits
+## Service-specific accessibility
 
-The temporal layer still does not model:
+The same routing framework is applied separately to normalized provider service categories.
+
+This prevents a tract from receiving credit for access to an unrelated service merely because some refugee-relevant provider is nearby.
+
+The current categories are:
+
+- resettlement & case management
+- employment
+- education & English-language support
+- health & behavioral health
+- immigration & legal support
+- cash & benefits assistance
+
+## Interpretation limits
+
+Both routing layers measure **scheduled transit accessibility**, not actual trip performance or individual service use.
+
+The models do not currently account for:
 
 - real-time delay
-- canceled trips
+- canceled trips not represented in schedule data
 - reliability distributions
 - unexpected missed connections
-- walking-network barriers
-- service eligibility or appointment availability
+- detailed pedestrian-network barriers
+- provider capacity
+- appointment availability
+- program eligibility
+- language match
+- service quality
+- household-level travel constraints
 
-It should therefore be interpreted as **scheduled accessibility**, not guaranteed door-to-door travel time.
+The results should therefore be interpreted as planning and screening evidence rather than guaranteed travel time or a definitive measure of unmet need.
+
+## Trinity Metro data notice
+
+Data provided by Trinity Metro is not warranted by Trinity Metro for accuracy or completeness and is subject to change without notice.
