@@ -1,8 +1,8 @@
 scenario_id,service_type,gap_level,gap_class,tract_count,population,foreign_born_population,population_below_poverty,households_no_vehicle,scenario_label,departure_time,service_date,service_label
-weekday_evening,all,3,Severe gap,162,886284,243538,189181,29635,Weekday evening,18:00,2026-12-02,All verified services
-weekday_evening,all,2,High gap,675,2979569,560968,289039,43769,Weekday evening,18:00,2026-12-02,All verified services
-weekday_evening,all,1,Moderate gap,143,545039,139889,77912,17641,Weekday evening,18:00,2026-12-02,All verified services
-weekday_evening,all,0,Lower gap,114,377677,78827,41424,11563,Weekday evening,18:00,2026-12-02,All verified services
+weekday_evening,all,3,Severe gap,161,881112,241189,188742,29492,Weekday evening,18:00,2026-12-02,All verified services
+weekday_evening,all,2,High gap,663,2918321,538345,276659,41575,Weekday evening,18:00,2026-12-02,All verified services
+weekday_evening,all,1,Moderate gap,141,552056,148976,84202,19003,Weekday evening,18:00,2026-12-02,All verified services
+weekday_evening,all,0,Lower gap,129,437080,94712,47953,12538,Weekday evening,18:00,2026-12-02,All verified services
 weekday_evening,cash_benefits,3,Severe gap,171,942139,264078,199064,30981,Weekday evening,18:00,2026-12-02,Cash & benefits assistance
 weekday_evening,cash_benefits,2,High gap,723,3148078,589249,304622,47796,Weekday evening,18:00,2026-12-02,Cash & benefits assistance
 weekday_evening,cash_benefits,1,Moderate gap,140,503564,126655,70076,17408,Weekday evening,18:00,2026-12-02,Cash & benefits assistance
@@ -11,10 +11,10 @@ weekday_evening,education,3,Severe gap,162,886284,243538,189181,29635,Weekday ev
 weekday_evening,education,2,High gap,681,3013669,565776,294656,44886,Weekday evening,18:00,2026-12-02,Education & English-language support
 weekday_evening,education,1,Moderate gap,147,551043,141966,77274,17072,Weekday evening,18:00,2026-12-02,Education & English-language support
 weekday_evening,education,0,Lower gap,104,337573,71942,36445,11015,Weekday evening,18:00,2026-12-02,Education & English-language support
-weekday_evening,employment,3,Severe gap,166,916936,254116,194697,30261,Weekday evening,18:00,2026-12-02,Employment
-weekday_evening,employment,2,High gap,687,3019560,567237,289159,44114,Weekday evening,18:00,2026-12-02,Employment
-weekday_evening,employment,1,Moderate gap,145,545015,140558,77199,18067,Weekday evening,18:00,2026-12-02,Employment
-weekday_evening,employment,0,Lower gap,96,307058,61311,36501,10166,Weekday evening,18:00,2026-12-02,Employment
+weekday_evening,employment,3,Severe gap,163,897588,246403,191456,29631,Weekday evening,18:00,2026-12-02,Employment
+weekday_evening,employment,2,High gap,671,2946259,543507,276995,42059,Weekday evening,18:00,2026-12-02,Employment
+weekday_evening,employment,1,Moderate gap,142,552387,147855,83755,19225,Weekday evening,18:00,2026-12-02,Employment
+weekday_evening,employment,0,Lower gap,118,392335,85457,45350,11693,Weekday evening,18:00,2026-12-02,Employment
 weekday_evening,health,3,Severe gap,172,949114,266463,200976,31522,Weekday evening,18:00,2026-12-02,Health & behavioral health
 weekday_evening,health,2,High gap,716,3126902,591654,299424,47998,Weekday evening,18:00,2026-12-02,Health & behavioral health
 weekday_evening,health,1,Moderate gap,126,463096,116030,67799,14686,Weekday evening,18:00,2026-12-02,Health & behavioral health
@@ -23,14 +23,14 @@ weekday_evening,immigration,3,Severe gap,196,1064680,310737,226773,36925,Weekday
 weekday_evening,immigration,2,High gap,755,3224610,606631,304279,49949,Weekday evening,18:00,2026-12-02,Immigration & legal support
 weekday_evening,immigration,1,Moderate gap,95,342237,78054,47657,11381,Weekday evening,18:00,2026-12-02,Immigration & legal support
 weekday_evening,immigration,0,Lower gap,48,157042,27800,18847,4353,Weekday evening,18:00,2026-12-02,Immigration & legal support
-weekday_evening,resettlement_case_management,3,Severe gap,162,886284,243538,189181,29635,Weekday evening,18:00,2026-12-02,Resettlement & case management
-weekday_evening,resettlement_case_management,2,High gap,675,2979569,560968,289039,43769,Weekday evening,18:00,2026-12-02,Resettlement & case management
-weekday_evening,resettlement_case_management,1,Moderate gap,143,545039,139889,77912,17641,Weekday evening,18:00,2026-12-02,Resettlement & case management
-weekday_evening,resettlement_case_management,0,Lower gap,114,377677,78827,41424,11563,Weekday evening,18:00,2026-12-02,Resettlement & case management
-weekday_midday,all,3,Severe gap,162,899444,249373,191354,30093,Weekday midday,13:00,2026-12-02,All verified services
-weekday_midday,all,2,High gap,693,3031160,569324,291889,44416,Weekday midday,13:00,2026-12-02,All verified services
-weekday_midday,all,1,Moderate gap,108,409103,108177,63944,14870,Weekday midday,13:00,2026-12-02,All verified services
-weekday_midday,all,0,Lower gap,131,448862,96348,50369,13229,Weekday midday,13:00,2026-12-02,All verified services
+weekday_evening,resettlement_case_management,3,Severe gap,161,881112,241189,188742,29492,Weekday evening,18:00,2026-12-02,Resettlement & case management
+weekday_evening,resettlement_case_management,2,High gap,663,2918321,538345,276659,41575,Weekday evening,18:00,2026-12-02,Resettlement & case management
+weekday_evening,resettlement_case_management,1,Moderate gap,141,552056,148976,84202,19003,Weekday evening,18:00,2026-12-02,Resettlement & case management
+weekday_evening,resettlement_case_management,0,Lower gap,129,437080,94712,47953,12538,Weekday evening,18:00,2026-12-02,Resettlement & case management
+weekday_midday,all,3,Severe gap,161,891646,246871,190948,29663,Weekday midday,13:00,2026-12-02,All verified services
+weekday_midday,all,2,High gap,687,3010636,563701,286989,43698,Weekday midday,13:00,2026-12-02,All verified services
+weekday_midday,all,1,Moderate gap,110,421812,113884,67861,15634,Weekday midday,13:00,2026-12-02,All verified services
+weekday_midday,all,0,Lower gap,136,464475,98766,51758,13613,Weekday midday,13:00,2026-12-02,All verified services
 weekday_midday,cash_benefits,3,Severe gap,176,975803,276175,204971,31966,Weekday midday,13:00,2026-12-02,Cash & benefits assistance
 weekday_midday,cash_benefits,2,High gap,747,3225177,615230,316131,51068,Weekday midday,13:00,2026-12-02,Cash & benefits assistance
 weekday_midday,cash_benefits,1,Moderate gap,116,402589,90512,53972,13096,Weekday midday,13:00,2026-12-02,Cash & benefits assistance
@@ -39,10 +39,10 @@ weekday_midday,education,3,Severe gap,162,899444,249373,191354,30093,Weekday mid
 weekday_midday,education,2,High gap,699,3065260,574132,297506,45533,Weekday midday,13:00,2026-12-02,Education & English-language support
 weekday_midday,education,1,Moderate gap,112,415107,110254,63306,14301,Weekday midday,13:00,2026-12-02,Education & English-language support
 weekday_midday,education,0,Lower gap,121,408758,89463,45390,12681,Weekday midday,13:00,2026-12-02,Education & English-language support
-weekday_midday,employment,3,Severe gap,165,918740,256771,193304,30503,Weekday midday,13:00,2026-12-02,Employment
-weekday_midday,employment,2,High gap,712,3117014,599963,306715,47108,Weekday midday,13:00,2026-12-02,Employment
-weekday_midday,employment,1,Moderate gap,115,417770,102058,58712,13615,Weekday midday,13:00,2026-12-02,Employment
-weekday_midday,employment,0,Lower gap,102,335045,64430,38825,11382,Weekday midday,13:00,2026-12-02,Employment
+weekday_midday,employment,3,Severe gap,162,898871,249884,191851,29755,Weekday midday,13:00,2026-12-02,Employment
+weekday_midday,employment,2,High gap,698,3056646,579289,292929,45412,Weekday midday,13:00,2026-12-02,Employment
+weekday_midday,employment,1,Moderate gap,113,422046,108143,65442,14647,Weekday midday,13:00,2026-12-02,Employment
+weekday_midday,employment,0,Lower gap,121,411006,85906,47334,12794,Weekday midday,13:00,2026-12-02,Employment
 weekday_midday,health,3,Severe gap,173,957173,270829,201123,32459,Weekday midday,13:00,2026-12-02,Health & behavioral health
 weekday_midday,health,2,High gap,737,3207441,616696,313160,49497,Weekday midday,13:00,2026-12-02,Health & behavioral health
 weekday_midday,health,1,Moderate gap,105,369725,88293,53003,11852,Weekday midday,13:00,2026-12-02,Health & behavioral health
@@ -51,14 +51,14 @@ weekday_midday,immigration,3,Severe gap,189,1031279,298410,217101,36156,Weekday 
 weekday_midday,immigration,2,High gap,750,3229501,616095,311065,49069,Weekday midday,13:00,2026-12-02,Immigration & legal support
 weekday_midday,immigration,1,Moderate gap,92,322499,74665,45575,10508,Weekday midday,13:00,2026-12-02,Immigration & legal support
 weekday_midday,immigration,0,Lower gap,63,205290,34052,23815,6875,Weekday midday,13:00,2026-12-02,Immigration & legal support
-weekday_midday,resettlement_case_management,3,Severe gap,162,899444,249373,191354,30093,Weekday midday,13:00,2026-12-02,Resettlement & case management
-weekday_midday,resettlement_case_management,2,High gap,693,3031160,569324,291889,44416,Weekday midday,13:00,2026-12-02,Resettlement & case management
-weekday_midday,resettlement_case_management,1,Moderate gap,108,409103,108177,63944,14870,Weekday midday,13:00,2026-12-02,Resettlement & case management
-weekday_midday,resettlement_case_management,0,Lower gap,131,448862,96348,50369,13229,Weekday midday,13:00,2026-12-02,Resettlement & case management
-weekday_morning,all,3,Severe gap,170,935075,258200,200897,31127,Weekday morning,08:00,2026-12-02,All verified services
-weekday_morning,all,2,High gap,676,2980943,570217,285186,43419,Weekday morning,08:00,2026-12-02,All verified services
-weekday_morning,all,1,Moderate gap,126,472982,110854,67774,15331,Weekday morning,08:00,2026-12-02,All verified services
-weekday_morning,all,0,Lower gap,122,399569,83951,43699,12731,Weekday morning,08:00,2026-12-02,All verified services
+weekday_midday,resettlement_case_management,3,Severe gap,161,891646,246871,190948,29663,Weekday midday,13:00,2026-12-02,Resettlement & case management
+weekday_midday,resettlement_case_management,2,High gap,687,3010636,563701,286989,43698,Weekday midday,13:00,2026-12-02,Resettlement & case management
+weekday_midday,resettlement_case_management,1,Moderate gap,110,421812,113884,67861,15634,Weekday midday,13:00,2026-12-02,Resettlement & case management
+weekday_midday,resettlement_case_management,0,Lower gap,136,464475,98766,51758,13613,Weekday midday,13:00,2026-12-02,Resettlement & case management
+weekday_morning,all,3,Severe gap,167,915727,250487,197656,30497,Weekday morning,08:00,2026-12-02,All verified services
+weekday_morning,all,2,High gap,663,2920139,546844,274848,41446,Weekday morning,08:00,2026-12-02,All verified services
+weekday_morning,all,1,Moderate gap,119,470748,119833,72785,16873,Weekday morning,08:00,2026-12-02,All verified services
+weekday_morning,all,0,Lower gap,145,481955,106058,52267,13792,Weekday morning,08:00,2026-12-02,All verified services
 weekday_morning,cash_benefits,3,Severe gap,179,983432,276053,208849,32958,Weekday morning,08:00,2026-12-02,Cash & benefits assistance
 weekday_morning,cash_benefits,2,High gap,717,3129853,596280,301163,46222,Weekday morning,08:00,2026-12-02,Cash & benefits assistance
 weekday_morning,cash_benefits,1,Moderate gap,131,465683,104621,61475,15495,Weekday morning,08:00,2026-12-02,Cash & benefits assistance
@@ -67,10 +67,10 @@ weekday_morning,education,3,Severe gap,170,935075,258200,200897,31127,Weekday mo
 weekday_morning,education,2,High gap,682,3015043,575025,290803,44536,Weekday morning,08:00,2026-12-02,Education & English-language support
 weekday_morning,education,1,Moderate gap,130,478986,112931,67136,14762,Weekday morning,08:00,2026-12-02,Education & English-language support
 weekday_morning,education,0,Lower gap,112,359465,77066,38720,12183,Weekday morning,08:00,2026-12-02,Education & English-language support
-weekday_morning,employment,3,Severe gap,171,942300,261213,201800,31219,Weekday morning,08:00,2026-12-02,Employment
-weekday_morning,employment,2,High gap,684,3014626,579843,288942,43908,Weekday morning,08:00,2026-12-02,Employment
-weekday_morning,employment,1,Moderate gap,136,505410,117774,68456,16307,Weekday morning,08:00,2026-12-02,Employment
-weekday_morning,employment,0,Lower gap,103,326233,64392,38358,11174,Weekday morning,08:00,2026-12-02,Employment
+weekday_morning,employment,3,Severe gap,168,922952,253500,198559,30589,Weekday morning,08:00,2026-12-02,Employment
+weekday_morning,employment,2,High gap,669,2945149,554147,275990,41707,Weekday morning,08:00,2026-12-02,Employment
+weekday_morning,employment,1,Moderate gap,118,463523,116820,71882,16781,Weekday morning,08:00,2026-12-02,Employment
+weekday_morning,employment,0,Lower gap,139,456945,98755,51125,13531,Weekday morning,08:00,2026-12-02,Employment
 weekday_morning,health,3,Severe gap,179,985007,276990,209275,33415,Weekday morning,08:00,2026-12-02,Health & behavioral health
 weekday_morning,health,2,High gap,710,3108295,597973,296952,46739,Weekday morning,08:00,2026-12-02,Health & behavioral health
 weekday_morning,health,1,Moderate gap,118,426635,96103,60115,13044,Weekday morning,08:00,2026-12-02,Health & behavioral health
@@ -79,14 +79,14 @@ weekday_morning,immigration,3,Severe gap,193,1053423,307362,223328,36131,Weekday
 weekday_morning,immigration,2,High gap,733,3161864,599088,300104,48416,Weekday morning,08:00,2026-12-02,Immigration & legal support
 weekday_morning,immigration,1,Moderate gap,106,376154,82530,51161,11125,Weekday morning,08:00,2026-12-02,Immigration & legal support
 weekday_morning,immigration,0,Lower gap,62,197128,34242,22963,6936,Weekday morning,08:00,2026-12-02,Immigration & legal support
-weekday_morning,resettlement_case_management,3,Severe gap,170,935075,258200,200897,31127,Weekday morning,08:00,2026-12-02,Resettlement & case management
-weekday_morning,resettlement_case_management,2,High gap,676,2980943,570217,285186,43419,Weekday morning,08:00,2026-12-02,Resettlement & case management
-weekday_morning,resettlement_case_management,1,Moderate gap,126,472982,110854,67774,15331,Weekday morning,08:00,2026-12-02,Resettlement & case management
-weekday_morning,resettlement_case_management,0,Lower gap,122,399569,83951,43699,12731,Weekday morning,08:00,2026-12-02,Resettlement & case management
-weekend_midday,all,3,Severe gap,159,874190,239576,190236,29097,Saturday midday,13:00,2026-12-05,All verified services
-weekend_midday,all,2,High gap,694,3050358,577492,293332,45326,Saturday midday,13:00,2026-12-05,All verified services
-weekend_midday,all,1,Moderate gap,123,463169,117970,70107,16378,Saturday midday,13:00,2026-12-05,All verified services
-weekend_midday,all,0,Lower gap,118,400852,88184,43881,11807,Saturday midday,13:00,2026-12-05,All verified services
+weekday_morning,resettlement_case_management,3,Severe gap,167,915727,250487,197656,30497,Weekday morning,08:00,2026-12-02,Resettlement & case management
+weekday_morning,resettlement_case_management,2,High gap,663,2920139,546844,274848,41446,Weekday morning,08:00,2026-12-02,Resettlement & case management
+weekday_morning,resettlement_case_management,1,Moderate gap,119,470748,119833,72785,16873,Weekday morning,08:00,2026-12-02,Resettlement & case management
+weekday_morning,resettlement_case_management,0,Lower gap,145,481955,106058,52267,13792,Weekday morning,08:00,2026-12-02,Resettlement & case management
+weekend_midday,all,3,Severe gap,157,863389,235465,187292,28595,Saturday midday,13:00,2026-12-05,All verified services
+weekend_midday,all,2,High gap,688,3027515,574158,291095,44805,Saturday midday,13:00,2026-12-05,All verified services
+weekend_midday,all,1,Moderate gap,126,477937,122768,73389,16971,Saturday midday,13:00,2026-12-05,All verified services
+weekend_midday,all,0,Lower gap,123,419728,90831,45780,12237,Saturday midday,13:00,2026-12-05,All verified services
 weekend_midday,cash_benefits,3,Severe gap,172,955582,265326,203047,31070,Saturday midday,13:00,2026-12-05,Cash & benefits assistance
 weekend_midday,cash_benefits,2,High gap,733,3200755,611416,308957,48481,Saturday midday,13:00,2026-12-05,Cash & benefits assistance
 weekend_midday,cash_benefits,1,Moderate gap,122,415424,99342,59252,15066,Saturday midday,13:00,2026-12-05,Cash & benefits assistance
@@ -95,10 +95,10 @@ weekend_midday,education,3,Severe gap,161,887756,241249,192485,29594,Saturday mi
 weekend_midday,education,2,High gap,707,3109454,588644,302750,46531,Saturday midday,13:00,2026-12-05,Education & English-language support
 weekend_midday,education,1,Moderate gap,118,430611,112030,63419,15224,Saturday midday,13:00,2026-12-05,Education & English-language support
 weekend_midday,education,0,Lower gap,108,360748,81299,38902,11259,Saturday midday,13:00,2026-12-05,Education & English-language support
-weekend_midday,employment,3,Severe gap,161,888314,244625,191747,29364,Saturday midday,13:00,2026-12-05,Employment
-weekend_midday,employment,2,High gap,710,3117998,600179,300253,46864,Saturday midday,13:00,2026-12-05,Employment
-weekend_midday,employment,1,Moderate gap,128,474531,117413,69749,16062,Saturday midday,13:00,2026-12-05,Employment
-weekend_midday,employment,0,Lower gap,95,307726,61005,35807,10318,Saturday midday,13:00,2026-12-05,Employment
+weekend_midday,employment,3,Severe gap,158,870614,238478,188195,28687,Saturday midday,13:00,2026-12-05,Employment
+weekend_midday,employment,2,High gap,697,3064778,586418,293997,45280,Saturday midday,13:00,2026-12-05,Employment
+weekend_midday,employment,1,Moderate gap,128,478852,119083,73319,17061,Saturday midday,13:00,2026-12-05,Employment
+weekend_midday,employment,0,Lower gap,111,374325,79243,42045,11580,Saturday midday,13:00,2026-12-05,Employment
 weekend_midday,health,3,Severe gap,172,941008,264202,202595,31586,Saturday midday,13:00,2026-12-05,Health & behavioral health
 weekend_midday,health,2,High gap,727,3179279,614710,308114,49619,Saturday midday,13:00,2026-12-05,Health & behavioral health
 weekend_midday,health,1,Moderate gap,123,439830,102545,60139,13675,Saturday midday,13:00,2026-12-05,Health & behavioral health
@@ -107,7 +107,7 @@ weekend_midday,immigration,3,Severe gap,197,1060600,309623,227236,37911,Saturday
 weekend_midday,immigration,2,High gap,755,3233613,614190,308083,48618,Saturday midday,13:00,2026-12-05,Immigration & legal support
 weekend_midday,immigration,1,Moderate gap,98,352568,74663,45447,12190,Saturday midday,13:00,2026-12-05,Immigration & legal support
 weekend_midday,immigration,0,Lower gap,44,141788,24746,16790,3889,Saturday midday,13:00,2026-12-05,Immigration & legal support
-weekend_midday,resettlement_case_management,3,Severe gap,159,874190,239576,190236,29097,Saturday midday,13:00,2026-12-05,Resettlement & case management
-weekend_midday,resettlement_case_management,2,High gap,694,3050358,577492,293332,45326,Saturday midday,13:00,2026-12-05,Resettlement & case management
-weekend_midday,resettlement_case_management,1,Moderate gap,123,463169,117970,70107,16378,Saturday midday,13:00,2026-12-05,Resettlement & case management
-weekend_midday,resettlement_case_management,0,Lower gap,118,400852,88184,43881,11807,Saturday midday,13:00,2026-12-05,Resettlement & case management
+weekend_midday,resettlement_case_management,3,Severe gap,157,863389,235465,187292,28595,Saturday midday,13:00,2026-12-05,Resettlement & case management
+weekend_midday,resettlement_case_management,2,High gap,688,3027515,574158,291095,44805,Saturday midday,13:00,2026-12-05,Resettlement & case management
+weekend_midday,resettlement_case_management,1,Moderate gap,126,477937,122768,73389,16971,Saturday midday,13:00,2026-12-05,Resettlement & case management
+weekend_midday,resettlement_case_management,0,Lower gap,123,419728,90831,45780,12237,Saturday midday,13:00,2026-12-05,Resettlement & case management

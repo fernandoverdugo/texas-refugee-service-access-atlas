@@ -74,31 +74,31 @@ geoid,scenario_id,scenario_label,departure_time,service_date,service_type,servic
 48439105009,weekday_evening,Weekday evening,18:00,2026-12-02,education,Education & English-language support,0,0,0,Tarrant,6754,1751,1776,192,True,True,True,3,True,2,3,Severe gap,23
 48439111543,weekday_evening,Weekday evening,18:00,2026-12-02,education,Education & English-language support,0,0,0,Tarrant,8428,1739,1474,211,True,True,True,3,True,2,3,Severe gap,24
 48113014405,weekday_evening,Weekday evening,18:00,2026-12-02,education,Education & English-language support,0,0,0,Dallas,3410,1729,969,213,True,True,True,3,True,2,3,Severe gap,25
-48113019019,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Dallas,7277,3328,2194,312,True,True,True,3,True,2,3,Severe gap,1
-48113012000,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Dallas,10692,2901,3277,525,True,True,True,3,True,2,3,Severe gap,2
-48439121905,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Tarrant,6385,2877,2286,292,True,True,True,3,True,2,3,Severe gap,3
-48113014407,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Dallas,5238,2804,1397,186,True,True,True,3,True,2,3,Severe gap,4
-48113014309,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Dallas,5986,2794,1082,220,True,True,True,3,True,2,3,Severe gap,5
-48113012207,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Dallas,7482,2766,1255,171,True,True,True,3,True,2,3,Severe gap,6
-48113014306,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Dallas,6020,2438,748,144,True,True,True,3,True,2,3,Severe gap,7
-48113012701,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Dallas,5816,2344,965,325,True,True,True,3,True,2,3,Severe gap,8
-48113017102,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Dallas,7192,2308,2271,188,True,True,True,3,True,2,3,Severe gap,9
-48439113931,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Tarrant,14395,2298,974,188,True,True,True,3,True,2,3,Severe gap,10
-48113014602,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Dallas,4619,2268,899,231,True,True,True,3,True,2,3,Severe gap,11
-48439122300,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Tarrant,6144,2226,1636,365,True,True,True,3,True,2,3,Severe gap,12
-48113009301,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Dallas,5488,2209,789,130,True,True,True,3,True,2,3,Severe gap,13
-48439100505,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Tarrant,5953,2193,2291,230,True,True,True,3,True,2,3,Severe gap,14
-48113011500,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Dallas,4591,2092,1775,186,True,True,True,3,True,2,3,Severe gap,15
-48439106102,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Tarrant,5392,2062,1421,190,True,True,True,3,True,2,3,Severe gap,16
-48113020800,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Dallas,7786,2015,1522,513,True,True,True,3,True,2,3,Severe gap,17
-48113012302,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Dallas,8358,2008,3217,139,True,True,True,3,True,2,3,Severe gap,18
-48113013719,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Dallas,4554,1979,1026,334,True,True,True,3,True,2,3,Severe gap,19
-48113002500,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Dallas,4977,1976,933,269,True,True,True,3,True,2,3,Severe gap,20
-48439122402,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Tarrant,5127,1906,1100,266,True,True,True,3,True,2,3,Severe gap,21
-48113017806,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Dallas,4562,1827,824,138,True,True,True,3,True,2,3,Severe gap,22
-48439121904,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Tarrant,4598,1770,862,224,True,True,True,3,True,2,3,Severe gap,23
-48439105009,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Tarrant,6754,1751,1776,192,True,True,True,3,True,2,3,Severe gap,24
-48439111543,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Tarrant,8428,1739,1474,211,True,True,True,3,True,2,3,Severe gap,25
+48113012000,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Dallas,10692,2901,3277,525,True,True,True,3,True,2,3,Severe gap,1
+48439121905,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Tarrant,6385,2877,2286,292,True,True,True,3,True,2,3,Severe gap,2
+48113014407,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Dallas,5238,2804,1397,186,True,True,True,3,True,2,3,Severe gap,3
+48113014309,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Dallas,5986,2794,1082,220,True,True,True,3,True,2,3,Severe gap,4
+48113012207,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Dallas,7482,2766,1255,171,True,True,True,3,True,2,3,Severe gap,5
+48113014306,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Dallas,6020,2438,748,144,True,True,True,3,True,2,3,Severe gap,6
+48113012701,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Dallas,5816,2344,965,325,True,True,True,3,True,2,3,Severe gap,7
+48113017102,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Dallas,7192,2308,2271,188,True,True,True,3,True,2,3,Severe gap,8
+48439113931,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Tarrant,14395,2298,974,188,True,True,True,3,True,2,3,Severe gap,9
+48113014602,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Dallas,4619,2268,899,231,True,True,True,3,True,2,3,Severe gap,10
+48439122300,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Tarrant,6144,2226,1636,365,True,True,True,3,True,2,3,Severe gap,11
+48113009301,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Dallas,5488,2209,789,130,True,True,True,3,True,2,3,Severe gap,12
+48439100505,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Tarrant,5953,2193,2291,230,True,True,True,3,True,2,3,Severe gap,13
+48113011500,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Dallas,4591,2092,1775,186,True,True,True,3,True,2,3,Severe gap,14
+48439106102,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Tarrant,5392,2062,1421,190,True,True,True,3,True,2,3,Severe gap,15
+48113020800,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Dallas,7786,2015,1522,513,True,True,True,3,True,2,3,Severe gap,16
+48113012302,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Dallas,8358,2008,3217,139,True,True,True,3,True,2,3,Severe gap,17
+48113013719,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Dallas,4554,1979,1026,334,True,True,True,3,True,2,3,Severe gap,18
+48113002500,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Dallas,4977,1976,933,269,True,True,True,3,True,2,3,Severe gap,19
+48439122402,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Tarrant,5127,1906,1100,266,True,True,True,3,True,2,3,Severe gap,20
+48113017806,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Dallas,4562,1827,824,138,True,True,True,3,True,2,3,Severe gap,21
+48439121904,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Tarrant,4598,1770,862,224,True,True,True,3,True,2,3,Severe gap,22
+48439105009,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Tarrant,6754,1751,1776,192,True,True,True,3,True,2,3,Severe gap,23
+48439111543,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Tarrant,8428,1739,1474,211,True,True,True,3,True,2,3,Severe gap,24
+48113014405,weekday_evening,Weekday evening,18:00,2026-12-02,employment,Employment,0,0,0,Dallas,3410,1729,969,213,True,True,True,3,True,2,3,Severe gap,25
 48113019019,weekday_evening,Weekday evening,18:00,2026-12-02,health,Health & behavioral health,0,0,0,Dallas,7277,3328,2194,312,True,True,True,3,True,2,3,Severe gap,1
 48113012000,weekday_evening,Weekday evening,18:00,2026-12-02,health,Health & behavioral health,0,0,0,Dallas,10692,2901,3277,525,True,True,True,3,True,2,3,Severe gap,2
 48439121905,weekday_evening,Weekday evening,18:00,2026-12-02,health,Health & behavioral health,0,0,0,Tarrant,6385,2877,2286,292,True,True,True,3,True,2,3,Severe gap,3
@@ -349,31 +349,31 @@ geoid,scenario_id,scenario_label,departure_time,service_date,service_type,servic
 48439105009,weekday_midday,Weekday midday,13:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,6754,1751,1776,192,True,True,True,3,True,2,3,Severe gap,23
 48439111543,weekday_midday,Weekday midday,13:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,8428,1739,1474,211,True,True,True,3,True,2,3,Severe gap,24
 48113014405,weekday_midday,Weekday midday,13:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,3410,1729,969,213,True,True,True,3,True,2,3,Severe gap,25
-48113019019,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Dallas,7277,3328,2194,312,True,True,True,3,True,2,3,Severe gap,1
-48113012000,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Dallas,10692,2901,3277,525,True,True,True,3,True,2,3,Severe gap,2
-48439121905,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Tarrant,6385,2877,2286,292,True,True,True,3,True,2,3,Severe gap,3
-48113014407,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Dallas,5238,2804,1397,186,True,True,True,3,True,2,3,Severe gap,4
-48113014309,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Dallas,5986,2794,1082,220,True,True,True,3,True,2,3,Severe gap,5
-48113012207,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Dallas,7482,2766,1255,171,True,True,True,3,True,2,3,Severe gap,6
-48113014306,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Dallas,6020,2438,748,144,True,True,True,3,True,2,3,Severe gap,7
-48113017102,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Dallas,7192,2308,2271,188,True,True,True,3,True,2,3,Severe gap,8
-48439113931,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Tarrant,14395,2298,974,188,True,True,True,3,True,2,3,Severe gap,9
-48113010701,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Dallas,6883,2277,2155,257,True,True,True,3,True,2,3,Severe gap,10
-48113014602,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Dallas,4619,2268,899,231,True,True,True,3,True,2,3,Severe gap,11
-48439122300,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Tarrant,6144,2226,1636,365,True,True,True,3,True,2,3,Severe gap,12
-48113009301,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Dallas,5488,2209,789,130,True,True,True,3,True,2,3,Severe gap,13
-48439100505,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Tarrant,5953,2193,2291,230,True,True,True,3,True,2,3,Severe gap,14
-48113011500,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Dallas,4591,2092,1775,186,True,True,True,3,True,2,3,Severe gap,15
-48439106102,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Tarrant,5392,2062,1421,190,True,True,True,3,True,2,3,Severe gap,16
-48113020800,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Dallas,7786,2015,1522,513,True,True,True,3,True,2,3,Severe gap,17
-48113012302,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Dallas,8358,2008,3217,139,True,True,True,3,True,2,3,Severe gap,18
-48113013719,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Dallas,4554,1979,1026,334,True,True,True,3,True,2,3,Severe gap,19
-48439122402,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Tarrant,5127,1906,1100,266,True,True,True,3,True,2,3,Severe gap,20
-48113017806,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Dallas,4562,1827,824,138,True,True,True,3,True,2,3,Severe gap,21
-48439121904,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Tarrant,4598,1770,862,224,True,True,True,3,True,2,3,Severe gap,22
-48439105009,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Tarrant,6754,1751,1776,192,True,True,True,3,True,2,3,Severe gap,23
-48439111543,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Tarrant,8428,1739,1474,211,True,True,True,3,True,2,3,Severe gap,24
-48113014405,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Dallas,3410,1729,969,213,True,True,True,3,True,2,3,Severe gap,25
+48113012000,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Dallas,10692,2901,3277,525,True,True,True,3,True,2,3,Severe gap,1
+48439121905,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Tarrant,6385,2877,2286,292,True,True,True,3,True,2,3,Severe gap,2
+48113014407,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Dallas,5238,2804,1397,186,True,True,True,3,True,2,3,Severe gap,3
+48113014309,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Dallas,5986,2794,1082,220,True,True,True,3,True,2,3,Severe gap,4
+48113012207,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Dallas,7482,2766,1255,171,True,True,True,3,True,2,3,Severe gap,5
+48113014306,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Dallas,6020,2438,748,144,True,True,True,3,True,2,3,Severe gap,6
+48113017102,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Dallas,7192,2308,2271,188,True,True,True,3,True,2,3,Severe gap,7
+48439113931,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Tarrant,14395,2298,974,188,True,True,True,3,True,2,3,Severe gap,8
+48113010701,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Dallas,6883,2277,2155,257,True,True,True,3,True,2,3,Severe gap,9
+48113014602,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Dallas,4619,2268,899,231,True,True,True,3,True,2,3,Severe gap,10
+48439122300,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Tarrant,6144,2226,1636,365,True,True,True,3,True,2,3,Severe gap,11
+48113009301,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Dallas,5488,2209,789,130,True,True,True,3,True,2,3,Severe gap,12
+48439100505,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Tarrant,5953,2193,2291,230,True,True,True,3,True,2,3,Severe gap,13
+48113011500,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Dallas,4591,2092,1775,186,True,True,True,3,True,2,3,Severe gap,14
+48439106102,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Tarrant,5392,2062,1421,190,True,True,True,3,True,2,3,Severe gap,15
+48113020800,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Dallas,7786,2015,1522,513,True,True,True,3,True,2,3,Severe gap,16
+48113012302,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Dallas,8358,2008,3217,139,True,True,True,3,True,2,3,Severe gap,17
+48113013719,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Dallas,4554,1979,1026,334,True,True,True,3,True,2,3,Severe gap,18
+48439122402,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Tarrant,5127,1906,1100,266,True,True,True,3,True,2,3,Severe gap,19
+48113017806,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Dallas,4562,1827,824,138,True,True,True,3,True,2,3,Severe gap,20
+48439121904,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Tarrant,4598,1770,862,224,True,True,True,3,True,2,3,Severe gap,21
+48439105009,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Tarrant,6754,1751,1776,192,True,True,True,3,True,2,3,Severe gap,22
+48439111543,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Tarrant,8428,1739,1474,211,True,True,True,3,True,2,3,Severe gap,23
+48113014405,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Dallas,3410,1729,969,213,True,True,True,3,True,2,3,Severe gap,24
+48439100700,weekday_morning,Weekday morning,08:00,2026-12-02,all,All verified services,0,0,0,Tarrant,5477,1687,1183,266,True,True,True,3,True,2,3,Severe gap,25
 48113019019,weekday_morning,Weekday morning,08:00,2026-12-02,cash_benefits,Cash & benefits assistance,0,0,0,Dallas,7277,3328,2194,312,True,True,True,3,True,2,3,Severe gap,1
 48113012000,weekday_morning,Weekday morning,08:00,2026-12-02,cash_benefits,Cash & benefits assistance,0,0,0,Dallas,10692,2901,3277,525,True,True,True,3,True,2,3,Severe gap,2
 48439121905,weekday_morning,Weekday morning,08:00,2026-12-02,cash_benefits,Cash & benefits assistance,0,0,0,Tarrant,6385,2877,2286,292,True,True,True,3,True,2,3,Severe gap,3
@@ -424,31 +424,31 @@ geoid,scenario_id,scenario_label,departure_time,service_date,service_type,servic
 48439105009,weekday_morning,Weekday morning,08:00,2026-12-02,education,Education & English-language support,0,0,0,Tarrant,6754,1751,1776,192,True,True,True,3,True,2,3,Severe gap,23
 48439111543,weekday_morning,Weekday morning,08:00,2026-12-02,education,Education & English-language support,0,0,0,Tarrant,8428,1739,1474,211,True,True,True,3,True,2,3,Severe gap,24
 48113014405,weekday_morning,Weekday morning,08:00,2026-12-02,education,Education & English-language support,0,0,0,Dallas,3410,1729,969,213,True,True,True,3,True,2,3,Severe gap,25
-48113019019,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Dallas,7277,3328,2194,312,True,True,True,3,True,2,3,Severe gap,1
-48113012000,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Dallas,10692,2901,3277,525,True,True,True,3,True,2,3,Severe gap,2
-48439121905,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Tarrant,6385,2877,2286,292,True,True,True,3,True,2,3,Severe gap,3
-48113014407,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Dallas,5238,2804,1397,186,True,True,True,3,True,2,3,Severe gap,4
-48113014309,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Dallas,5986,2794,1082,220,True,True,True,3,True,2,3,Severe gap,5
-48113012207,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Dallas,7482,2766,1255,171,True,True,True,3,True,2,3,Severe gap,6
-48113014306,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Dallas,6020,2438,748,144,True,True,True,3,True,2,3,Severe gap,7
-48113017102,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Dallas,7192,2308,2271,188,True,True,True,3,True,2,3,Severe gap,8
-48439113931,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Tarrant,14395,2298,974,188,True,True,True,3,True,2,3,Severe gap,9
-48113010701,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Dallas,6883,2277,2155,257,True,True,True,3,True,2,3,Severe gap,10
-48113014602,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Dallas,4619,2268,899,231,True,True,True,3,True,2,3,Severe gap,11
-48439122300,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Tarrant,6144,2226,1636,365,True,True,True,3,True,2,3,Severe gap,12
-48113009301,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Dallas,5488,2209,789,130,True,True,True,3,True,2,3,Severe gap,13
-48439100505,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Tarrant,5953,2193,2291,230,True,True,True,3,True,2,3,Severe gap,14
-48113011500,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Dallas,4591,2092,1775,186,True,True,True,3,True,2,3,Severe gap,15
-48439106102,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Tarrant,5392,2062,1421,190,True,True,True,3,True,2,3,Severe gap,16
-48113020800,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Dallas,7786,2015,1522,513,True,True,True,3,True,2,3,Severe gap,17
-48113012302,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Dallas,8358,2008,3217,139,True,True,True,3,True,2,3,Severe gap,18
-48113013719,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Dallas,4554,1979,1026,334,True,True,True,3,True,2,3,Severe gap,19
-48439122402,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Tarrant,5127,1906,1100,266,True,True,True,3,True,2,3,Severe gap,20
-48113017806,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Dallas,4562,1827,824,138,True,True,True,3,True,2,3,Severe gap,21
-48439121904,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Tarrant,4598,1770,862,224,True,True,True,3,True,2,3,Severe gap,22
-48439105009,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Tarrant,6754,1751,1776,192,True,True,True,3,True,2,3,Severe gap,23
-48439111543,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Tarrant,8428,1739,1474,211,True,True,True,3,True,2,3,Severe gap,24
-48113014405,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Dallas,3410,1729,969,213,True,True,True,3,True,2,3,Severe gap,25
+48113012000,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Dallas,10692,2901,3277,525,True,True,True,3,True,2,3,Severe gap,1
+48439121905,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Tarrant,6385,2877,2286,292,True,True,True,3,True,2,3,Severe gap,2
+48113014407,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Dallas,5238,2804,1397,186,True,True,True,3,True,2,3,Severe gap,3
+48113014309,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Dallas,5986,2794,1082,220,True,True,True,3,True,2,3,Severe gap,4
+48113012207,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Dallas,7482,2766,1255,171,True,True,True,3,True,2,3,Severe gap,5
+48113014306,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Dallas,6020,2438,748,144,True,True,True,3,True,2,3,Severe gap,6
+48113017102,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Dallas,7192,2308,2271,188,True,True,True,3,True,2,3,Severe gap,7
+48439113931,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Tarrant,14395,2298,974,188,True,True,True,3,True,2,3,Severe gap,8
+48113010701,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Dallas,6883,2277,2155,257,True,True,True,3,True,2,3,Severe gap,9
+48113014602,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Dallas,4619,2268,899,231,True,True,True,3,True,2,3,Severe gap,10
+48439122300,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Tarrant,6144,2226,1636,365,True,True,True,3,True,2,3,Severe gap,11
+48113009301,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Dallas,5488,2209,789,130,True,True,True,3,True,2,3,Severe gap,12
+48439100505,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Tarrant,5953,2193,2291,230,True,True,True,3,True,2,3,Severe gap,13
+48113011500,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Dallas,4591,2092,1775,186,True,True,True,3,True,2,3,Severe gap,14
+48439106102,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Tarrant,5392,2062,1421,190,True,True,True,3,True,2,3,Severe gap,15
+48113020800,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Dallas,7786,2015,1522,513,True,True,True,3,True,2,3,Severe gap,16
+48113012302,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Dallas,8358,2008,3217,139,True,True,True,3,True,2,3,Severe gap,17
+48113013719,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Dallas,4554,1979,1026,334,True,True,True,3,True,2,3,Severe gap,18
+48439122402,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Tarrant,5127,1906,1100,266,True,True,True,3,True,2,3,Severe gap,19
+48113017806,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Dallas,4562,1827,824,138,True,True,True,3,True,2,3,Severe gap,20
+48439121904,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Tarrant,4598,1770,862,224,True,True,True,3,True,2,3,Severe gap,21
+48439105009,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Tarrant,6754,1751,1776,192,True,True,True,3,True,2,3,Severe gap,22
+48439111543,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Tarrant,8428,1739,1474,211,True,True,True,3,True,2,3,Severe gap,23
+48113014405,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Dallas,3410,1729,969,213,True,True,True,3,True,2,3,Severe gap,24
+48439100700,weekday_morning,Weekday morning,08:00,2026-12-02,employment,Employment,0,0,0,Tarrant,5477,1687,1183,266,True,True,True,3,True,2,3,Severe gap,25
 48113019019,weekday_morning,Weekday morning,08:00,2026-12-02,health,Health & behavioral health,0,0,0,Dallas,7277,3328,2194,312,True,True,True,3,True,2,3,Severe gap,1
 48113012000,weekday_morning,Weekday morning,08:00,2026-12-02,health,Health & behavioral health,0,0,0,Dallas,10692,2901,3277,525,True,True,True,3,True,2,3,Severe gap,2
 48439121905,weekday_morning,Weekday morning,08:00,2026-12-02,health,Health & behavioral health,0,0,0,Tarrant,6385,2877,2286,292,True,True,True,3,True,2,3,Severe gap,3
@@ -499,56 +499,56 @@ geoid,scenario_id,scenario_label,departure_time,service_date,service_type,servic
 48439122402,weekday_morning,Weekday morning,08:00,2026-12-02,immigration,Immigration & legal support,0,0,0,Tarrant,5127,1906,1100,266,True,True,True,3,True,2,3,Severe gap,23
 48113007206,weekday_morning,Weekday morning,08:00,2026-12-02,immigration,Immigration & legal support,0,0,0,Dallas,3362,1840,1376,141,True,True,True,3,True,2,3,Severe gap,24
 48113017806,weekday_morning,Weekday morning,08:00,2026-12-02,immigration,Immigration & legal support,0,0,0,Dallas,4562,1827,824,138,True,True,True,3,True,2,3,Severe gap,25
-48113019019,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,7277,3328,2194,312,True,True,True,3,True,2,3,Severe gap,1
-48113012000,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,10692,2901,3277,525,True,True,True,3,True,2,3,Severe gap,2
-48439121905,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,6385,2877,2286,292,True,True,True,3,True,2,3,Severe gap,3
-48113014407,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,5238,2804,1397,186,True,True,True,3,True,2,3,Severe gap,4
-48113014309,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,5986,2794,1082,220,True,True,True,3,True,2,3,Severe gap,5
-48113012207,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,7482,2766,1255,171,True,True,True,3,True,2,3,Severe gap,6
-48113014306,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,6020,2438,748,144,True,True,True,3,True,2,3,Severe gap,7
-48113017102,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,7192,2308,2271,188,True,True,True,3,True,2,3,Severe gap,8
-48439113931,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,14395,2298,974,188,True,True,True,3,True,2,3,Severe gap,9
-48113010701,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,6883,2277,2155,257,True,True,True,3,True,2,3,Severe gap,10
-48113014602,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,4619,2268,899,231,True,True,True,3,True,2,3,Severe gap,11
-48439122300,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,6144,2226,1636,365,True,True,True,3,True,2,3,Severe gap,12
-48113009301,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,5488,2209,789,130,True,True,True,3,True,2,3,Severe gap,13
-48439100505,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,5953,2193,2291,230,True,True,True,3,True,2,3,Severe gap,14
-48113011500,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,4591,2092,1775,186,True,True,True,3,True,2,3,Severe gap,15
-48439106102,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,5392,2062,1421,190,True,True,True,3,True,2,3,Severe gap,16
-48113020800,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,7786,2015,1522,513,True,True,True,3,True,2,3,Severe gap,17
-48113012302,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,8358,2008,3217,139,True,True,True,3,True,2,3,Severe gap,18
-48113013719,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,4554,1979,1026,334,True,True,True,3,True,2,3,Severe gap,19
-48439122402,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,5127,1906,1100,266,True,True,True,3,True,2,3,Severe gap,20
-48113017806,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,4562,1827,824,138,True,True,True,3,True,2,3,Severe gap,21
-48439121904,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,4598,1770,862,224,True,True,True,3,True,2,3,Severe gap,22
-48439105009,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,6754,1751,1776,192,True,True,True,3,True,2,3,Severe gap,23
-48439111543,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,8428,1739,1474,211,True,True,True,3,True,2,3,Severe gap,24
-48113014405,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,3410,1729,969,213,True,True,True,3,True,2,3,Severe gap,25
-48113019019,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Dallas,7277,3328,2194,312,True,True,True,3,True,2,3,Severe gap,1
-48439105902,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Tarrant,6678,3272,1683,186,True,True,True,3,True,2,3,Severe gap,2
-48113012000,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Dallas,10692,2901,3277,525,True,True,True,3,True,2,3,Severe gap,3
-48439121905,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Tarrant,6385,2877,2286,292,True,True,True,3,True,2,3,Severe gap,4
-48113014407,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Dallas,5238,2804,1397,186,True,True,True,3,True,2,3,Severe gap,5
-48113014309,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Dallas,5986,2794,1082,220,True,True,True,3,True,2,3,Severe gap,6
-48113012207,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Dallas,7482,2766,1255,171,True,True,True,3,True,2,3,Severe gap,7
-48113014306,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Dallas,6020,2438,748,144,True,True,True,3,True,2,3,Severe gap,8
-48113017102,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Dallas,7192,2308,2271,188,True,True,True,3,True,2,3,Severe gap,9
-48439113931,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Tarrant,14395,2298,974,188,True,True,True,3,True,2,3,Severe gap,10
-48113010701,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Dallas,6883,2277,2155,257,True,True,True,3,True,2,3,Severe gap,11
-48113014602,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Dallas,4619,2268,899,231,True,True,True,3,True,2,3,Severe gap,12
-48439122300,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Tarrant,6144,2226,1636,365,True,True,True,3,True,2,3,Severe gap,13
-48113009301,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Dallas,5488,2209,789,130,True,True,True,3,True,2,3,Severe gap,14
-48439100505,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Tarrant,5953,2193,2291,230,True,True,True,3,True,2,3,Severe gap,15
-48113011500,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Dallas,4591,2092,1775,186,True,True,True,3,True,2,3,Severe gap,16
-48439106102,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Tarrant,5392,2062,1421,190,True,True,True,3,True,2,3,Severe gap,17
-48113012302,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Dallas,8358,2008,3217,139,True,True,True,3,True,2,3,Severe gap,18
-48113013719,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Dallas,4554,1979,1026,334,True,True,True,3,True,2,3,Severe gap,19
-48439122402,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Tarrant,5127,1906,1100,266,True,True,True,3,True,2,3,Severe gap,20
-48113017806,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Dallas,4562,1827,824,138,True,True,True,3,True,2,3,Severe gap,21
-48439121904,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Tarrant,4598,1770,862,224,True,True,True,3,True,2,3,Severe gap,22
-48439105009,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Tarrant,6754,1751,1776,192,True,True,True,3,True,2,3,Severe gap,23
-48439111543,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Tarrant,8428,1739,1474,211,True,True,True,3,True,2,3,Severe gap,24
-48113014405,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Dallas,3410,1729,969,213,True,True,True,3,True,2,3,Severe gap,25
+48113012000,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,10692,2901,3277,525,True,True,True,3,True,2,3,Severe gap,1
+48439121905,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,6385,2877,2286,292,True,True,True,3,True,2,3,Severe gap,2
+48113014407,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,5238,2804,1397,186,True,True,True,3,True,2,3,Severe gap,3
+48113014309,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,5986,2794,1082,220,True,True,True,3,True,2,3,Severe gap,4
+48113012207,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,7482,2766,1255,171,True,True,True,3,True,2,3,Severe gap,5
+48113014306,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,6020,2438,748,144,True,True,True,3,True,2,3,Severe gap,6
+48113017102,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,7192,2308,2271,188,True,True,True,3,True,2,3,Severe gap,7
+48439113931,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,14395,2298,974,188,True,True,True,3,True,2,3,Severe gap,8
+48113010701,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,6883,2277,2155,257,True,True,True,3,True,2,3,Severe gap,9
+48113014602,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,4619,2268,899,231,True,True,True,3,True,2,3,Severe gap,10
+48439122300,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,6144,2226,1636,365,True,True,True,3,True,2,3,Severe gap,11
+48113009301,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,5488,2209,789,130,True,True,True,3,True,2,3,Severe gap,12
+48439100505,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,5953,2193,2291,230,True,True,True,3,True,2,3,Severe gap,13
+48113011500,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,4591,2092,1775,186,True,True,True,3,True,2,3,Severe gap,14
+48439106102,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,5392,2062,1421,190,True,True,True,3,True,2,3,Severe gap,15
+48113020800,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,7786,2015,1522,513,True,True,True,3,True,2,3,Severe gap,16
+48113012302,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,8358,2008,3217,139,True,True,True,3,True,2,3,Severe gap,17
+48113013719,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,4554,1979,1026,334,True,True,True,3,True,2,3,Severe gap,18
+48439122402,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,5127,1906,1100,266,True,True,True,3,True,2,3,Severe gap,19
+48113017806,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,4562,1827,824,138,True,True,True,3,True,2,3,Severe gap,20
+48439121904,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,4598,1770,862,224,True,True,True,3,True,2,3,Severe gap,21
+48439105009,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,6754,1751,1776,192,True,True,True,3,True,2,3,Severe gap,22
+48439111543,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,8428,1739,1474,211,True,True,True,3,True,2,3,Severe gap,23
+48113014405,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,3410,1729,969,213,True,True,True,3,True,2,3,Severe gap,24
+48439100700,weekday_morning,Weekday morning,08:00,2026-12-02,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,5477,1687,1183,266,True,True,True,3,True,2,3,Severe gap,25
+48439105902,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Tarrant,6678,3272,1683,186,True,True,True,3,True,2,3,Severe gap,1
+48113012000,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Dallas,10692,2901,3277,525,True,True,True,3,True,2,3,Severe gap,2
+48439121905,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Tarrant,6385,2877,2286,292,True,True,True,3,True,2,3,Severe gap,3
+48113014407,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Dallas,5238,2804,1397,186,True,True,True,3,True,2,3,Severe gap,4
+48113014309,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Dallas,5986,2794,1082,220,True,True,True,3,True,2,3,Severe gap,5
+48113012207,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Dallas,7482,2766,1255,171,True,True,True,3,True,2,3,Severe gap,6
+48113014306,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Dallas,6020,2438,748,144,True,True,True,3,True,2,3,Severe gap,7
+48113017102,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Dallas,7192,2308,2271,188,True,True,True,3,True,2,3,Severe gap,8
+48439113931,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Tarrant,14395,2298,974,188,True,True,True,3,True,2,3,Severe gap,9
+48113010701,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Dallas,6883,2277,2155,257,True,True,True,3,True,2,3,Severe gap,10
+48113014602,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Dallas,4619,2268,899,231,True,True,True,3,True,2,3,Severe gap,11
+48439122300,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Tarrant,6144,2226,1636,365,True,True,True,3,True,2,3,Severe gap,12
+48113009301,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Dallas,5488,2209,789,130,True,True,True,3,True,2,3,Severe gap,13
+48439100505,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Tarrant,5953,2193,2291,230,True,True,True,3,True,2,3,Severe gap,14
+48113011500,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Dallas,4591,2092,1775,186,True,True,True,3,True,2,3,Severe gap,15
+48439106102,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Tarrant,5392,2062,1421,190,True,True,True,3,True,2,3,Severe gap,16
+48113012302,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Dallas,8358,2008,3217,139,True,True,True,3,True,2,3,Severe gap,17
+48113013719,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Dallas,4554,1979,1026,334,True,True,True,3,True,2,3,Severe gap,18
+48439122402,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Tarrant,5127,1906,1100,266,True,True,True,3,True,2,3,Severe gap,19
+48113017806,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Dallas,4562,1827,824,138,True,True,True,3,True,2,3,Severe gap,20
+48439121904,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Tarrant,4598,1770,862,224,True,True,True,3,True,2,3,Severe gap,21
+48439105009,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Tarrant,6754,1751,1776,192,True,True,True,3,True,2,3,Severe gap,22
+48439111543,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Tarrant,8428,1739,1474,211,True,True,True,3,True,2,3,Severe gap,23
+48113014405,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Dallas,3410,1729,969,213,True,True,True,3,True,2,3,Severe gap,24
+48439100700,weekend_midday,Saturday midday,13:00,2026-12-05,all,All verified services,0,0,0,Tarrant,5477,1687,1183,266,True,True,True,3,True,2,3,Severe gap,25
 48113019019,weekend_midday,Saturday midday,13:00,2026-12-05,cash_benefits,Cash & benefits assistance,0,0,0,Dallas,7277,3328,2194,312,True,True,True,3,True,2,3,Severe gap,1
 48439105902,weekend_midday,Saturday midday,13:00,2026-12-05,cash_benefits,Cash & benefits assistance,0,0,0,Tarrant,6678,3272,1683,186,True,True,True,3,True,2,3,Severe gap,2
 48113012000,weekend_midday,Saturday midday,13:00,2026-12-05,cash_benefits,Cash & benefits assistance,0,0,0,Dallas,10692,2901,3277,525,True,True,True,3,True,2,3,Severe gap,3
@@ -599,31 +599,31 @@ geoid,scenario_id,scenario_label,departure_time,service_date,service_type,servic
 48439105009,weekend_midday,Saturday midday,13:00,2026-12-05,education,Education & English-language support,0,0,0,Tarrant,6754,1751,1776,192,True,True,True,3,True,2,3,Severe gap,23
 48439111543,weekend_midday,Saturday midday,13:00,2026-12-05,education,Education & English-language support,0,0,0,Tarrant,8428,1739,1474,211,True,True,True,3,True,2,3,Severe gap,24
 48113014405,weekend_midday,Saturday midday,13:00,2026-12-05,education,Education & English-language support,0,0,0,Dallas,3410,1729,969,213,True,True,True,3,True,2,3,Severe gap,25
-48113019019,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Dallas,7277,3328,2194,312,True,True,True,3,True,2,3,Severe gap,1
-48439105902,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Tarrant,6678,3272,1683,186,True,True,True,3,True,2,3,Severe gap,2
-48113012000,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Dallas,10692,2901,3277,525,True,True,True,3,True,2,3,Severe gap,3
-48439121905,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Tarrant,6385,2877,2286,292,True,True,True,3,True,2,3,Severe gap,4
-48113014407,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Dallas,5238,2804,1397,186,True,True,True,3,True,2,3,Severe gap,5
-48113014309,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Dallas,5986,2794,1082,220,True,True,True,3,True,2,3,Severe gap,6
-48113012207,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Dallas,7482,2766,1255,171,True,True,True,3,True,2,3,Severe gap,7
-48113014306,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Dallas,6020,2438,748,144,True,True,True,3,True,2,3,Severe gap,8
-48113017102,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Dallas,7192,2308,2271,188,True,True,True,3,True,2,3,Severe gap,9
-48439113931,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Tarrant,14395,2298,974,188,True,True,True,3,True,2,3,Severe gap,10
-48113010701,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Dallas,6883,2277,2155,257,True,True,True,3,True,2,3,Severe gap,11
-48113014602,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Dallas,4619,2268,899,231,True,True,True,3,True,2,3,Severe gap,12
-48439122300,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Tarrant,6144,2226,1636,365,True,True,True,3,True,2,3,Severe gap,13
-48113009301,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Dallas,5488,2209,789,130,True,True,True,3,True,2,3,Severe gap,14
-48439100505,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Tarrant,5953,2193,2291,230,True,True,True,3,True,2,3,Severe gap,15
-48113011500,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Dallas,4591,2092,1775,186,True,True,True,3,True,2,3,Severe gap,16
-48439106102,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Tarrant,5392,2062,1421,190,True,True,True,3,True,2,3,Severe gap,17
-48113012302,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Dallas,8358,2008,3217,139,True,True,True,3,True,2,3,Severe gap,18
-48113013719,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Dallas,4554,1979,1026,334,True,True,True,3,True,2,3,Severe gap,19
-48439122402,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Tarrant,5127,1906,1100,266,True,True,True,3,True,2,3,Severe gap,20
-48113017806,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Dallas,4562,1827,824,138,True,True,True,3,True,2,3,Severe gap,21
-48439121904,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Tarrant,4598,1770,862,224,True,True,True,3,True,2,3,Severe gap,22
-48439105009,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Tarrant,6754,1751,1776,192,True,True,True,3,True,2,3,Severe gap,23
-48439111543,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Tarrant,8428,1739,1474,211,True,True,True,3,True,2,3,Severe gap,24
-48113014405,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Dallas,3410,1729,969,213,True,True,True,3,True,2,3,Severe gap,25
+48439105902,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Tarrant,6678,3272,1683,186,True,True,True,3,True,2,3,Severe gap,1
+48113012000,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Dallas,10692,2901,3277,525,True,True,True,3,True,2,3,Severe gap,2
+48439121905,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Tarrant,6385,2877,2286,292,True,True,True,3,True,2,3,Severe gap,3
+48113014407,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Dallas,5238,2804,1397,186,True,True,True,3,True,2,3,Severe gap,4
+48113014309,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Dallas,5986,2794,1082,220,True,True,True,3,True,2,3,Severe gap,5
+48113012207,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Dallas,7482,2766,1255,171,True,True,True,3,True,2,3,Severe gap,6
+48113014306,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Dallas,6020,2438,748,144,True,True,True,3,True,2,3,Severe gap,7
+48113017102,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Dallas,7192,2308,2271,188,True,True,True,3,True,2,3,Severe gap,8
+48439113931,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Tarrant,14395,2298,974,188,True,True,True,3,True,2,3,Severe gap,9
+48113010701,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Dallas,6883,2277,2155,257,True,True,True,3,True,2,3,Severe gap,10
+48113014602,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Dallas,4619,2268,899,231,True,True,True,3,True,2,3,Severe gap,11
+48439122300,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Tarrant,6144,2226,1636,365,True,True,True,3,True,2,3,Severe gap,12
+48113009301,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Dallas,5488,2209,789,130,True,True,True,3,True,2,3,Severe gap,13
+48439100505,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Tarrant,5953,2193,2291,230,True,True,True,3,True,2,3,Severe gap,14
+48113011500,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Dallas,4591,2092,1775,186,True,True,True,3,True,2,3,Severe gap,15
+48439106102,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Tarrant,5392,2062,1421,190,True,True,True,3,True,2,3,Severe gap,16
+48113012302,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Dallas,8358,2008,3217,139,True,True,True,3,True,2,3,Severe gap,17
+48113013719,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Dallas,4554,1979,1026,334,True,True,True,3,True,2,3,Severe gap,18
+48439122402,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Tarrant,5127,1906,1100,266,True,True,True,3,True,2,3,Severe gap,19
+48113017806,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Dallas,4562,1827,824,138,True,True,True,3,True,2,3,Severe gap,20
+48439121904,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Tarrant,4598,1770,862,224,True,True,True,3,True,2,3,Severe gap,21
+48439105009,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Tarrant,6754,1751,1776,192,True,True,True,3,True,2,3,Severe gap,22
+48439111543,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Tarrant,8428,1739,1474,211,True,True,True,3,True,2,3,Severe gap,23
+48113014405,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Dallas,3410,1729,969,213,True,True,True,3,True,2,3,Severe gap,24
+48439100700,weekend_midday,Saturday midday,13:00,2026-12-05,employment,Employment,0,0,0,Tarrant,5477,1687,1183,266,True,True,True,3,True,2,3,Severe gap,25
 48113019019,weekend_midday,Saturday midday,13:00,2026-12-05,health,Health & behavioral health,0,0,0,Dallas,7277,3328,2194,312,True,True,True,3,True,2,3,Severe gap,1
 48439105902,weekend_midday,Saturday midday,13:00,2026-12-05,health,Health & behavioral health,0,0,0,Tarrant,6678,3272,1683,186,True,True,True,3,True,2,3,Severe gap,2
 48113012000,weekend_midday,Saturday midday,13:00,2026-12-05,health,Health & behavioral health,0,0,0,Dallas,10692,2901,3277,525,True,True,True,3,True,2,3,Severe gap,3
@@ -674,28 +674,28 @@ geoid,scenario_id,scenario_label,departure_time,service_date,service_type,servic
 48113013719,weekend_midday,Saturday midday,13:00,2026-12-05,immigration,Immigration & legal support,0,0,0,Dallas,4554,1979,1026,334,True,True,True,3,True,2,3,Severe gap,23
 48113002500,weekend_midday,Saturday midday,13:00,2026-12-05,immigration,Immigration & legal support,0,0,0,Dallas,4977,1976,933,269,True,True,True,3,True,2,3,Severe gap,24
 48439122402,weekend_midday,Saturday midday,13:00,2026-12-05,immigration,Immigration & legal support,0,0,0,Tarrant,5127,1906,1100,266,True,True,True,3,True,2,3,Severe gap,25
-48113019019,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,7277,3328,2194,312,True,True,True,3,True,2,3,Severe gap,1
-48439105902,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,6678,3272,1683,186,True,True,True,3,True,2,3,Severe gap,2
-48113012000,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,10692,2901,3277,525,True,True,True,3,True,2,3,Severe gap,3
-48439121905,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,6385,2877,2286,292,True,True,True,3,True,2,3,Severe gap,4
-48113014407,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,5238,2804,1397,186,True,True,True,3,True,2,3,Severe gap,5
-48113014309,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,5986,2794,1082,220,True,True,True,3,True,2,3,Severe gap,6
-48113012207,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,7482,2766,1255,171,True,True,True,3,True,2,3,Severe gap,7
-48113014306,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,6020,2438,748,144,True,True,True,3,True,2,3,Severe gap,8
-48113017102,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,7192,2308,2271,188,True,True,True,3,True,2,3,Severe gap,9
-48439113931,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,14395,2298,974,188,True,True,True,3,True,2,3,Severe gap,10
-48113010701,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,6883,2277,2155,257,True,True,True,3,True,2,3,Severe gap,11
-48113014602,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,4619,2268,899,231,True,True,True,3,True,2,3,Severe gap,12
-48439122300,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,6144,2226,1636,365,True,True,True,3,True,2,3,Severe gap,13
-48113009301,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,5488,2209,789,130,True,True,True,3,True,2,3,Severe gap,14
-48439100505,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,5953,2193,2291,230,True,True,True,3,True,2,3,Severe gap,15
-48113011500,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,4591,2092,1775,186,True,True,True,3,True,2,3,Severe gap,16
-48439106102,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,5392,2062,1421,190,True,True,True,3,True,2,3,Severe gap,17
-48113012302,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,8358,2008,3217,139,True,True,True,3,True,2,3,Severe gap,18
-48113013719,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,4554,1979,1026,334,True,True,True,3,True,2,3,Severe gap,19
-48439122402,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,5127,1906,1100,266,True,True,True,3,True,2,3,Severe gap,20
-48113017806,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,4562,1827,824,138,True,True,True,3,True,2,3,Severe gap,21
-48439121904,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,4598,1770,862,224,True,True,True,3,True,2,3,Severe gap,22
-48439105009,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,6754,1751,1776,192,True,True,True,3,True,2,3,Severe gap,23
-48439111543,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,8428,1739,1474,211,True,True,True,3,True,2,3,Severe gap,24
-48113014405,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,3410,1729,969,213,True,True,True,3,True,2,3,Severe gap,25
+48439105902,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,6678,3272,1683,186,True,True,True,3,True,2,3,Severe gap,1
+48113012000,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,10692,2901,3277,525,True,True,True,3,True,2,3,Severe gap,2
+48439121905,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,6385,2877,2286,292,True,True,True,3,True,2,3,Severe gap,3
+48113014407,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,5238,2804,1397,186,True,True,True,3,True,2,3,Severe gap,4
+48113014309,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,5986,2794,1082,220,True,True,True,3,True,2,3,Severe gap,5
+48113012207,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,7482,2766,1255,171,True,True,True,3,True,2,3,Severe gap,6
+48113014306,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,6020,2438,748,144,True,True,True,3,True,2,3,Severe gap,7
+48113017102,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,7192,2308,2271,188,True,True,True,3,True,2,3,Severe gap,8
+48439113931,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,14395,2298,974,188,True,True,True,3,True,2,3,Severe gap,9
+48113010701,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,6883,2277,2155,257,True,True,True,3,True,2,3,Severe gap,10
+48113014602,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,4619,2268,899,231,True,True,True,3,True,2,3,Severe gap,11
+48439122300,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,6144,2226,1636,365,True,True,True,3,True,2,3,Severe gap,12
+48113009301,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,5488,2209,789,130,True,True,True,3,True,2,3,Severe gap,13
+48439100505,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,5953,2193,2291,230,True,True,True,3,True,2,3,Severe gap,14
+48113011500,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,4591,2092,1775,186,True,True,True,3,True,2,3,Severe gap,15
+48439106102,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,5392,2062,1421,190,True,True,True,3,True,2,3,Severe gap,16
+48113012302,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,8358,2008,3217,139,True,True,True,3,True,2,3,Severe gap,17
+48113013719,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,4554,1979,1026,334,True,True,True,3,True,2,3,Severe gap,18
+48439122402,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,5127,1906,1100,266,True,True,True,3,True,2,3,Severe gap,19
+48113017806,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,4562,1827,824,138,True,True,True,3,True,2,3,Severe gap,20
+48439121904,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,4598,1770,862,224,True,True,True,3,True,2,3,Severe gap,21
+48439105009,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,6754,1751,1776,192,True,True,True,3,True,2,3,Severe gap,22
+48439111543,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,8428,1739,1474,211,True,True,True,3,True,2,3,Severe gap,23
+48113014405,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Dallas,3410,1729,969,213,True,True,True,3,True,2,3,Severe gap,24
+48439100700,weekend_midday,Saturday midday,13:00,2026-12-05,resettlement_case_management,Resettlement & case management,0,0,0,Tarrant,5477,1687,1183,266,True,True,True,3,True,2,3,Severe gap,25
