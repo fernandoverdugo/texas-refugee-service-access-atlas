@@ -166,3 +166,72 @@ def select_best_candidate(
     if scored.empty:
         raise ValueError("No candidate sites produced positive modeled coverage")
     return scored.iloc[0]
+
+
+
+def summarize_objective_scenario(
+    scored: pd.DataFrame,
+    tract_context: pd.DataFrame,
+    baseline_access: pd.DataFrame,
+    tract_points: pd.DataFrame,
+    objective: str,
+    threshold_minutes: int = 45,
+) -> dict[str, object]:
+    best = select_best_candidate(scored)
+
+    context = tract_context.copy()
+    context["geoid"] = context["geoid"].map(normalize_geoid)
+
+    baseline = baseline_access.copy()
+    baseline["geoid"] = baseline["geoid"].map(normalize_geoid)
+
+    total_objective = float(context[objective].sum())
+    covered_geoids = set(
+        baseline.loc[
+            baseline[f"providers_within_{threshold_minutes}m"] > 0,
+            "geoid",
+        ]
+    )
+    baseline_covered = float(
+        context.loc[context["geoid"].isin(covered_geoids), objective].sum()
+    )
+    optimized_covered = baseline_covered + float(best["newly_covered_weight"])
+
+    points = tract_points.copy()
+    points["geoid"] = points["geoid"].map(normalize_geoid)
+    point = points.loc[points["geoid"] == normalize_geoid(best["candidate_geoid"])].iloc[0]
+
+    return {
+        "threshold_minutes": threshold_minutes,
+        "objective": objective,
+        "candidate_geoid": normalize_geoid(best["candidate_geoid"]),
+        "county_name": point["county_name"],
+        "longitude": float(point["longitude"]),
+        "latitude": float(point["latitude"]),
+        "newly_covered_objective": int(best["newly_covered_weight"]),
+        "newly_covered_population": int(best["newly_covered_population"]),
+        "newly_covered_foreign_born_population": int(
+            best["newly_covered_foreign_born_population"]
+        ),
+        "newly_covered_population_below_poverty": int(
+            best["newly_covered_population_below_poverty"]
+        ),
+        "newly_covered_no_vehicle_households": int(
+            best["newly_covered_no_vehicle_households"]
+        ),
+        "newly_covered_tracts": int(best["newly_covered_tracts"]),
+        "baseline_covered_objective": int(baseline_covered),
+        "optimized_covered_objective": int(optimized_covered),
+        "total_objective": int(total_objective),
+        "baseline_coverage_pct": baseline_covered / total_objective
+        if total_objective
+        else 0.0,
+        "optimized_coverage_pct": optimized_covered / total_objective
+        if total_objective
+        else 0.0,
+        "coverage_gain_pct_points": (
+            (optimized_covered - baseline_covered) / total_objective
+            if total_objective
+            else 0.0
+        ),
+    }
