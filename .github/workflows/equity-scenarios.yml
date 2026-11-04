@@ -1,3 +1,4 @@
+# Equity scenario optimization build
 name: Build equity-aware facility scenarios
 
 on:
