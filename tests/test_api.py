@@ -19,6 +19,10 @@ def test_atlas_root():
     assert 'const serviceSelect = document.getElementById("serviceType");' in response.text
     assert 'let currentServiceAccess = {};' in response.text
     assert "Immigration &amp; legal support" in response.text
+    assert 'const timeSelect = document.getElementById("timeScenario");' in response.text
+    assert 'let temporalSummaries = { overall: [], service_types: [] };' in response.text
+    assert "Weekday morning · 8:00 AM" in response.text
+    assert "Saturday midday · 1:00 PM" in response.text
 
 
 def test_health():
@@ -144,5 +148,77 @@ def test_service_accessibility():
 
 def test_unknown_service_accessibility_returns_404():
     response = client.get("/api/service-accessibility/not_a_service")
+
+    assert response.status_code == 404
+
+
+
+def test_time_scenarios():
+    response = client.get("/api/time-scenarios")
+
+    assert response.status_code == 200
+    payload = response.json()
+
+    assert {row["scenario_id"] for row in payload} == {
+        "weekday_morning",
+        "weekday_midday",
+        "weekday_evening",
+        "weekend_midday",
+    }
+
+    by_id = {row["scenario_id"]: row for row in payload}
+    assert by_id["weekday_morning"]["service_date"] == "2026-12-02"
+    assert by_id["weekend_midday"]["service_date"] == "2026-12-05"
+    assert by_id["weekday_midday"]["foreign_born_access_pct_45m"] > 0.16
+    assert by_id["weekday_morning"]["foreign_born_access_pct_45m"] < 0.14
+
+
+def test_temporal_accessibility():
+    response = client.get("/api/temporal-accessibility/weekday_midday")
+
+    assert response.status_code == 200
+    payload = response.json()
+
+    assert len(payload) == 1094
+    assert {row["scenario_id"] for row in payload} == {"weekday_midday"}
+    assert all(len(row["geoid"]) == 11 for row in payload)
+    assert all(
+        row["providers_within_30m"]
+        <= row["providers_within_45m"]
+        <= row["providers_within_60m"]
+        for row in payload
+    )
+
+
+def test_temporal_service_accessibility():
+    response = client.get(
+        "/api/temporal-service-accessibility/weekend_midday/immigration"
+    )
+
+    assert response.status_code == 200
+    payload = response.json()
+
+    assert len(payload) == 1094
+    assert {row["service_type"] for row in payload} == {"immigration"}
+    assert all(
+        row["providers_within_30m"]
+        <= row["providers_within_45m"]
+        <= row["providers_within_60m"]
+        for row in payload
+    )
+
+
+def test_temporal_summaries():
+    response = client.get("/api/temporal-summaries")
+
+    assert response.status_code == 200
+    payload = response.json()
+
+    assert len(payload["overall"]) == 4
+    assert len(payload["service_types"]) == 24
+
+
+def test_unknown_temporal_scenario_returns_404():
+    response = client.get("/api/temporal-accessibility/not_a_scenario")
 
     assert response.status_code == 404
