@@ -1,3 +1,4 @@
+# Rebuild equity scenarios for CWS Dallas
 # Equity scenario optimization build
 name: Build equity-aware facility scenarios
 
@@ -6,6 +7,8 @@ on:
   push:
     paths:
       - ".github/workflows/equity-scenarios.yml"
+      - "data/processed/tract_service_accessibility.csv"
+      - "data/processed/provider_stop_connectors.csv"
 
 jobs:
   optimize:
