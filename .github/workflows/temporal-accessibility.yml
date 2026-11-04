@@ -1,3 +1,4 @@
+# Rebuild scheduled access for CWS Dallas
 name: Build time-dependent accessibility
 
 on:
@@ -9,6 +10,9 @@ on:
       - "src/analysis/temporal_routing.py"
       - "scripts/build_temporal_accessibility.py"
       - ".gitignore"
+      - "data/processed/provider_service_types.csv"
+      - "data/processed/provider_stop_connectors.csv"
+      - "data/processed/provider_locations.csv"
 
 jobs:
   build:
