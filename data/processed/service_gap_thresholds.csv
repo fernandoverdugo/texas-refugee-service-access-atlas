@@ -1,0 +1,4 @@
+indicator,quantile,threshold
+foreign_born_population,0.75,1307.0
+population_below_poverty,0.75,736.75
+households_no_vehicle,0.75,128.75
