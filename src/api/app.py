@@ -51,6 +51,16 @@ def _read_facility_summary() -> pd.DataFrame:
     return pd.read_csv(path, dtype={"candidate_geoid": str})
 
 
+def _read_facility_scenarios() -> pd.DataFrame:
+    path = DATA / "facility_location_scenarios.csv"
+    if not path.exists():
+        raise HTTPException(
+            status_code=503,
+            detail="Equity-aware facility scenarios are not available",
+        )
+    return pd.read_csv(path, dtype={"candidate_geoid": str})
+
+
 @app.head("/")
 def head_root() -> Response:
     return Response(status_code=200)
@@ -147,3 +157,37 @@ def facility_location() -> dict:
 
     summary["candidate_geoid"] = str(summary["candidate_geoid"]).zfill(11)
     return summary
+
+
+
+@app.get("/api/facility-location/scenarios")
+def facility_location_scenarios() -> list[dict]:
+    frame = _read_facility_scenarios().copy()
+
+    integer_fields = [
+        "threshold_minutes",
+        "newly_covered_objective",
+        "newly_covered_population",
+        "newly_covered_foreign_born_population",
+        "newly_covered_population_below_poverty",
+        "newly_covered_no_vehicle_households",
+        "newly_covered_tracts",
+        "baseline_covered_objective",
+        "optimized_covered_objective",
+        "total_objective",
+    ]
+    float_fields = [
+        "longitude",
+        "latitude",
+        "baseline_coverage_pct",
+        "optimized_coverage_pct",
+        "coverage_gain_pct_points",
+    ]
+
+    for field in integer_fields:
+        frame[field] = frame[field].astype(int)
+    for field in float_fields:
+        frame[field] = frame[field].astype(float)
+
+    frame["candidate_geoid"] = frame["candidate_geoid"].astype(str).str.zfill(11)
+    return frame.to_dict("records")
