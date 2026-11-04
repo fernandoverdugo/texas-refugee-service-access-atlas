@@ -21,7 +21,9 @@ def main() -> None:
     tract_context.to_file(PROCESSED / "tracts_dfw.geojson", driver="GeoJSON")
     tract_points.drop(columns="geometry").to_csv(PROCESSED / "tract_points_dfw.csv", index=False)
 
-    geocoded = geocode_provider_inventory(providers)
+    cache_path = PROCESSED / "provider_locations.csv"
+    cache = pd.read_csv(cache_path) if cache_path.exists() else None
+    geocoded = geocode_provider_inventory(providers, cache=cache)
     if not geocoded["matched"].all():
         failed = geocoded.loc[~geocoded["matched"], "provider_id"].tolist()
         raise RuntimeError(f"Provider geocoding failed for: {failed}")
