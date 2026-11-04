@@ -253,6 +253,15 @@ def tracts() -> dict:
             properties.update(lookup[geoid])
             properties["geoid"] = geoid
 
+            population = properties.get("population")
+            foreign_born = properties.get("foreign_born_population")
+            if population is not None and float(population) > 0:
+                properties["foreign_born_share"] = (
+                    float(foreign_born or 0) / float(population)
+                )
+            else:
+                properties["foreign_born_share"] = None
+
     return geo
 
 
