@@ -58,6 +58,22 @@ The DFW transit layer combines official GTFS schedule feeds from:
 
 The combined model uses scheduled stops, trips, stop times, and nearby walking-transfer links so Dallas and Tarrant County are not evaluated with a Dallas-only network.
 
+## First accessibility baseline
+
+The first validated multimodal model combines DART and Trinity Metro scheduled GTFS data, nearby walking transfers, tract representative points, and the seven verified refugee-service locations.
+
+| Measure | Dallas + Tarrant | Dallas County | Tarrant County |
+| --- | ---: | ---: | ---: |
+| Tracts in study area | 1,094 | 645 | 449 |
+| Tracts reaching any modeled provider | 568 | 440 | 128 |
+| Foreign-born population with a provider within 30 modeled minutes | 21.8% | 27.9% | 11.1% |
+| Foreign-born population with a provider within 45 modeled minutes | 39.7% | 51.8% | 18.5% |
+| Foreign-born population with a provider within 60 modeled minutes | 51.4% | 66.0% | 26.0% |
+
+These figures are a **scheduled-accessibility baseline**, not observed travel behavior. The current graph uses median scheduled in-vehicle times, walking access/egress and nearby walking transfers, but it does not yet model departure-time-specific waiting, missed connections, real-time delays, service eligibility, appointment availability, or pedestrian conditions.
+
+The Dallas–Tarrant difference should therefore be interpreted as a signal for deeper service-access analysis rather than a definitive measure of refugee access.
+
 ## Planned outputs
 
 The first accessibility metrics will include:
@@ -156,8 +172,8 @@ Python · pandas · requests · GeoPandas · Shapely · NetworkX · pytest · Gi
 | Provider inventory | ✅ Implemented |
 | DART GTFS ingestion | ✅ Implemented |
 | Trinity Metro GTFS ingestion | ✅ Implemented |
-| Transit graph + routing | 🚧 In progress |
-| Accessibility metrics | 🚧 In progress |
+| Transit graph + routing | ✅ Implemented |
+| Accessibility metrics | ✅ Baseline implemented |
 | Interactive atlas | ⏳ Planned |
 | Facility-location optimization | ⏳ Planned |
 
@@ -169,3 +185,5 @@ MIT
 ## Trinity Metro data notice
 
 Data provided by Trinity Metro is not warranted by Trinity Metro for accuracy or completeness and data is subject to change without notice.
+
+Geocoding fallback attribution: © OpenStreetMap contributors (Nominatim / ODbL).
