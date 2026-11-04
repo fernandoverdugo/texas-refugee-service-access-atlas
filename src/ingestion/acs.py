@@ -96,7 +96,26 @@ def fetch_acs_tracts(
     )
     response = requests.get(url, params=params, timeout=timeout)
     response.raise_for_status()
-    return parse_acs_response(response.json(), county_fips, year=year)
+
+    content_type = response.headers.get("content-type", "").lower()
+    if "json" not in content_type:
+        body = response.text.lower()
+        if "invalid key" in body:
+            raise RuntimeError(
+                "Census API rejected CENSUS_API_KEY. Confirm the key was copied "
+                "correctly and activated using the registration link from Census."
+            )
+        excerpt = " ".join(response.text.split())[:200]
+        raise RuntimeError(
+            f"Census API returned a non-JSON response: {excerpt}"
+        )
+
+    try:
+        payload = response.json()
+    except requests.exceptions.JSONDecodeError as exc:
+        raise RuntimeError("Census API returned malformed JSON") from exc
+
+    return parse_acs_response(payload, county_fips, year=year)
 
 
 def fetch_dfw_acs(
