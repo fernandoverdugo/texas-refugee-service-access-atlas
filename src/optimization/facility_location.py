@@ -80,8 +80,6 @@ def score_candidates(
         "geoid",
         weight_column,
         "population",
-        "foreign_born_population",
-        "population_below_poverty",
         "households_no_vehicle",
     }
     required_baseline = {"geoid", f"providers_within_{threshold_minutes}m"}
@@ -92,6 +90,13 @@ def score_candidates(
         raise ValueError(f"baseline access missing columns: {sorted(missing)}")
 
     context = tract_context.copy()
+    for optional_column in [
+        "foreign_born_population",
+        "population_below_poverty",
+    ]:
+        if optional_column not in context.columns:
+            context[optional_column] = 0
+
     context["geoid"] = context["geoid"].map(normalize_geoid)
 
     baseline = baseline_access.copy()
