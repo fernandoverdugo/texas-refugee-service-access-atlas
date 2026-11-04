@@ -16,6 +16,7 @@ The inventory does **not** imply that every listed service is open to every refu
 ## Current organizations
 
 - International Rescue Committee — Dallas
+- Church World Service — Dallas
 - Catholic Charities Dallas
 - Catholic Charities Fort Worth
 - ICNA Relief — Dallas and Fort Worth resource centers
@@ -23,7 +24,7 @@ The inventory does **not** imply that every listed service is open to every refu
 
 ## Address conflicts
 
-Provider addresses can change. World Relief Texas currently has conflicting addresses across some pages and older documents. The inventory uses the address shown on the current local office page and records the discrepancy in the notes field.
+Provider addresses can change. **CWS Dallas currently uses 932 S. Greenville Ave, Richardson, TX 75081** in the current CWS local-office directory; an older CWS Dallas overview lists a prior Richardson address. World Relief Texas also has conflicting addresses across some pages and older documents. The inventory uses the address shown on the current local office page and records the discrepancy in the notes field.
 
 This is important for the later routing layer: geocoding a stale address would create false accessibility results.
 
