@@ -91,23 +91,24 @@ def main() -> None:
         index=False,
     )
 
+    summary_source = accessibility.copy()
+    summary_source["accessible_45"] = (
+        summary_source["service_locations_within_45m"] > 0
+    )
+    summary_source["foreign_born_45m"] = summary_source[
+        "foreign_born_population"
+    ].where(summary_source["accessible_45"], 0)
+
     summary = (
-        accessibility.assign(
-            accessible_45=lambda frame: frame["service_locations_within_45m"] > 0
-        )
-        .groupby(
+        summary_source.groupby(
             ["service_type", "service_label", "provider_locations"],
             as_index=False,
         )
         .agg(
             tracts_with_45m_access=("accessible_45", "sum"),
             foreign_born_population_with_45m_access=(
-                "foreign_born_population",
-                lambda values: int(
-                    values[
-                        accessibility.loc[values.index, "accessible_45"]
-                    ].sum()
-                ),
+                "foreign_born_45m",
+                "sum",
             ),
         )
     )
