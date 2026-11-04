@@ -1,0 +1,70 @@
+name: Optimize facility location
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/facility-location.yml"
+
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install -r requirements.txt
+      - run: python -m pytest -q
+
+      - name: Run one-site maximum coverage optimization
+        run: python -m scripts.optimize_facility_location
+
+      - name: Validate optimization outputs
+        run: |
+          python - <<'PY'
+          import pandas as pd
+
+          summary = pd.read_csv("data/processed/facility_location_summary.csv").iloc[0]
+          candidates = pd.read_csv(
+              "data/processed/facility_location_candidates.csv",
+              dtype={"candidate_geoid": str},
+          )
+
+          assert summary["threshold_minutes"] == 45
+          assert summary["newly_covered_foreign_born_population"] > 0
+          assert summary["optimized_coverage_pct"] > summary["baseline_coverage_pct"]
+          assert summary["coverage_gain_pct_points"] > 0
+          assert len(candidates) > 100
+          assert candidates["rank"].iloc[0] == 1
+          assert candidates["newly_covered_weight"].iloc[0] >= candidates["newly_covered_weight"].iloc[-1]
+
+          print(summary.to_dict())
+          print(candidates.head(10).to_dict("records"))
+          PY
+
+      - name: Commit validated optimization outputs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/processed/facility_location_candidates.csv
+          git add data/processed/facility_location_summary.csv
+
+          if git diff --cached --quiet; then
+            echo "No optimization output changes."
+            exit 0
+          fi
+
+          git commit -m "Build validated facility location recommendation"
+          git pull --rebase origin main
+          git push origin main
