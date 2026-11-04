@@ -49,7 +49,7 @@ def test_nearest_stops_respects_distance():
 def test_calculate_accessibility_counts_thresholds():
     graph = nx.DiGraph()
     graph.add_edge("A", "B", weight=600)
-    graph.add_edge("B", "C", weight=600)
+    graph.add_edge("B", "C", weight=720)
 
     origins = pd.DataFrame(
         {"geoid": ["g1"], "stop_id": ["A"], "walk_seconds": [300]}
