@@ -6,6 +6,8 @@ from pathlib import Path
 import pandas as pd
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse, Response
+from shapely.geometry import mapping, shape
+from shapely.ops import unary_union
 
 
 BASE = Path(__file__).resolve().parents[2]
@@ -253,6 +255,43 @@ def tracts() -> dict:
 
     return geo
 
+
+
+
+@app.get("/api/study-area")
+def study_area() -> dict:
+    geo = _read_geojson()
+    grouped: dict[str, list] = {}
+
+    for feature in geo.get("features", []):
+        properties = feature.get("properties", {})
+        county_name = properties.get("county_name")
+        geometry = feature.get("geometry")
+
+        if county_name and geometry:
+            grouped.setdefault(str(county_name), []).append(shape(geometry))
+
+    features = []
+    for county_name, geometries in sorted(grouped.items()):
+        county_geometry = unary_union(geometries)
+        label_point = county_geometry.representative_point()
+
+        features.append(
+            {
+                "type": "Feature",
+                "properties": {
+                    "county_name": county_name,
+                    "label_latitude": label_point.y,
+                    "label_longitude": label_point.x,
+                },
+                "geometry": mapping(county_geometry),
+            }
+        )
+
+    return {
+        "type": "FeatureCollection",
+        "features": features,
+    }
 
 
 @app.get("/api/facility-location")
