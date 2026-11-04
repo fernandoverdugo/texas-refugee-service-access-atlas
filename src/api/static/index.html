@@ -88,6 +88,7 @@
       <label for="metric">Shade tracts by</label>
       <select id="metric">
         <option value="nearest">Nearest selected service travel time</option>
+        <option value="service_gap">Service-access gap classification</option>
         <option value="foreign_born_population">Foreign-born population</option>
         <option value="households_no_vehicle">Households with no vehicle</option>
         <option value="population_below_poverty">Population below poverty</option>
@@ -133,6 +134,17 @@
       </select>
       <div class="note" id="timeScenarioNote" style="margin-top:7px">
         Baseline uses scheduled in-vehicle times without departure-specific waiting.
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Gap classification</h2>
+      <div class="kpis">
+        <div class="kpi"><span class="value" id="severeGapCount">—</span><span class="label">severe-gap tracts</span></div>
+        <div class="kpi"><span class="value" id="highGapCount">—</span><span class="label">high-gap tracts</span></div>
+      </div>
+      <div class="note" id="gapClassificationNote" style="margin-top:8px">
+        Choose a scheduled transit scenario to view service-access gap classifications.
       </div>
     </div>
 
@@ -205,7 +217,9 @@
   let facilityScenarios = [];
   let serviceTypeSummaries = [];
   let temporalSummaries = { overall: [], service_types: [] };
+  let gapSummaries = [];
   let currentServiceAccess = {};
+  let currentServiceGaps = {};
 
   const metricSelect = document.getElementById("metric");
   const thresholdSelect = document.getElementById("threshold");
@@ -239,6 +253,14 @@
     if (value <= q(.6)) return "#8fc3c9";
     if (value <= q(.8)) return "#4d9ca7";
     return "#176b78";
+  }
+
+  function gapColor(level) {
+    if (Number(level) === 0) return "#4d956f";
+    if (Number(level) === 1) return "#e4b849";
+    if (Number(level) === 2) return "#d67b39";
+    if (Number(level) === 3) return "#a84735";
+    return "#d9dde0";
   }
 
   function serviceMetrics(properties) {
@@ -283,6 +305,16 @@
     const service = serviceMetrics(p);
     let fillColor = "#d9dde0";
 
+    if (metric === "service_gap") {
+      const gap = currentServiceGaps[p.geoid];
+      return {
+        color: "#69777c",
+        weight: 0.7,
+        fillColor: gapColor(gap ? gap.gap_level : null),
+        fillOpacity: gap ? 0.82 : 0.22
+      };
+    }
+
     if (metric === "nearest") {
       if (timeSelect.value === "baseline") {
         fillColor = timeColor(service.nearest);
@@ -326,6 +358,13 @@
       : temporalBand(service);
     const serviceLabel = serviceSelect.options[serviceSelect.selectedIndex].text;
     const timeLabel = timeSelect.options[timeSelect.selectedIndex].text;
+    const gap = currentServiceGaps[p.geoid];
+    const gapRows = gap
+      ? `
+        <span>Gap class</span><strong>${gap.gap_class}</strong>
+        <span>High-context indicators</span><strong>${gap.high_context_indicators} of 3</strong>
+      `
+      : "";
 
     return `
       <div class="popup-title">${p.county_name || "DFW"} tract ${p.geoid || ""}</div>
@@ -339,6 +378,7 @@
         <span>Within 30 min</span><strong>${num(service.within30)}</strong>
         <span>Within 45 min</span><strong>${num(service.within45)}</strong>
         <span>Within 60 min</span><strong>${num(service.within60)}</strong>
+        ${gapRows}
       </div>`;
   }
 
@@ -445,7 +485,12 @@
       const div = L.DomUtil.create("div", "legend");
       const metric = metricSelect.value;
 
-      if (metric === "nearest") {
+      if (metric === "service_gap") {
+        div.innerHTML = '<strong>Service-access gap</strong>' +
+          [['#4d956f','Lower gap'],['#e4b849','Moderate gap'],['#d67b39','High gap'],['#a84735','Severe gap']]
+          .map(([c,l]) => `<div class="legend-row"><span class="swatch" style="background:${c}"></span>${l}</div>`).join('') +
+          '<div style="margin-top:7px">High-context = top quartile on at least 2 of 3 indicators.</div>';
+      } else if (metric === "nearest") {
         const serviceLabel = serviceSelect.options[serviceSelect.selectedIndex].text;
         if (timeSelect.value === "baseline") {
           div.innerHTML = '<strong>Nearest ' + serviceLabel + '</strong>' +
@@ -467,6 +512,32 @@
       return div;
     };
     legend.addTo(map);
+  }
+
+  function updateGapSummary() {
+    const scenario = timeSelect.value;
+    const service = serviceSelect.value;
+
+    if (scenario === "baseline") {
+      document.getElementById("severeGapCount").textContent = "—";
+      document.getElementById("highGapCount").textContent = "—";
+      document.getElementById("gapClassificationNote").textContent =
+        "Gap classifications use scheduled routing. Choose a weekday or Saturday scenario.";
+      return;
+    }
+
+    const rows = gapSummaries.filter(row =>
+      row.scenario_id === scenario && row.service_type === service
+    );
+    const severe = rows.find(row => row.gap_class === "Severe gap");
+    const high = rows.find(row => row.gap_class === "High gap");
+
+    document.getElementById("severeGapCount").textContent =
+      num(severe ? severe.tract_count : 0);
+    document.getElementById("highGapCount").textContent =
+      num(high ? high.tract_count : 0);
+    document.getElementById("gapClassificationNote").textContent =
+      "Gap class combines scheduled 45/60-minute access with transparent top-quartile neighborhood context flags.";
   }
 
   function updateCoverageNote() {
@@ -519,6 +590,8 @@
     const timeScenario = timeSelect.value;
 
     if (timeScenario === "baseline") {
+      currentServiceGaps = {};
+
       if (serviceType === "all") {
         currentServiceAccess = {};
       } else {
@@ -534,31 +607,44 @@
         ? "/api/temporal-accessibility/" + timeScenario
         : "/api/temporal-service-accessibility/" + timeScenario + "/" + serviceType;
 
-      const response = await fetch(endpoint);
-      if (!response.ok) throw new Error("Time-dependent accessibility data could not be loaded");
-      const rows = await response.json();
+      const [accessResponse, gapResponse] = await Promise.all([
+        fetch(endpoint),
+        fetch("/api/service-gaps/" + timeScenario + "/" + serviceType)
+      ]);
+
+      if (!accessResponse.ok) throw new Error("Time-dependent accessibility data could not be loaded");
+      if (!gapResponse.ok) throw new Error("Service-gap classifications could not be loaded");
+
+      const accessRows = await accessResponse.json();
+      const gapRows = await gapResponse.json();
+
       currentServiceAccess = Object.fromEntries(
-        rows.map(row => [row.geoid, row])
+        accessRows.map(row => [row.geoid, row])
+      );
+      currentServiceGaps = Object.fromEntries(
+        gapRows.map(row => [row.geoid, row])
       );
     }
 
     updateCoverageNote();
+    updateGapSummary();
     renderTracts();
     renderProviders();
   }
 
   async function load() {
-    const [tractResponse, providerResponse, summaryResponse, facilityResponse, scenariosResponse, serviceTypesResponse, temporalSummariesResponse] = await Promise.all([
+    const [tractResponse, providerResponse, summaryResponse, facilityResponse, scenariosResponse, serviceTypesResponse, temporalSummariesResponse, gapSummaryResponse] = await Promise.all([
       fetch("/api/tracts"),
       fetch("/api/providers"),
       fetch("/api/summary"),
       fetch("/api/facility-location"),
       fetch("/api/facility-location/scenarios"),
       fetch("/api/service-types"),
-      fetch("/api/temporal-summaries")
+      fetch("/api/temporal-summaries"),
+      fetch("/api/service-gap-summary")
     ]);
 
-    if (!tractResponse.ok || !providerResponse.ok || !summaryResponse.ok || !facilityResponse.ok || !scenariosResponse.ok || !serviceTypesResponse.ok || !temporalSummariesResponse.ok) {
+    if (!tractResponse.ok || !providerResponse.ok || !summaryResponse.ok || !facilityResponse.ok || !scenariosResponse.ok || !serviceTypesResponse.ok || !temporalSummariesResponse.ok || !gapSummaryResponse.ok) {
       throw new Error("Atlas data could not be loaded");
     }
 
@@ -569,6 +655,7 @@
     facilityScenarios = await scenariosResponse.json();
     serviceTypeSummaries = await serviceTypesResponse.json();
     temporalSummaries = await temporalSummariesResponse.json();
+    gapSummaries = await gapSummaryResponse.json();
 
     document.getElementById("tractCount").textContent = num(summary.tracts);
     document.getElementById("providerCount").textContent = num(summary.providers);
@@ -581,7 +668,14 @@
     if (tractLayer.getBounds().isValid()) map.fitBounds(tractLayer.getBounds(), { padding: [12,12] });
   }
 
-  metricSelect.addEventListener("change", renderTracts);
+  metricSelect.addEventListener("change", () => {
+    if (metricSelect.value === "service_gap" && timeSelect.value === "baseline") {
+      timeSelect.value = "weekday_midday";
+      loadSelectedAccess().catch(error => console.error(error));
+      return;
+    }
+    renderTracts();
+  });
   thresholdSelect.addEventListener("change", renderTracts);
   serviceSelect.addEventListener("change", () => {
     loadSelectedAccess().catch(error => console.error(error));
