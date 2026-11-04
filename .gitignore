@@ -26,3 +26,6 @@ data/processed/*
 !data/processed/provider_stop_connectors.csv
 !data/processed/tract_service_accessibility.csv
 !data/processed/accessibility_summary.csv
+
+!data/processed/facility_location_candidates.csv
+!data/processed/facility_location_summary.csv
