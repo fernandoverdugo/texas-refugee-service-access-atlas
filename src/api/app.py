@@ -61,6 +61,36 @@ def _read_facility_scenarios() -> pd.DataFrame:
     return pd.read_csv(path, dtype={"candidate_geoid": str})
 
 
+def _read_service_type_accessibility() -> pd.DataFrame:
+    path = DATA / "tract_service_type_accessibility.csv"
+    if not path.exists():
+        raise HTTPException(
+            status_code=503,
+            detail="Service-type accessibility is not available",
+        )
+    return pd.read_csv(path, dtype={"geoid": str})
+
+
+def _read_service_type_summary() -> pd.DataFrame:
+    path = DATA / "service_type_accessibility_summary.csv"
+    if not path.exists():
+        raise HTTPException(
+            status_code=503,
+            detail="Service-type accessibility summary is not available",
+        )
+    return pd.read_csv(path)
+
+
+def _read_provider_service_types() -> pd.DataFrame:
+    path = DATA / "provider_service_types.csv"
+    if not path.exists():
+        raise HTTPException(
+            status_code=503,
+            detail="Provider service types are not available",
+        )
+    return pd.read_csv(path, dtype={"provider_id": str})
+
+
 @app.head("/")
 def head_root() -> Response:
     return Response(status_code=200)
@@ -90,7 +120,12 @@ def summary() -> dict:
 
 @app.get("/api/providers")
 def providers() -> list[dict]:
-    frame = _read_providers()
+    frame = _read_providers().merge(
+        _read_provider_service_types(),
+        on="provider_id",
+        how="left",
+        validate="one_to_one",
+    )
     columns = [
         "provider_id",
         "organization",
@@ -99,6 +134,8 @@ def providers() -> list[dict]:
         "city",
         "county",
         "service_categories",
+        "normalized_service_types",
+        "normalized_service_labels",
         "longitude",
         "latitude",
         "geocode_source",
@@ -191,3 +228,59 @@ def facility_location_scenarios() -> list[dict]:
 
     frame["candidate_geoid"] = frame["candidate_geoid"].astype(str).str.zfill(11)
     return frame.to_dict("records")
+
+
+
+@app.get("/api/service-types")
+def service_types() -> list[dict]:
+    frame = _read_service_type_summary().copy()
+    frame["provider_locations"] = frame["provider_locations"].astype(int)
+    frame["tracts_with_45m_access"] = frame["tracts_with_45m_access"].astype(int)
+    frame["foreign_born_population_with_45m_access"] = frame[
+        "foreign_born_population_with_45m_access"
+    ].astype(int)
+    frame["foreign_born_45m_access_pct"] = frame[
+        "foreign_born_45m_access_pct"
+    ].astype(float)
+    return frame.to_dict("records")
+
+
+@app.get("/api/service-accessibility/{service_type}")
+def service_accessibility(service_type: str) -> list[dict]:
+    frame = _read_service_type_accessibility()
+    available = set(frame["service_type"].unique())
+
+    if service_type not in available:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Unknown service type: {service_type}",
+        )
+
+    selected = frame.loc[
+        frame["service_type"] == service_type,
+        [
+            "geoid",
+            "service_type",
+            "service_label",
+            "provider_locations",
+            "reachable_service_locations",
+            "nearest_service_minutes",
+            "service_locations_within_30m",
+            "service_locations_within_45m",
+            "service_locations_within_60m",
+        ],
+    ].copy()
+
+    integer_fields = [
+        "provider_locations",
+        "reachable_service_locations",
+        "service_locations_within_30m",
+        "service_locations_within_45m",
+        "service_locations_within_60m",
+    ]
+    for field in integer_fields:
+        selected[field] = selected[field].astype(int)
+
+    selected["geoid"] = selected["geoid"].astype(str).str.zfill(11)
+    selected = selected.astype(object).where(pd.notna(selected), None)
+    return selected.to_dict("records")
