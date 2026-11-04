@@ -1,0 +1,83 @@
+name: Refresh ACS tract data
+
+on:
+  workflow_dispatch:
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      CENSUS_API_KEY: ${{ secrets.CENSUS_API_KEY }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install -r requirements.txt
+      - run: python -m pytest -q
+
+      - name: Require Census API key
+        run: |
+          test -n "$CENSUS_API_KEY" || (echo "CENSUS_API_KEY secret is required" && exit 1)
+
+      - name: Build Dallas and Tarrant tract panel
+        run: python -m scripts.fetch_acs_dfw
+
+      - name: Validate processed ACS panel
+        run: |
+          python - <<'PY'
+          import pandas as pd
+
+          path = "data/processed/acs_dfw_tracts.csv"
+          frame = pd.read_csv(path, dtype={"geoid": str, "county": str, "tract": str})
+
+          required = {
+              "geoid",
+              "county_name",
+              "acs_year",
+              "population",
+              "foreign_born_population",
+              "population_below_poverty",
+              "households_no_vehicle",
+              "renter_occupied_households",
+          }
+          assert required.issubset(frame.columns)
+          assert set(frame["county_name"]) == {"Dallas", "Tarrant"}
+          assert frame["geoid"].nunique() == len(frame)
+          assert (frame["acs_year"] == 2024).all()
+          assert (frame[list(required - {"geoid", "county_name", "acs_year"})] >= 0).all().all()
+          assert len(frame) > 500
+
+          print(
+              {
+                  "rows": len(frame),
+                  "dallas_tracts": int((frame["county_name"] == "Dallas").sum()),
+                  "tarrant_tracts": int((frame["county_name"] == "Tarrant").sum()),
+              }
+          )
+          PY
+
+      - name: Commit validated ACS panel
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/processed/acs_dfw_tracts.csv
+
+          if git diff --cached --quiet; then
+            echo "No ACS output changes."
+            exit 0
+          fi
+
+          git commit -m "Refresh validated DFW ACS tract panel"
+          git pull --rebase origin main
+          git push origin main
