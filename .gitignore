@@ -12,3 +12,6 @@ data/processed/*
 !data/processed/.gitkeep
 !data/processed/provider_inventory.csv
 !data/processed/acs_dfw_tracts.csv
+!data/processed/dart_gtfs_summary.csv
+!data/processed/gtfs/
+!data/processed/gtfs/**
