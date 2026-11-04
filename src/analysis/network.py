@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import math
 
+import geopandas as gpd
 import networkx as nx
 import pandas as pd
 
@@ -135,5 +136,74 @@ def build_graph(transit_edges: pd.DataFrame) -> nx.DiGraph:
                 weight=weight,
                 edge_type="transit",
             )
+
+    return graph
+
+
+
+def build_walking_transfer_edges(
+    stops: pd.DataFrame,
+    max_walk_km: float = 0.30,
+    walk_kph: float = DEFAULT_WALK_KPH,
+) -> pd.DataFrame:
+    required = {"stop_id", "stop_lat", "stop_lon"}
+    if missing := required.difference(stops.columns):
+        raise ValueError(f"stops missing columns: {sorted(missing)}")
+
+    frame = stops.copy()
+    frame["stop_lat"] = pd.to_numeric(frame["stop_lat"], errors="raise")
+    frame["stop_lon"] = pd.to_numeric(frame["stop_lon"], errors="raise")
+
+    points = gpd.GeoDataFrame(
+        frame[["stop_id"]].copy(),
+        geometry=gpd.points_from_xy(frame["stop_lon"], frame["stop_lat"]),
+        crs="EPSG:4326",
+    ).to_crs("EPSG:32614")
+
+    left = points.copy()
+    left["geometry"] = left.geometry.buffer(max_walk_km * 1000)
+
+    pairs = gpd.sjoin(
+        left,
+        points.rename(columns={"stop_id": "to_stop_id"}),
+        how="inner",
+        predicate="intersects",
+    )
+    pairs = pairs.rename(columns={"stop_id": "from_stop_id"})
+    pairs = pairs[pairs["from_stop_id"] != pairs["to_stop_id"]].copy()
+
+    point_lookup = points.set_index("stop_id").geometry
+    pairs["walk_meters"] = pairs.apply(
+        lambda row: point_lookup[row["from_stop_id"]].distance(
+            point_lookup[row["to_stop_id"]]
+        ),
+        axis=1,
+    )
+    pairs["walk_seconds"] = (
+        pairs["walk_meters"] / 1000 / walk_kph * 3600
+    ).round().astype(int)
+
+    return pairs[
+        ["from_stop_id", "to_stop_id", "walk_meters", "walk_seconds"]
+    ].drop_duplicates(["from_stop_id", "to_stop_id"]).reset_index(drop=True)
+
+
+def build_multimodal_graph(
+    transit_edges: pd.DataFrame,
+    transfer_edges: pd.DataFrame | None = None,
+) -> nx.DiGraph:
+    graph = build_graph(transit_edges)
+
+    if transfer_edges is not None:
+        for row in transfer_edges.itertuples(index=False):
+            weight = float(row.walk_seconds)
+            existing = graph.get_edge_data(row.from_stop_id, row.to_stop_id)
+            if existing is None or weight < existing["weight"]:
+                graph.add_edge(
+                    row.from_stop_id,
+                    row.to_stop_id,
+                    weight=weight,
+                    edge_type="walking_transfer",
+                )
 
     return graph
