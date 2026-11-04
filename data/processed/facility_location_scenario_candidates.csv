@@ -1,0 +1,101 @@
+candidate_geoid,newly_covered_weight,newly_covered_population,newly_covered_foreign_born_population,newly_covered_population_below_poverty,newly_covered_no_vehicle_households,newly_covered_tracts,scenario_id,scenario_label,rank
+48113003102,64363,287188,64363,59129,10253,64,foreign_born_population,Foreign-born population,1
+48113003103,63301,276788,63301,57040,9418,59,foreign_born_population,Foreign-born population,2
+48113002100,59600,272304,59600,57262,9734,59,foreign_born_population,Foreign-born population,3
+48113003700,56559,246896,56559,51709,8561,52,foreign_born_population,Foreign-born population,4
+48113020300,55025,234207,55025,49467,8265,49,foreign_born_population,Foreign-born population,5
+48113012207,54757,208950,54757,40255,5725,44,foreign_born_population,Foreign-born population,6
+48113002400,54246,222884,54246,47377,7537,46,foreign_born_population,Foreign-born population,7
+48113008701,53878,253039,53878,59535,10208,55,foreign_born_population,Foreign-born population,8
+48113002200,53708,225778,53708,48385,8029,46,foreign_born_population,Foreign-born population,9
+48113008500,53205,207994,53205,41963,6154,44,foreign_born_population,Foreign-born population,10
+48113020401,52889,225920,52889,48196,8182,47,foreign_born_population,Foreign-born population,11
+48113012206,52781,200561,52781,37675,5248,41,foreign_born_population,Foreign-born population,12
+48113012211,52781,200561,52781,37675,5248,41,foreign_born_population,Foreign-born population,13
+48113012302,51745,197654,51745,36804,5011,40,foreign_born_population,Foreign-born population,14
+48113001502,51736,211223,51736,44169,6873,43,foreign_born_population,Foreign-born population,15
+48113002500,51241,203866,51241,40916,6516,42,foreign_born_population,Foreign-born population,16
+48113009101,50749,203935,50749,41315,6394,43,foreign_born_population,Foreign-born population,17
+48113012212,50419,189086,50419,33253,4731,38,foreign_born_population,Foreign-born population,18
+48113020800,49550,211430,49550,47548,7682,44,foreign_born_population,Foreign-born population,19
+48113009001,49385,188428,49385,37375,5481,40,foreign_born_population,Foreign-born population,20
+48113009304,49263,210916,49263,48644,7483,44,foreign_born_population,Foreign-born population,21
+48113008402,48866,194880,48866,37960,5698,41,foreign_born_population,Foreign-born population,22
+48113002703,48703,198853,48703,43970,6749,42,foreign_born_population,Foreign-born population,23
+48113001204,48571,194595,48571,40427,6393,40,foreign_born_population,Foreign-born population,24
+48113012400,48128,176224,48128,27907,3927,36,foreign_born_population,Foreign-born population,25
+48113003102,287188,287188,64363,59129,10253,64,population,Total population,1
+48113003103,276788,276788,63301,57040,9418,59,population,Total population,2
+48113002100,272304,272304,59600,57262,9734,59,population,Total population,3
+48113008701,253039,253039,53878,59535,10208,55,population,Total population,4
+48113020402,247023,247023,46547,53819,9851,54,population,Total population,5
+48113003700,246896,246896,56559,51709,8561,52,population,Total population,6
+48113020300,234207,234207,55025,49467,8265,49,population,Total population,7
+48113002001,230998,230998,45424,49108,9128,51,population,Total population,8
+48113008801,229653,229653,46129,56223,9758,49,population,Total population,9
+48113020401,225920,225920,52889,48196,8182,47,population,Total population,10
+48113002200,225778,225778,53708,48385,8029,46,population,Total population,11
+48439123302,225135,225135,42847,43084,7663,57,population,Total population,12
+48113008705,223295,223295,45748,55312,9505,48,population,Total population,13
+48113002400,222884,222884,54246,47377,7537,46,population,Total population,14
+48113008703,214294,214294,45277,52401,9139,46,population,Total population,15
+48113020800,211430,211430,49550,47548,7682,44,population,Total population,16
+48113001502,211223,211223,51736,44169,6873,43,population,Total population,17
+48113009304,210916,210916,49263,48644,7483,44,population,Total population,18
+48113012207,208950,208950,54757,40255,5725,44,population,Total population,19
+48113001902,208789,208789,44100,42902,8099,47,population,Total population,20
+48113005500,208487,208487,37831,49499,9264,45,population,Total population,21
+48113008500,207994,207994,53205,41963,6154,44,population,Total population,22
+48113002002,205733,205733,38117,47453,8717,45,population,Total population,23
+48113009101,203935,203935,50749,41315,6394,43,population,Total population,24
+48113002500,203866,203866,51241,40916,6516,42,population,Total population,25
+48113003102,10253,287188,64363,59129,10253,64,households_no_vehicle,No-vehicle households,1
+48113008701,10208,253039,53878,59535,10208,55,households_no_vehicle,No-vehicle households,2
+48113020402,9851,247023,46547,53819,9851,54,households_no_vehicle,No-vehicle households,3
+48113008801,9758,229653,46129,56223,9758,49,households_no_vehicle,No-vehicle households,4
+48113002100,9734,272304,59600,57262,9734,59,households_no_vehicle,No-vehicle households,5
+48113008705,9505,223295,45748,55312,9505,48,households_no_vehicle,No-vehicle households,6
+48113003103,9418,276788,63301,57040,9418,59,households_no_vehicle,No-vehicle households,7
+48113005500,9264,208487,37831,49499,9264,45,households_no_vehicle,No-vehicle households,8
+48113008703,9139,214294,45277,52401,9139,46,households_no_vehicle,No-vehicle households,9
+48113002001,9128,230998,45424,49108,9128,51,households_no_vehicle,No-vehicle households,10
+48113008802,8739,194251,36839,50412,8739,43,households_no_vehicle,No-vehicle households,11
+48113002002,8717,205733,38117,47453,8717,45,households_no_vehicle,No-vehicle households,12
+48113011300,8711,186197,33231,47267,8711,42,households_no_vehicle,No-vehicle households,13
+48113005000,8649,199188,34445,47325,8649,44,households_no_vehicle,No-vehicle households,14
+48113003700,8561,246896,56559,51709,8561,52,households_no_vehicle,No-vehicle households,15
+48113004300,8551,200560,37595,46193,8551,44,households_no_vehicle,No-vehicle households,16
+48113011202,8544,176239,28914,46898,8544,39,households_no_vehicle,No-vehicle households,17
+48113005902,8519,160680,23758,45151,8519,35,households_no_vehicle,No-vehicle households,18
+48113005901,8412,163261,24931,45069,8412,35,households_no_vehicle,No-vehicle households,19
+48113004700,8345,191030,33632,45164,8345,42,households_no_vehicle,No-vehicle households,20
+48113006001,8335,169934,24426,45794,8335,37,households_no_vehicle,No-vehicle households,21
+48113021000,8330,185363,33294,44563,8330,40,households_no_vehicle,No-vehicle households,22
+48113004800,8313,185581,32717,44259,8313,40,households_no_vehicle,No-vehicle households,23
+48113020300,8265,234207,55025,49467,8265,49,households_no_vehicle,No-vehicle households,24
+48113008704,8243,185907,37339,47027,8243,39,households_no_vehicle,No-vehicle households,25
+48113008701,59535,253039,53878,59535,10208,55,population_below_poverty,Population below poverty,1
+48113003102,59129,287188,64363,59129,10253,64,population_below_poverty,Population below poverty,2
+48113002100,57262,272304,59600,57262,9734,59,population_below_poverty,Population below poverty,3
+48113003103,57040,276788,63301,57040,9418,59,population_below_poverty,Population below poverty,4
+48113008801,56223,229653,46129,56223,9758,49,population_below_poverty,Population below poverty,5
+48113008705,55312,223295,45748,55312,9505,48,population_below_poverty,Population below poverty,6
+48113020402,53819,247023,46547,53819,9851,54,population_below_poverty,Population below poverty,7
+48113008703,52401,214294,45277,52401,9139,46,population_below_poverty,Population below poverty,8
+48113003700,51709,246896,56559,51709,8561,52,population_below_poverty,Population below poverty,9
+48113008802,50412,194251,36839,50412,8739,43,population_below_poverty,Population below poverty,10
+48113005500,49499,208487,37831,49499,9264,45,population_below_poverty,Population below poverty,11
+48113020300,49467,234207,55025,49467,8265,49,population_below_poverty,Population below poverty,12
+48113002001,49108,230998,45424,49108,9128,51,population_below_poverty,Population below poverty,13
+48113009304,48644,210916,49263,48644,7483,44,population_below_poverty,Population below poverty,14
+48113002200,48385,225778,53708,48385,8029,46,population_below_poverty,Population below poverty,15
+48113020401,48196,225920,52889,48196,8182,47,population_below_poverty,Population below poverty,16
+48113008604,48196,193566,40835,48196,8145,40,population_below_poverty,Population below poverty,17
+48113020800,47548,211430,49550,47548,7682,44,population_below_poverty,Population below poverty,18
+48113002002,47453,205733,38117,47453,8717,45,population_below_poverty,Population below poverty,19
+48113002400,47377,222884,54246,47377,7537,46,population_below_poverty,Population below poverty,20
+48113005000,47325,199188,34445,47325,8649,44,population_below_poverty,Population below poverty,21
+48113011300,47267,186197,33231,47267,8711,42,population_below_poverty,Population below poverty,22
+48113008704,47027,185907,37339,47027,8243,39,population_below_poverty,Population below poverty,23
+48113011202,46898,176239,28914,46898,8544,39,population_below_poverty,Population below poverty,24
+48113004300,46193,200560,37595,46193,8551,44,population_below_poverty,Population below poverty,25
