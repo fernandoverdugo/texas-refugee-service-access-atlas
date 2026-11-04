@@ -81,6 +81,7 @@ The Dallas–Tarrant difference should therefore be interpreted as a signal for 
 - API documentation: https://texas-refugee-service-access-atlas.onrender.com/docs
 - Health check: https://texas-refugee-service-access-atlas.onrender.com/health
 - Summary API: https://texas-refugee-service-access-atlas.onrender.com/api/summary
+- Facility-location recommendation API: https://texas-refugee-service-access-atlas.onrender.com/api/facility-location
 
 The application is deployed as a Dockerized FastAPI service on Render.
 
@@ -95,6 +96,26 @@ The repository includes an interactive web atlas built with FastAPI and Leaflet.
 - click individual tracts for population and accessibility details
 
 The interface reads directly from the validated processed outputs, so refreshed analytical data flow into the application without maintaining a separate visualization dataset.
+
+## Facility-location optimization
+
+The first planning optimization asks:
+
+> If one additional refugee-service site could be added, which transit-connected tract would improve 45-minute access for the largest currently underserved foreign-born population?
+
+The exact one-site maximum-coverage model evaluates every transit-connected tract candidate.
+
+**Top modeled candidate:** Dallas County tract `48113003102`
+
+- newly covered foreign-born population: **64,363**
+- newly covered total population: **287,188**
+- newly covered no-vehicle households: **10,253**
+- newly covered tracts: **64**
+- baseline foreign-born population with a provider within 45 modeled minutes: **39.7%**
+- optimized coverage with the candidate: **46.0%**
+- modeled gain: **6.3 percentage points**
+
+This is a **tract-level planning signal**, not a parcel recommendation. The model does not evaluate real-estate availability, cost, zoning, staffing, ownership, or agency feasibility.
 
 ## Planned outputs
 
@@ -197,7 +218,7 @@ Python · pandas · requests · GeoPandas · Shapely · NetworkX · FastAPI · L
 | Transit graph + routing | ✅ Implemented |
 | Accessibility metrics | ✅ Baseline implemented |
 | Interactive atlas | ✅ Live deployment |
-| Facility-location optimization | ⏳ Planned |
+| Facility-location optimization | ✅ One-site model implemented |
 
 ## License
 
