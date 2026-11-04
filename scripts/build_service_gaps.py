@@ -70,23 +70,6 @@ def main() -> None:
         thresholds=thresholds,
     )
 
-    classified = classified.merge(
-        combined[
-            [
-                "geoid",
-                "scenario_id",
-                "service_type",
-                "scenario_label",
-                "departure_time",
-                "service_date",
-                "service_label",
-            ]
-        ],
-        on=["geoid", "scenario_id", "service_type"],
-        how="left",
-        validate="one_to_one",
-    )
-
     classified.to_csv(
         PROCESSED / "tract_service_gap_classification.csv",
         index=False,
