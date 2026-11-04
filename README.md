@@ -82,6 +82,7 @@ The Dallas–Tarrant difference should therefore be interpreted as a signal for 
 - Health check: https://texas-refugee-service-access-atlas.onrender.com/health
 - Summary API: https://texas-refugee-service-access-atlas.onrender.com/api/summary
 - Facility-location recommendation API: https://texas-refugee-service-access-atlas.onrender.com/api/facility-location
+- Equity-aware facility scenarios API: https://texas-refugee-service-access-atlas.onrender.com/api/facility-location/scenarios
 
 The application is deployed as a Dockerized FastAPI service on Render.
 
@@ -116,6 +117,20 @@ The exact one-site maximum-coverage model evaluates every transit-connected trac
 - modeled gain: **6.3 percentage points**
 
 This is a **tract-level planning signal**, not a parcel recommendation. The model does not evaluate real-estate availability, cost, zoning, staffing, ownership, or agency feasibility.
+
+
+### Equity-aware scenario comparison
+
+Using the same 45-minute network and candidate set, the project compares how the selected tract changes under different planning objectives.
+
+| Objective | Top tract | County | Newly covered objective | Baseline coverage | With candidate | Gain |
+| --- | --- | --- | ---: | ---: | ---: | ---: |
+| Foreign-born population | `48113003102` | Dallas | 64,363 residents | 39.7% | 46.0% | +6.3 pp |
+| Total population | `48113003102` | Dallas | 287,188 residents | 32.5% | 38.5% | +6.0 pp |
+| No-vehicle households | `48113003102` | Dallas | 10,253 households | 45.0% | 54.9% | +10.0 pp |
+| Population below poverty | `48113008701` | Dallas | 59,535 residents | 37.4% | 47.3% | +10.0 pp |
+
+Three objectives select the same tract, while the poverty-weighted objective shifts the recommendation to `48113008701`. Site-selection results are therefore conditional on the planning objective rather than a single universally best location.
 
 ## Planned outputs
 
@@ -218,7 +233,7 @@ Python · pandas · requests · GeoPandas · Shapely · NetworkX · FastAPI · L
 | Transit graph + routing | ✅ Implemented |
 | Accessibility metrics | ✅ Baseline implemented |
 | Interactive atlas | ✅ Live deployment |
-| Facility-location optimization | ✅ One-site model implemented |
+| Facility-location optimization | ✅ One-site + equity-aware scenarios implemented |
 
 ## License
 
