@@ -85,6 +85,9 @@ The Dallas–Tarrant difference should therefore be interpreted as a signal for 
 - Equity-aware facility scenarios API: https://texas-refugee-service-access-atlas.onrender.com/api/facility-location/scenarios
 - Service-type summary API: https://texas-refugee-service-access-atlas.onrender.com/api/service-types
 - Service accessibility API: `/api/service-accessibility/{service_type}`
+- Time-scenario API: `/api/time-scenarios`
+- Time-dependent accessibility API: `/api/temporal-accessibility/{scenario_id}`
+- Time-dependent service accessibility API: `/api/temporal-service-accessibility/{scenario_id}/{service_type}`
 
 The application is deployed as a Dockerized FastAPI service on Render.
 
@@ -95,10 +98,26 @@ The repository includes an interactive web atlas built with FastAPI and Leaflet.
 - shade census tracts by modeled nearest-provider travel time
 - inspect foreign-born population, no-vehicle households, and poverty context
 - toggle 30-, 45-, and 60-minute provider-access thresholds
+- compare frequency-agnostic and schedule-aware time-of-day routing
 - view verified refugee-service provider locations
 - click individual tracts for population and accessibility details
 
 The interface reads directly from the validated processed outputs, so refreshed analytical data flow into the application without maintaining a separate visualization dataset.
+
+## Time-dependent transit accessibility
+
+The atlas now includes schedule-aware routing scenarios that require riders to reach stops in time for actual GTFS departures.
+
+| Scenario | Foreign-born population within 45 scheduled minutes |
+| --- | ---: |
+| Weekday morning · 8:00 AM | **13.7%** |
+| Weekday midday · 1:00 PM | **16.2%** |
+| Weekday evening · 6:00 PM | **14.2%** |
+| Saturday midday · 1:00 PM | **14.8%** |
+
+The earlier frequency-agnostic 45-minute baseline was **39.7%**. That baseline measures network travel-time potential; the time-dependent model is more conservative because it also accounts for whether a usable scheduled departure exists after the rider reaches the stop.
+
+The current GTFS feeds produced representative service dates of **December 2, 2026** for weekday scenarios and **December 5, 2026** for Saturday midday.
 
 ## Service-type accessibility
 
@@ -252,7 +271,7 @@ Python · pandas · requests · GeoPandas · Shapely · NetworkX · FastAPI · L
 | DART GTFS ingestion | ✅ Implemented |
 | Trinity Metro GTFS ingestion | ✅ Implemented |
 | Transit graph + routing | ✅ Implemented |
-| Accessibility metrics | ✅ Baseline + service-type metrics implemented |
+| Accessibility metrics | ✅ Baseline + service-type + time-dependent metrics implemented |
 | Interactive atlas | ✅ Live deployment |
 | Facility-location optimization | ✅ One-site + equity-aware scenarios implemented |
 
