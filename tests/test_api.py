@@ -24,6 +24,7 @@ def test_atlas_root():
     assert "Weekday morning · 8:00 AM" in response.text
     assert "Saturday midday · 1:00 PM" in response.text
     assert "Service-access gap classification" in response.text
+    assert "Foreign-born share of population" in response.text
     assert "let currentServiceGaps = {};" in response.text
     assert 'fetch("/api/service-gap-summary")' in response.text
     assert 'fetch("/api/study-area")' in response.text
@@ -331,3 +332,28 @@ def test_study_area():
         assert -98.5 < properties["label_longitude"] < -96.0
         assert 31.5 < properties["label_latitude"] < 34.0
         assert feature["geometry"]["type"] in {"Polygon", "MultiPolygon"}
+
+
+
+def test_tract_foreign_born_share():
+    response = client.get("/api/tracts")
+
+    assert response.status_code == 200
+    payload = response.json()
+
+    checked = 0
+    for feature in payload["features"]:
+        properties = feature["properties"]
+        population = properties.get("population")
+        foreign_born = properties.get("foreign_born_population")
+        share = properties.get("foreign_born_share")
+
+        if population and population > 0:
+            assert share is not None
+            assert 0 <= share <= 1
+            assert abs(share - (foreign_born / population)) < 1e-12
+            checked += 1
+            if checked >= 25:
+                break
+
+    assert checked == 25
