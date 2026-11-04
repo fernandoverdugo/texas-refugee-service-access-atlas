@@ -1,3 +1,4 @@
+# Rebuild service gaps for CWS Dallas
 name: Build service-gap classifications
 
 on:
@@ -7,6 +8,8 @@ on:
       - ".github/workflows/service-gaps.yml"
       - "src/analysis/service_gaps.py"
       - "scripts/build_service_gaps.py"
+      - "data/processed/tract_temporal_service_type_accessibility.csv"
+      - "data/processed/tract_temporal_accessibility.csv"
 
 jobs:
   build:
