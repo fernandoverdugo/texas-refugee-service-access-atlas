@@ -2,6 +2,9 @@ name: Refresh DART GTFS data
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/gtfs-refresh.yml"
 
 jobs:
   refresh:
