@@ -83,6 +83,8 @@ The Dallas–Tarrant difference should therefore be interpreted as a signal for 
 - Summary API: https://texas-refugee-service-access-atlas.onrender.com/api/summary
 - Facility-location recommendation API: https://texas-refugee-service-access-atlas.onrender.com/api/facility-location
 - Equity-aware facility scenarios API: https://texas-refugee-service-access-atlas.onrender.com/api/facility-location/scenarios
+- Service-type summary API: https://texas-refugee-service-access-atlas.onrender.com/api/service-types
+- Service accessibility API: `/api/service-accessibility/{service_type}`
 
 The application is deployed as a Dockerized FastAPI service on Render.
 
@@ -97,6 +99,23 @@ The repository includes an interactive web atlas built with FastAPI and Leaflet.
 - click individual tracts for population and accessibility details
 
 The interface reads directly from the validated processed outputs, so refreshed analytical data flow into the application without maintaining a separate visualization dataset.
+
+## Service-type accessibility
+
+The atlas can now analyze access to specific service categories rather than treating every provider as interchangeable.
+
+| Service type | Provider locations | Foreign-born population within 45 modeled minutes |
+| --- | ---: | ---: |
+| Resettlement & case management | 7 | 39.7% |
+| Education & English-language support | 5 | 39.2% |
+| Employment | 5 | 39.1% |
+| Health & behavioral health | 3 | 36.9% |
+| Cash & benefits assistance | 3 | 35.9% |
+| Immigration & legal support | 3 | **24.1%** |
+
+Immigration and legal support show the largest modeled access gap in the current verified provider inventory.
+
+The service-type filter updates tract reachability, nearest-service travel time, provider markers, and tract popup metrics together. These results describe scheduled transit access to listed service locations; they do not measure provider capacity, appointment availability, eligibility, language match, or service quality.
 
 ## Facility-location optimization
 
@@ -132,17 +151,19 @@ Using the same 45-minute network and candidate set, the project compares how the
 
 Three objectives select the same tract, while the poverty-weighted objective shifts the recommendation to `48113008701`. Site-selection results are therefore conditional on the planning objective rather than a single universally best location.
 
-## Planned outputs
+## Analytical outputs
 
-The first accessibility metrics will include:
+Current outputs include:
 
-- number of relevant services reachable within 30, 45, and 60 minutes
-- estimated transit travel time to the nearest service
-- number of transfers required
-- population-weighted accessibility scores
-- identification of potential service deserts
+- relevant service locations reachable within 30, 45, and 60 minutes
+- modeled travel time to the nearest service
+- service-type-specific accessibility
+- population-weighted access summaries
+- neighborhood service-gap indicators
+- one-site facility-location optimization
+- equity-aware site-selection scenarios
 
-A later phase will evaluate candidate service locations using facility-location optimization.
+Departure-time-specific waiting and explicit transfer-count metrics remain future enhancements.
 
 ## Architecture
 
@@ -231,7 +252,7 @@ Python · pandas · requests · GeoPandas · Shapely · NetworkX · FastAPI · L
 | DART GTFS ingestion | ✅ Implemented |
 | Trinity Metro GTFS ingestion | ✅ Implemented |
 | Transit graph + routing | ✅ Implemented |
-| Accessibility metrics | ✅ Baseline implemented |
+| Accessibility metrics | ✅ Baseline + service-type metrics implemented |
 | Interactive atlas | ✅ Live deployment |
 | Facility-location optimization | ✅ One-site + equity-aware scenarios implemented |
 
