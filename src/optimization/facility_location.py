@@ -4,6 +4,11 @@ import networkx as nx
 import pandas as pd
 
 
+def normalize_geoid(value: object) -> str:
+    text = str(value)
+    return text.zfill(11) if text.isdigit() else text
+
+
 def candidate_access_times(
     graph: nx.DiGraph,
     origin_connectors: pd.DataFrame,
@@ -80,10 +85,14 @@ def score_candidates(
         raise ValueError(f"baseline access missing columns: {sorted(missing)}")
 
     context = tract_context.copy()
-    context["geoid"] = context["geoid"].astype(str).str.zfill(11)
+    context["geoid"] = context["geoid"].map(normalize_geoid)
 
     baseline = baseline_access.copy()
-    baseline["geoid"] = baseline["geoid"].astype(str).str.zfill(11)
+    baseline["geoid"] = baseline["geoid"].map(normalize_geoid)
+
+    access_times = access_times.copy()
+    access_times["origin_geoid"] = access_times["origin_geoid"].map(normalize_geoid)
+    access_times["candidate_geoid"] = access_times["candidate_geoid"].map(normalize_geoid)
     baseline_flag = baseline.set_index("geoid")[
         f"providers_within_{threshold_minutes}m"
     ].gt(0)
