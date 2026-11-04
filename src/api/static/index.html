@@ -170,9 +170,11 @@
   let tracts;
   let providers;
   let facility;
+  let facilityScenarios = [];
 
   const metricSelect = document.getElementById("metric");
   const thresholdSelect = document.getElementById("threshold");
+  const scenarioSelect = document.getElementById("scenarioObjective");
 
   function num(value) {
     return Number(value || 0).toLocaleString();
