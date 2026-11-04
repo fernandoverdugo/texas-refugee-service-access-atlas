@@ -263,9 +263,22 @@ def study_area() -> dict:
     geo = _read_geojson()
     grouped: dict[str, list] = {}
 
+    county_by_prefix = {
+        "48113": "Dallas",
+        "48439": "Tarrant",
+    }
+
     for feature in geo.get("features", []):
         properties = feature.get("properties", {})
-        county_name = properties.get("county_name")
+        geoid = str(
+            properties.get("geoid")
+            or properties.get("GEOID")
+            or ""
+        ).zfill(11)
+        county_name = (
+            properties.get("county_name")
+            or county_by_prefix.get(geoid[:5])
+        )
         geometry = feature.get("geometry")
 
         if county_name and geometry:
