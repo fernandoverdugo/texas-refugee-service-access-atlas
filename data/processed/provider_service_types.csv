@@ -1,7 +1,7 @@
 provider_id,normalized_service_types,normalized_service_labels
 ccd_dallas,cash_benefits;education;employment;health;resettlement_case_management,Cash & benefits assistance;Education & English-language support;Employment;Health & behavioral health;Resettlement & case management
 ccfw_fort_worth,employment;health;immigration;resettlement_case_management,Employment;Health & behavioral health;Immigration & legal support;Resettlement & case management
-cws_dallas,employment;resettlement_case_management,Employment;Resettlement & case management
+cws_dallas,cash_benefits;education;employment;health;immigration;resettlement_case_management,Cash & benefits assistance;Education & English-language support;Employment;Health & behavioral health;Immigration & legal support;Resettlement & case management
 icna_dallas,education;resettlement_case_management,Education & English-language support;Resettlement & case management
 icna_fort_worth,resettlement_case_management,Resettlement & case management
 irc_dallas,education;employment;health;immigration;resettlement_case_management,Education & English-language support;Employment;Health & behavioral health;Immigration & legal support;Resettlement & case management
