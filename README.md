@@ -74,6 +74,16 @@ These figures are a **scheduled-accessibility baseline**, not observed travel be
 
 The Dallas–Tarrant difference should therefore be interpreted as a signal for deeper service-access analysis rather than a definitive measure of refugee access.
 
+## Live demo
+
+**Interactive atlas:** https://texas-refugee-service-access-atlas.onrender.com
+
+- API documentation: https://texas-refugee-service-access-atlas.onrender.com/docs
+- Health check: https://texas-refugee-service-access-atlas.onrender.com/health
+- Summary API: https://texas-refugee-service-access-atlas.onrender.com/api/summary
+
+The application is deployed as a Dockerized FastAPI service on Render.
+
 ## Interactive atlas
 
 The repository includes an interactive web atlas built with FastAPI and Leaflet. The interface allows users to:
@@ -186,7 +196,7 @@ Python · pandas · requests · GeoPandas · Shapely · NetworkX · FastAPI · L
 | Trinity Metro GTFS ingestion | ✅ Implemented |
 | Transit graph + routing | ✅ Implemented |
 | Accessibility metrics | ✅ Baseline implemented |
-| Interactive atlas | 🚧 Implemented; deployment pending |
+| Interactive atlas | ✅ Live deployment |
 | Facility-location optimization | ⏳ Planned |
 
 ## License
