@@ -99,7 +99,7 @@ The application is deployed as a Dockerized FastAPI service on Render.
 The repository includes an interactive web atlas built with FastAPI and Leaflet. The interface allows users to:
 
 - shade census tracts by modeled nearest-provider travel time
-- inspect foreign-born population, no-vehicle households, and poverty context
+- inspect foreign-born population, foreign-born share of population, no-vehicle households, and poverty context
 - toggle 30-, 45-, and 60-minute provider-access thresholds
 - compare frequency-agnostic and schedule-aware time-of-day routing
 - shade tracts by transparent service-access gap classification
@@ -107,6 +107,9 @@ The repository includes an interactive web atlas built with FastAPI and Leaflet.
 - click individual tracts for population and accessibility details
 
 The interface reads directly from the validated processed outputs, so refreshed analytical data flow into the application without maintaining a separate visualization dataset.
+
+
+The atlas provides both **foreign-born population count** and **foreign-born share of population**. The count highlights tracts with the largest absolute foreign-born populations, while the share highlights neighborhoods where foreign-born residents make up a larger proportion of the total population.
 
 ## Time-dependent transit accessibility
 
