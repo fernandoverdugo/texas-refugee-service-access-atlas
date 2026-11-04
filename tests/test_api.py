@@ -26,6 +26,9 @@ def test_atlas_root():
     assert "Service-access gap classification" in response.text
     assert "let currentServiceGaps = {};" in response.text
     assert 'fetch("/api/service-gap-summary")' in response.text
+    assert 'fetch("/api/study-area")' in response.text
+    assert "function renderStudyArea(studyArea)" in response.text
+    assert "county-label" in response.text
     assert 'fetch("/api/service-gaps/" + timeScenario + "/" + serviceType)' in response.text
 
 
@@ -304,3 +307,27 @@ def test_unknown_service_gap_scenario_returns_404():
     response = client.get("/api/service-gaps/not_a_scenario/immigration")
 
     assert response.status_code == 404
+
+
+
+def test_study_area():
+    response = client.get("/api/study-area")
+
+    assert response.status_code == 200
+    payload = response.json()
+
+    assert payload["type"] == "FeatureCollection"
+    assert len(payload["features"]) == 2
+
+    by_county = {
+        feature["properties"]["county_name"]: feature
+        for feature in payload["features"]
+    }
+
+    assert set(by_county) == {"Dallas", "Tarrant"}
+
+    for feature in by_county.values():
+        properties = feature["properties"]
+        assert -98.5 < properties["label_longitude"] < -96.0
+        assert 31.5 < properties["label_latitude"] < 34.0
+        assert feature["geometry"]["type"] in {"Polygon", "MultiPolygon"}
