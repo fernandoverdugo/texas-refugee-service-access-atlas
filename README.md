@@ -12,8 +12,6 @@ The project combines Census neighborhood context, verified service-provider loca
 
 The atlas allows users to:
 
-![Texas Refugee Service Access Atlas service-gap view](docs/images/atlas-service-gap.webp)
-
 - shade census tracts by modeled nearest-provider travel time
 - compare foreign-born population count and share, no-vehicle households, and poverty context
 - toggle 30-, 45-, and 60-minute accessibility thresholds
