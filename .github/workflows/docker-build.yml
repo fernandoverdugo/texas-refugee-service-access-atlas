@@ -1,0 +1,48 @@
+name: Docker build
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "Dockerfile"
+      - "requirements.txt"
+      - "src/api/**"
+      - "data/processed/**"
+      - ".github/workflows/docker-build.yml"
+      - ".github/workflows/live-deployment-smoke.yml"
+  pull_request:
+    paths:
+      - "Dockerfile"
+      - "requirements.txt"
+      - "src/api/**"
+      - "data/processed/**"
+      - ".github/workflows/docker-build.yml"
+      - ".github/workflows/live-deployment-smoke.yml"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build production image
+        run: docker build -t texas-refugee-service-access-atlas:ci .
+      - name: Smoke test container
+        run: |
+          docker run -d --rm -p 10000:10000 --name atlas-ci texas-refugee-service-access-atlas:ci
+          for i in {1..20}; do
+            if curl --fail --silent http://127.0.0.1:10000/health > /tmp/health.json; then
+              break
+            fi
+            sleep 1
+          done
+          curl --fail --silent http://127.0.0.1:10000/ | grep -q "Texas Refugee Service Access Atlas"
+          curl --fail --silent http://127.0.0.1:10000/api/summary > /tmp/summary.json
+          python - <<'PY'
+          import json
+          with open("/tmp/summary.json") as handle:
+              payload = json.load(handle)
+          assert payload["tracts"] == 1094
+          assert payload["providers"] == 8
+          PY
+          docker stop atlas-ci
