@@ -33,13 +33,23 @@ def test_atlas_root():
     assert 'map.createPane("countyBoundaryPane");' in response.text
     assert "countyBoundaryLayer.bringToFront()" not in response.text
     assert 'fetch("/api/service-gaps/" + timeScenario + "/" + serviceType)' in response.text
+    assert "What this selection means" in response.text
+    assert "Network potential vs scheduled reality" in response.text
+    assert "Download current tract view CSV" in response.text
+    assert "Download gap priorities CSV" in response.text
+    assert "Download facility scenario CSV" in response.text
+    assert "Download provider inventory CSV" in response.text
+    assert "current objective coverage" in response.text
+    assert "coverage with candidate" in response.text
 
 
 def test_health():
     response = client.get("/health")
 
     assert response.status_code == 200
-    assert response.json() == {"status": "ok"}
+    payload = response.json()
+    assert payload["status"] == "ok"
+    assert "deployment_commit" in payload
 
 
 def test_summary():
