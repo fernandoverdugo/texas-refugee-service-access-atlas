@@ -78,6 +78,16 @@
     .popup-grid span:nth-child(odd) { color: var(--muted); }
     .callout { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 10px 11px; font-size: .8rem; line-height: 1.45; }
     .warning { border-left-color: var(--warn); background: #fff6ef; }
+    .decision { border: 1px solid #cfe1e5; background: #f5fbfc; border-radius: 10px; padding: 11px; }
+    .decision strong { display: block; margin-bottom: 5px; }
+    .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 9px; }
+    .compare-card { border: 1px solid var(--line); border-radius: 9px; padding: 9px; background: #fff; }
+    .compare-card .value { display: block; font-size: 1.05rem; font-weight: 750; }
+    .compare-card .label { font-size: .7rem; color: var(--muted); line-height: 1.25; }
+    .delta { margin-top: 8px; font-size: .78rem; font-weight: 700; color: var(--accent); }
+    .export-grid { display: grid; gap: 7px; }
+    .export-grid button { border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; background: white; color: var(--text); font: inherit; font-size: .78rem; font-weight: 650; cursor: pointer; }
+    .export-grid button:hover { border-color: var(--accent); color: var(--accent); }
     @media (max-width: 850px) {
       .layout { grid-template-columns: 1fr; }
       .sidebar { border-right: 0; border-bottom: 1px solid var(--line); }
@@ -152,6 +162,23 @@
     </div>
 
     <div class="section">
+      <h2>What this selection means</h2>
+      <div class="decision">
+        <strong id="decisionHeadline">Choose a scheduled scenario to compare access.</strong>
+        <div class="note" id="decisionText">The atlas will summarize the selected service type, scheduled coverage, and gap classifications here.</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Network potential vs scheduled reality</h2>
+      <div class="compare-grid">
+        <div class="compare-card"><span class="value" id="baselineCoverage">—</span><span class="label">baseline 45-minute foreign-born coverage</span></div>
+        <div class="compare-card"><span class="value" id="scheduledCoverage">—</span><span class="label">scheduled 45-minute foreign-born coverage</span></div>
+      </div>
+      <div class="delta" id="coverageDelta">Choose a scheduled scenario to compare.</div>
+    </div>
+
+    <div class="section">
       <h2>Gap classification</h2>
       <div class="kpis">
         <div class="kpi"><span class="value" id="severeGapCount">—</span><span class="label">severe-gap tracts</span></div>
@@ -185,10 +212,23 @@
         <div><strong>Recommended tract:</strong> <span id="candidateGeoid">—</span></div>
         <div class="note" id="scenarioLabel" style="margin-top:6px">45-minute maximum-coverage objective</div>
         <div class="kpis" style="margin-top:9px">
+          <div class="kpi"><span class="value" id="baselineFacilityCoverage">—</span><span class="label">current objective coverage</span></div>
+          <div class="kpi"><span class="value" id="optimizedFacilityCoverage">—</span><span class="label">coverage with candidate</span></div>
           <div class="kpi"><span class="value" id="newCoverage">—</span><span class="label" id="newCoverageLabel">newly covered objective units</span></div>
-          <div class="kpi"><span class="value" id="gainPoints">—</span><span class="label">coverage percentage-point gain</span></div>
+          <div class="kpi"><span class="value" id="newlyCoveredTracts">—</span><span class="label">tracts newly gaining access</span></div>
         </div>
+        <div class="delta" id="gainPoints">—</div>
         <div class="note" style="margin-top:8px">Purple diamond = tract representative point selected by the optimization model. It is not a parcel or building recommendation.</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Export current analysis</h2>
+      <div class="export-grid">
+        <button type="button" id="exportTracts">Download current tract view CSV</button>
+        <button type="button" id="exportPriorities">Download gap priorities CSV</button>
+        <button type="button" id="exportFacility">Download facility scenario CSV</button>
+        <button type="button" id="exportProviders">Download provider inventory CSV</button>
       </div>
     </div>
 
@@ -252,6 +292,36 @@
 
   function pct(part, total) {
     return total ? (100 * part / total).toFixed(1) + "%" : "—";
+  }
+
+  function pctValue(value) {
+    return Number.isFinite(Number(value)) ? (Number(value) * 100).toFixed(1) + "%" : "—";
+  }
+
+  function csvValue(value) {
+    const text = value === null || value === undefined ? "" : String(value);
+    return '"' + text.replaceAll('"', '""') + '"';
+  }
+
+  function rowsToCsv(rows) {
+    if (!rows.length) return "";
+    const columns = [...new Set(rows.flatMap(row => Object.keys(row)))];
+    return columns.map(csvValue).join(",") + "\n" +
+      rows.map(row => columns.map(column => csvValue(row[column])).join(",")).join("\n") + "\n";
+  }
+
+  function downloadCsv(filename, rows) {
+    const csv = rowsToCsv(rows);
+    if (!csv) return;
+    const blob = new Blob([csv], {type: "text/csv;charset=utf-8"});
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
   }
 
   function timeColor(value) {
@@ -496,8 +566,15 @@
       facility.scenario_label + " · " + facility.threshold_minutes + "-minute maximum coverage";
     document.getElementById("newCoverage").textContent = num(facility.newly_covered_objective);
     document.getElementById("newCoverageLabel").textContent = scenarioUnitLabel(facility);
+    document.getElementById("baselineFacilityCoverage").textContent =
+      pctValue(facility.baseline_coverage_pct);
+    document.getElementById("optimizedFacilityCoverage").textContent =
+      pctValue(facility.optimized_coverage_pct);
+    document.getElementById("newlyCoveredTracts").textContent =
+      num(facility.newly_covered_tracts);
     document.getElementById("gainPoints").textContent =
-      (facility.coverage_gain_pct_points * 100).toFixed(1);
+      "+" + (facility.coverage_gain_pct_points * 100).toFixed(1) +
+      " percentage points under this objective";
 
     renderFacility();
   }
@@ -581,6 +658,72 @@
       return div;
     };
     legend.addTo(map);
+  }
+
+  function baselineCoverageForSelection() {
+    const serviceType = serviceSelect.value;
+    if (serviceType === "all") {
+      const scenario = facilityScenarios.find(row => row.scenario_id === "foreign_born_population");
+      return scenario ? Number(scenario.baseline_coverage_pct) : null;
+    }
+    const summary = serviceTypeSummaries.find(row => row.service_type === serviceType);
+    return summary ? Number(summary.foreign_born_45m_access_pct) : null;
+  }
+
+  function scheduledCoverageForSelection() {
+    const scenario = timeSelect.value;
+    if (scenario === "baseline") return null;
+    const rows = serviceSelect.value === "all"
+      ? temporalSummaries.overall
+      : temporalSummaries.service_types;
+    const row = rows.find(item =>
+      item.scenario_id === scenario &&
+      (serviceSelect.value === "all" || item.service_type === serviceSelect.value)
+    );
+    return row ? Number(row.foreign_born_access_pct_45m) : null;
+  }
+
+  function updateDecisionSummary() {
+    const baseline = baselineCoverageForSelection();
+    const scheduled = scheduledCoverageForSelection();
+    const serviceLabel = serviceSelect.options[serviceSelect.selectedIndex].text;
+    const scenarioLabel = timeSelect.options[timeSelect.selectedIndex].text;
+
+    document.getElementById("baselineCoverage").textContent = pctValue(baseline);
+    document.getElementById("scheduledCoverage").textContent = pctValue(scheduled);
+
+    if (scheduled === null) {
+      document.getElementById("coverageDelta").textContent =
+        "Choose a scheduled scenario to compare network potential with usable departures.";
+      document.getElementById("decisionHeadline").textContent =
+        "Baseline network potential for " + serviceLabel;
+      document.getElementById("decisionText").textContent =
+        baseline === null
+          ? "Baseline coverage is not available for this selection."
+          : pctValue(baseline) + " of the study-area foreign-born population is modeled within 45 minutes under the frequency-agnostic baseline.";
+      return;
+    }
+
+    const drop = baseline === null ? null : baseline - scheduled;
+    document.getElementById("coverageDelta").textContent =
+      drop === null
+        ? "Scheduled coverage shown for the selected scenario."
+        : (drop * 100).toFixed(1) + " percentage-point drop from baseline";
+
+    const rows = gapSummaries.filter(row =>
+      row.scenario_id === timeSelect.value && row.service_type === serviceSelect.value
+    );
+    const severe = rows.find(row => row.gap_class === "Severe gap");
+    const high = rows.find(row => row.gap_class === "High gap");
+    const severeCount = severe ? Number(severe.tract_count) : 0;
+    const highCount = high ? Number(high.tract_count) : 0;
+
+    document.getElementById("decisionHeadline").textContent =
+      serviceLabel + " · " + scenarioLabel;
+    document.getElementById("decisionText").textContent =
+      pctValue(scheduled) + " of the study-area foreign-born population is modeled within 45 scheduled minutes. " +
+      severeCount.toLocaleString() + " tracts are classified severe gap and " +
+      highCount.toLocaleString() + " high gap for this selection.";
   }
 
   function updateGapSummary() {
@@ -697,6 +840,7 @@
 
     updateCoverageNote();
     updateGapSummary();
+    updateDecisionSummary();
     renderTracts();
     renderProviders();
   }
@@ -756,6 +900,51 @@
     loadSelectedAccess().catch(error => console.error(error));
   });
   scenarioSelect.addEventListener("change", event => applyScenario(event.target.value));
+
+  document.getElementById("exportFacility").addEventListener("click", () => {
+    if (facility) downloadCsv("atlas-facility-scenario.csv", [facility]);
+  });
+
+  document.getElementById("exportProviders").addEventListener("click", () => {
+    downloadCsv("atlas-provider-inventory.csv", providers || []);
+  });
+
+  document.getElementById("exportPriorities").addEventListener("click", async () => {
+    if (timeSelect.value === "baseline") {
+      alert("Choose a scheduled transit scenario before exporting gap priorities.");
+      return;
+    }
+    const response = await fetch(
+      "/api/service-gap-priorities/" + timeSelect.value + "/" + serviceSelect.value
+    );
+    if (!response.ok) return;
+    downloadCsv("atlas-gap-priorities.csv", await response.json());
+  });
+
+  document.getElementById("exportTracts").addEventListener("click", () => {
+    const rows = tracts.features.map(feature => {
+      const p = feature.properties;
+      const service = currentServiceAccess[p.geoid] || {};
+      const gap = currentServiceGaps[p.geoid] || {};
+      return {
+        geoid: p.geoid,
+        county_name: p.county_name || gap.county_name || "",
+        population: p.population,
+        foreign_born_population: p.foreign_born_population,
+        foreign_born_share: p.foreign_born_share,
+        population_below_poverty: p.population_below_poverty,
+        households_no_vehicle: p.households_no_vehicle,
+        service_type: serviceSelect.value,
+        time_scenario: timeSelect.value,
+        providers_within_30m: service.providers_within_30m ?? service.service_locations_within_30m ?? p.providers_within_30m,
+        providers_within_45m: service.providers_within_45m ?? service.service_locations_within_45m ?? p.providers_within_45m,
+        providers_within_60m: service.providers_within_60m ?? service.service_locations_within_60m ?? p.providers_within_60m,
+        gap_class: gap.gap_class || "",
+        gap_level: gap.gap_level ?? ""
+      };
+    });
+    downloadCsv("atlas-current-tract-view.csv", rows);
+  });
 
   load().catch(error => {
     console.error(error);
