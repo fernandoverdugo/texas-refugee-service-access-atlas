@@ -12,6 +12,8 @@ The project combines Census neighborhood context, verified service-provider loca
 
 The atlas allows users to:
 
+![Texas Refugee Service Access Atlas service-gap view](docs/images/atlas-service-gap.webp)
+
 - shade census tracts by modeled nearest-provider travel time
 - compare foreign-born population count and share, no-vehicle households, and poverty context
 - toggle 30-, 45-, and 60-minute accessibility thresholds
@@ -20,8 +22,12 @@ The atlas allows users to:
 - inspect service-gap classifications
 - view verified provider locations
 - compare facility-location planning scenarios
+- read a plain-language summary of the selected service/time scenario
+- compare frequency-agnostic network potential with scheduled 45-minute access
+- compare current coverage with modeled one-site intervention coverage
+- export current tract results, gap priorities, provider inventory, and facility scenarios as CSV
 
-The application is deployed as a Dockerized FastAPI service on Render and reads directly from the validated processed outputs in this repository.
+The application is deployed as a Dockerized FastAPI service on Render and reads directly from the validated processed outputs in this repository. GitHub Actions now validates the production Docker image and checks that the live Render service is running the validated commit or a newer descendant.
 
 ## Analytical workflow
 
@@ -143,6 +149,14 @@ For the foreign-born-population objective, the top modeled candidate is Dallas C
 The project also compares objectives based on total population, no-vehicle households, and population below poverty. The selected tract changes under the poverty-weighted objective, illustrating that site-selection recommendations depend on the planning objective.
 
 This is a **tract-level planning signal**, not a parcel recommendation. The model does not evaluate real-estate availability, cost, zoning, staffing, ownership, or agency feasibility.
+
+### Example planning decision
+
+The current Atlas suggests a two-part access problem. First, the frequency-agnostic network indicates that about **39.7%** of the study-area foreign-born population could reach at least one verified provider within 45 modeled minutes, but weekday-midday schedule-aware access falls to about **16.2%** once actual departure timing is required. Second, immigration/legal support is the weakest service category in the verified inventory, with only about **26.9%** baseline 45-minute coverage.
+
+A planner could use those results to distinguish between two interventions: improving transit/service timing around existing providers versus considering an additional service location. Under the foreign-born-population objective, the one-site scenario raises modeled 45-minute coverage from **39.7% to 46.0%**, newly covering **64,363 foreign-born residents** across **64 tracts**. A poverty-weighted objective selects a different tract, showing that the preferred intervention depends on what the planner is trying to maximize.
+
+The Atlas supports that comparison; it does not prescribe a facility site or infer where individual refugees live.
 
 ## Architecture
 
@@ -318,6 +332,8 @@ Python · pandas · requests · GeoPandas · Shapely · NetworkX · FastAPI · L
 | Service-type accessibility | ✅ Implemented |
 | Service-gap classification | ✅ Implemented |
 | Interactive atlas + API | ✅ Live deployment |
+| CSV planning exports | ✅ Implemented |
+| Docker + live deployment validation | ✅ Implemented |
 | Facility-location optimization | ✅ Implemented |
 
 Potential future extensions include real-time transit reliability, richer pedestrian-network routing, provider-capacity data, and broader Texas metro coverage.
