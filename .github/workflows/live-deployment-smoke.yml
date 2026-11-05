@@ -1,0 +1,88 @@
+name: Live deployment smoke test
+
+on:
+  workflow_run:
+    workflows: ["Docker build"]
+    types: [completed]
+  workflow_dispatch:
+
+concurrency:
+  group: atlas-live-deployment-smoke
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Resolve validated commit
+        id: expected
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          WORKFLOW_SHA: ${{ github.event.workflow_run.head_sha }}
+          DISPATCH_SHA: ${{ github.sha }}
+        run: |
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            echo "sha=$DISPATCH_SHA" >> "$GITHUB_OUTPUT"
+          else
+            echo "sha=$WORKFLOW_SHA" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Wait for Render deployment
+        env:
+          EXPECTED_SHA: ${{ steps.expected.outputs.sha }}
+        run: |
+          for i in {1..30}; do
+            echo "Checking deployment ($i/30)..."
+            if curl --fail --silent https://texas-refugee-service-access-atlas.onrender.com/health > /tmp/health.json; then
+              if python - <<'PY'
+          import json
+          import os
+          import urllib.request
+
+          with open("/tmp/health.json") as handle:
+              health = json.load(handle)
+
+          expected = os.environ["EXPECTED_SHA"]
+          actual = health.get("deployment_commit")
+          print(f"Expected validated commit: {expected}")
+          print(f"Live commit:               {actual}")
+
+          if health.get("status") != "ok" or not actual:
+              raise SystemExit(1)
+          if actual == expected:
+              raise SystemExit(0)
+
+          url = (
+              "https://api.github.com/repos/fernandoverdugo/"
+              f"texas-refugee-service-access-atlas/compare/{expected}...{actual}"
+          )
+          try:
+              with urllib.request.urlopen(url, timeout=15) as response:
+                  comparison = json.load(response)
+          except Exception as exc:
+              print(f"Could not compare commits: {exc}")
+              raise SystemExit(1)
+
+          status = comparison.get("status")
+          print(f"GitHub comparison status:  {status}")
+          raise SystemExit(0 if status in {"ahead", "identical"} else 1)
+          PY
+              then
+                break
+              fi
+            fi
+
+            if [ "$i" -eq 30 ]; then
+              echo "Render did not serve the validated commit or a newer descendant."
+              exit 1
+            fi
+            sleep 20
+          done
+
+      - name: Verify live atlas contract
+        run: |
+          curl --fail --silent https://texas-refugee-service-access-atlas.onrender.com/             | grep -q "Network potential vs scheduled reality"
+          curl --fail --silent https://texas-refugee-service-access-atlas.onrender.com/             | grep -q "Download current tract view CSV"
+          curl --fail --silent https://texas-refugee-service-access-atlas.onrender.com/api/summary             | python -c 'import json,sys; d=json.load(sys.stdin); assert d["tracts"]==1094; assert d["providers"]==8'
+          curl --fail --silent https://texas-refugee-service-access-atlas.onrender.com/api/facility-location/scenarios             | python -c 'import json,sys; d=json.load(sys.stdin); assert len(d)==4'
