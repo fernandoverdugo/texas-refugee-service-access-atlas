@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 
 import pandas as pd
@@ -16,7 +17,7 @@ STATIC = Path(__file__).resolve().parent / "static"
 
 app = FastAPI(
     title="Texas Refugee Service Access Atlas",
-    version="0.1.0",
+    version="0.2.0",
     description="Interactive accessibility atlas for refugee-relevant services in Dallas and Tarrant Counties.",
 )
 
@@ -197,8 +198,11 @@ def index() -> str:
 
 
 @app.get("/health")
-def health() -> dict[str, str]:
-    return {"status": "ok"}
+def health() -> dict[str, str | None]:
+    return {
+        "status": "ok",
+        "deployment_commit": os.environ.get("RENDER_GIT_COMMIT"),
+    }
 
 
 @app.get("/api/summary")
