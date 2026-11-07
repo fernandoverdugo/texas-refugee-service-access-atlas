@@ -83,4 +83,4 @@ Three objectives select Dallas County tract `48113003102`:
 
 The poverty-weighted objective selects Dallas County tract `48113008701`.
 
-The result demonstrates that a site described as "optimal" is conditional on what the planner is trying to maximize. The project therefore presents the objective explicitly instead of hiding it inside a single recommendation.
+The result shows that a site described as "optimal" is conditional on what the planner is trying to maximize. The project therefore presents the objective explicitly instead of hiding it inside a single recommendation.
